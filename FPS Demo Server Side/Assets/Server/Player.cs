@@ -1,5 +1,7 @@
 using Assets.Server;
+using MFPS.ServerTimers;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
@@ -26,29 +28,24 @@ public class Player : MonoBehaviour, IDamagable
     [Space(10)]
     [Header("Gravity modifier")]
     public float gravity = -9.81f;
-
     [Space(10)]
-    [Header("Projectile settings")]
-    public GameObject projectilePrefab;
-    public Transform launchPosition;
-    public float throwForce;
-
-    [SerializeField] int itemsHave;
-    [SerializeField] int maxItems = 3;
+    [Header("Player Weapons")]
+    public List<BaseWeapon> allWeapons;
 
     public float velocityY;
-    float[] inputs;
-    public bool[] otherInputs;
+    [HideInInspector] public float[] inputs;
+    [HideInInspector] public bool[] otherInputs;
     public CharacterController characterController;
-    public ProjectileSpawner projectileSpawner;
 
     PlayerMove playerMove;
+    Timer timer;
+    [HideInInspector] public WeaponsController weaponsController;
 
     void Start()
     {
+        timer = new Timer(0, false);
+        weaponsController = new WeaponsController(this, allWeapons);
         playerMove = new PlayerMove(this);
-        projectileSpawner = new ProjectileSpawner(this);
-
         gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
         moveSpeed *= Time.fixedDeltaTime;
         runSpeed *= Time.fixedDeltaTime;
@@ -63,13 +60,10 @@ public class Player : MonoBehaviour, IDamagable
         this.userName = userName;
         characterController = GetComponent<CharacterController>();
 
-        inputs = new float[2];
+        inputs = new float[3];
         otherInputs = new bool[2];
     }
-    /// <summary>
-    /// Processes player input and moves the player.
-    /// </summary>
-
+    void Update() => timer.StartTimer();
     void FixedUpdate()
     {
         if (health <= 0) return;
@@ -77,8 +71,28 @@ public class Player : MonoBehaviour, IDamagable
         _inputDirection.x = inputs[0];
         _inputDirection.y = inputs[1];
         playerMove.Move(_inputDirection);
+
+        weaponsController.ChangeWeapon();
     }
 
+    public void Shoot(Vector3 _viewDirection)
+    {
+        if (timer.IsDone())
+        {
+            PacketsToSend.PlayerShoot(this);
+            if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+            {
+                IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    weaponsController.GetCurrentWeapon().DoDamage(damagable);
+                }
+            }
+            timer.SetTimer(weaponsController.GetCoolDown(), false);
+        }
+    }
+
+    #region inputs Section
     /// <summary>Updates the player input with newly received input.</summary>
     /// <param name="_inputs">The new key inputs.</param>
     /// <param name="_rotation">The new rotation.</param>
@@ -87,42 +101,23 @@ public class Player : MonoBehaviour, IDamagable
         this.inputs = inputs;
         transform.rotation = rotation;
     }
-    internal void SetOtherInputs(bool[] inputs)
+    public void SetOtherInputs(bool[] inputs)
     {
         this.otherInputs = inputs;
     }
+    #endregion
 
-    public void Shoot(Vector3 _viewDirection)
-    {
-        if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
-        {
-            IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
-            if (damagable != null)
-            {
-                if (_hit.collider.CompareTag("Player"))
-                {
-                    _hit.collider.GetComponent<Player>().TakeDamage(50f);
-                }
-                else if (_hit.collider.CompareTag("Enemy"))
-                {
-                    _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
-                }
-            }
-        }
-    }
-
+    #region Damage section
     public void TakeDamage(float dmg)
     {
         if (health <= 0) return;
         health -= dmg;
-        // send msg how much health left
 
         if (health <= 0)
             Die();
 
         PacketsToSend.PlayerHealth(this);
     }
-
     public void Die()
     {
         health = 0;
@@ -131,7 +126,6 @@ public class Player : MonoBehaviour, IDamagable
         PacketsToSend.PlayerPosition(this);
         StartCoroutine(Respawn());
     }
-
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(5f);
@@ -140,17 +134,5 @@ public class Player : MonoBehaviour, IDamagable
         characterController.enabled = true;
         PacketsToSend.PlayerRespawned(this);
     }
-
-    public void SetItems()
-    {
-        if (itemsHave < maxItems)
-            itemsHave++;
-    }
-    public void DecreaseItemsByOne()
-    {
-        if (itemsHave > 0)
-            itemsHave--;
-    }
-    public bool CanPickMoreItems() => itemsHave < maxItems;
-    public bool CanThrowProjectile() => itemsHave > 0;
+    #endregion
 }

@@ -537,9 +537,10 @@ MonoBehaviour:
   username: 
   maxHealth: 100
   health: 0
-  itemsHave: 0
-  maxItems: 3
-  projectilePrefab: {fileID: 3805455202680510102, guid: aa9284fbb29e74d429952c429f6c752f, type: 3}
+  allWeapons:
+  - {fileID: 4259342847514425206, guid: b0ca1cdf1caf2dd4d8b885e794a32058, type: 3}
+  - {fileID: -204785043524526537, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+  weaponPosition: {fileID: 2502199947458334879}
   model: {fileID: 5529933019427203205}
 --- !u!114 &7403307773635623808
 MonoBehaviour:
@@ -553,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6025801a962ee742a83596bad13cecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cantransform: {fileID: 2502199947458334879}
+  camTransform: {fileID: 2502199947458334879}
 --- !u!1 &8158431517198747336
 GameObject:
   m_ObjectHideFlags: 0

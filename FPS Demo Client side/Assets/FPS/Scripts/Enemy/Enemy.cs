@@ -1,14 +1,43 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxhealth;
+    public static Action<float> onEnemyHealthChanged;
+    public static Action<float> onEnemyRespawned;
 
-    public void Die()
+    public float maxhealth;
+    float health;
+
+    public MeshRenderer model;
+    public Image hpBar;
+
+    void OnEnable()
     {
-        if (maxhealth <= 0)
+        onEnemyHealthChanged += SetHealth;
+        onEnemyRespawned += EnemyRespawned;
+    }
+
+    void Die()
+    {
+        if (health <= 0)
         {
-            Destroy(gameObject);
+            model.enabled = false;
         }
+    }
+
+    public void SetHealth(float hp)
+    {
+        health = hp; // just for testing
+        hpBar.fillAmount = health / maxhealth;
+        Die();
+    }
+
+    void EnemyRespawned(float health)
+    {
+        this.health = health;
+        model.enabled = true;
+        hpBar.fillAmount = health / maxhealth;
     }
 }

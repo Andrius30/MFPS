@@ -27,6 +27,7 @@ public class PacketsToSend
         }
     }
 
+    // ================== INPUTS =================================
     public static void SendPlayerInputs(float[] inputs)
     {
         using (Packet packet = new Packet((int)ClientPackets.playerMovement))
@@ -41,25 +42,6 @@ public class PacketsToSend
             SendUDPData(packet);
         }
     }
-    public static void PlayerShoot(Vector3 facing)
-    {
-        using (Packet packet = new Packet((int)ClientPackets.playerShoot))
-        {
-            packet.Write(facing);
-
-            SendTCPData(packet);
-        }
-    }
-    public static void PlayerThrowProjectile(Vector3 facing)
-    {
-        using (Packet packet = new Packet((int)ClientPackets.throwProjectile))
-        {
-            packet.Write(facing);
-
-            SendTCPData(packet);
-        }
-    }
-
     public static void SendOtherInputs(bool[] otherInputs)
     {
         using (Packet packet = new Packet((int)ClientPackets.playerOtherInputs))
@@ -72,7 +54,19 @@ public class PacketsToSend
             SendTCPData(packet);
         }
     }
+    // ===========================================================
 
+    // ================= WEAPONS =================================
+    public static void PlayerShoot(Vector3 facing)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.playerShoot))
+        {
+            packet.Write(facing);
+
+            SendTCPData(packet);
+        }
+    }
+    // ===========================================================
     #endregion
 
 }

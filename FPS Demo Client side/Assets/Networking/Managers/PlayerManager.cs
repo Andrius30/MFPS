@@ -1,64 +1,60 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     public int id;
     public string username;
-    public static bool isDied; // cia bugas, nes ant visu playeriu sitas scriptas gyvena
 
     [Space(10)]
     [Header("Player health")]
     public float maxHealth = 100f;
     public float health;
     [Space(10)]
-    [Header("Items settings")]
-    [SerializeField] int itemsHave;
-    [SerializeField] int maxItems = 3;
-    
-    [Space(10)]
-    [Header("Projectiles settings")]
-    public ProjectileSpawner projectileSpawner;
-    public GameObject projectilePrefab;
+
+    [Header("Weapons")]
+    public List<BaseWeapon> allWeapons;
+    public Transform weaponPosition;
 
     public MeshRenderer model;
+
+    [HideInInspector] public BaseWeapon newWeapon;
+    BaseWeapon oldWeapon;
 
     internal void Initialize(int id, string userName)
     {
         this.id = id;
         this.username = userName;
         health = maxHealth;
-
-        projectileSpawner = new ProjectileSpawner(this);
     }
     public void SetHealth(float health)
     {
         this.health = health;
-
         if (this.health <= 0)
-        {
             Die();
-        }
     }
     void Die()
     {
         model.enabled = false;
-        isDied = true;
+        PlayerController.onLocalPlayerLiveStateChanged?.Invoke(true);
     }
     public void Respawn()
     {
         model.enabled = true;
         SetHealth(maxHealth);
-        isDied = false;
+        PlayerController.onLocalPlayerLiveStateChanged?.Invoke(false);
     }
-    public void SetItemsPicked()
+
+    public void ChangeWeapon(int id, string weaponName, int fireMode)
     {
-        if (itemsHave < maxItems)
-            itemsHave++;
-    }
-    public void DecreaseItemsCount()
-    {
-        if (itemsHave > 0)
-            itemsHave--;
+        if (oldWeapon != null)
+        {
+            Destroy(oldWeapon.gameObject);
+            oldWeapon = null;
+        }
+        GameObject gm = Instantiate(allWeapons[id].gameObject, weaponPosition);
+        newWeapon = gm.GetComponent<BaseWeapon>();
+        newWeapon.Initialize(id, weaponName, fireMode);
+        oldWeapon = newWeapon;
     }
 }

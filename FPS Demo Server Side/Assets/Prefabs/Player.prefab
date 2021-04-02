@@ -106,11 +106,9 @@ MonoBehaviour:
   crouchSpeed: 2
   jumpSpeed: 5
   gravity: -9.81
-  projectilePrefab: {fileID: 5880294845004115121, guid: eaa63ed4d09985d4097b0236b101e0bc, type: 3}
-  launchPosition: {fileID: 6788640370784507613}
-  throwForce: 30
-  itemsHave: 0
-  maxItems: 3
+  allWeapons:
+  - {fileID: 8498067373349469192, guid: f343173df4459b84a9dac1ba2983a966, type: 3}
+  - {fileID: 1142167443278777413, guid: adc1abd65c844404abd7ddc083c8995e, type: 3}
   velocityY: 0
   otherInputs: 
   characterController: {fileID: 0}

@@ -42,14 +42,4 @@ class ServerHandle
         Server.clients[fromClient].player.Shoot(viewDirection);
     }
 
-    public static void ThrowProjectile(int fromClient, Packet packet)
-    {
-        Vector3 direction = packet.ReadVector3();
-
-        if (Server.clients[fromClient].player.CanThrowProjectile())
-        {
-            Server.clients[fromClient].player.projectileSpawner.SpawnProjectile(direction);
-            Server.clients[fromClient].player.DecreaseItemsByOne();
-        }
-    }
 }

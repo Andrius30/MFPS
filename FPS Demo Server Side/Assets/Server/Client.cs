@@ -214,28 +214,27 @@ public class Client
     {
         player = NetworkManager.instance.InstantiatePlayer();
         player.Initialize(id, playerName);
-        foreach (Client client in Server.clients.Values)
+        
+        foreach (Client client in Server.clients.Values) // Send all players to the new player
         {
             if (client.player != null)
             {
                 if (client.id != id)
                 {
                     PacketsToSend.SpawnPlayer(id, client.player);
+                    if (client.player.weaponsController.GetCurrentWeapon() != null)
+                        PacketsToSend.PlayerChangedWeapon(client.player, client.player.weaponsController.GetCurrentWeapon());
                 }
             }
         }
-        foreach (Client client in Server.clients.Values)
+        foreach (Client client in Server.clients.Values)  // Send the new player to all players (including himself)
         {
             if (client.player != null)
             {
-                PacketsToSend.SpawnPlayer(client.id, player);
+                PacketsToSend.SpawnPlayer(client.id, player);        
             }
         }
 
-        foreach (var item in ItemsSpawner.items.Values)
-        {
-            PacketsToSend.SpawnItem(item);
-        }
     }
 }
 

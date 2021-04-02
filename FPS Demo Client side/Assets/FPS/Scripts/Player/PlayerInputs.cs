@@ -12,9 +12,24 @@ public class PlayerInputs
 
     // ========== SHOOT =========================================================
 
-    public bool ShootInput() => Input.GetKeyDown(KeyCode.Mouse0);
-    public bool ThrowProjectile() => Input.GetKeyDown(KeyCode.E);
+    public bool ShootInput(int fireMode)
+    {
+        switch (fireMode)
+        {
+            case (int)FireMode.normal:
+                return Input.GetKeyDown(KeyCode.Mouse0);
+            case (int)FireMode.burst:
+                return Input.GetKeyDown(KeyCode.Mouse0);
+            case (int)FireMode.auto:
+                return Input.GetKey(KeyCode.Mouse0);
+        }
+        return false;
+    }
 
     // ========== SHOOT END =====================================================
 
+    // =========== WEAPONs ========================================================
+    public float MouseScrollInput() => Input.GetAxis("Mouse ScrollWheel");
+
+    // =========== Weapons END ==================================================
 }

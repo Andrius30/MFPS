@@ -101,7 +101,6 @@ class PacketsToSend
         }
     }
 
-    #endregion
     public static void PlayerDisconnected(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
@@ -111,7 +110,6 @@ class PacketsToSend
             SendTCPDataToAll(_packet);
         }
     }
-
     public static void PlayerHealth(Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerHealth))
@@ -122,7 +120,6 @@ class PacketsToSend
             SendTCPDataToAll(packet);
         }
     }
-
     internal static void PlayerRespawned(Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerRespawned))
@@ -132,71 +129,47 @@ class PacketsToSend
             SendTCPDataToAll(packet);
         }
     }
-
-    public static void SpawnItem(Item item)
+    public static void PlayerChangedWeapon(Player player, BaseWeapon weapon)
     {
-        using (Packet packet = new Packet((int)ServerPackets.spawnItems))
-        {
-            packet.Write(item.itemID);
-            packet.Write(item.position);
-            packet.Write(item.itemPickedUp);
-
-            SendTCPDataToAll(packet);
-        }
-    }
-
-    public static void ItemPickedUp(Player player, Item item)
-    {
-        using(Packet packet = new Packet((int)ServerPackets.itemPicked))
+        using (Packet packet = new Packet((int)ServerPackets.playerChangedWeapon))
         {
             packet.Write(player.id);
-            packet.Write(item.itemID);
-            packet.Write(item.itemPickedUp);
+            packet.Write(weapon.weaponName);
+            packet.Write((int)weapon.firemode);
+            packet.Write(weapon.id);
 
             SendTCPDataToAll(packet);
         }
     }
-    public static void ItemRespawned(Item item)
+    public static void PlayerShoot(Player player)
     {
-        using(Packet packet = new Packet((int)ServerPackets.itemRespawned))
+        using(Packet packet = new Packet((int)ServerPackets.playerShoot))
         {
-            packet.Write(item.itemID);
-            packet.Write(item.itemPickedUp);
-
-            SendTCPDataToAll(packet);
-        }
-    }
-    // ===================== PROJECTILES ===========================
-    public static void SpawnProjectile(int id, Vector3 position, int thrownByPlayer)
-    {
-        using (Packet packet = new Packet((int)ServerPackets.spawnProjectile))
-        {
-            packet.Write(id);
-            packet.Write(position);
-            packet.Write(thrownByPlayer);
-
-            SendTCPDataToAll(packet);
-        }
-    }
-    public static void ProjectilePosition(int id, Vector3 position)
-    {
-        using (Packet packet = new Packet((int)ServerPackets.projectilePosition))
-        {
-            packet.Write(id);
-            packet.Write(position);
+            packet.Write(player.id);
 
             SendUDPDataToAll(packet);
         }
     }
-    public static void Explode(int id, Vector3 position)
+    #endregion
+
+    #region Enemies Section
+    public static void EnemyHealth(Enemy enemy)
     {
-        using(Packet packet = new Packet((int)ServerPackets.explodeProjectile))
+        using (Packet packet = new Packet((int)ServerPackets.enemyHealth))
         {
-            packet.Write(id);
-            packet.Write(position);
+            packet.Write(enemy.GetHealth());
 
             SendTCPDataToAll(packet);
         }
     }
-    // =============================================================
+    public static void EnemyRespawned(Enemy enemy)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.enemyRespawned))
+        {
+            packet.Write(enemy.GetHealth());
+
+            SendTCPDataToAll(packet);
+        }
+    }
+    #endregion
 }

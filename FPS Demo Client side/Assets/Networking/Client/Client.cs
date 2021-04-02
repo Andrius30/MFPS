@@ -24,18 +24,11 @@ public class Client : MonoBehaviour
     {
         if (instance == null) instance = this;
     }
-    void Start()
+    void OnApplicationQuit() => Disconnect();
+    public void ConnectToServer()
     {
         tcp = new TCP();
         udp = new UDP();
-    }
-    void OnApplicationQuit()
-    {
-
-        Disconnect();
-    }
-    public void ConnectToServer()
-    {
         InitializeClientData();
         isConnected = true;
         tcp.Connect();
@@ -249,7 +242,6 @@ public class Client : MonoBehaviour
                 }
             });
         }
-
         /// <summary>Disconnects from the server and cleans up the UDP connection.</summary>
         void Disconnect()
         {
@@ -271,18 +263,16 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.playerRotation,ClientHandle.PlayerRotation },
             {(int) ServerPackets.playerDisconnected,ClientHandle.PlayerDisconnected },
             {(int) ServerPackets.playerHealth,ClientHandle.PlayerHealth },
-            {(int) ServerPackets.playerRespawned,ClientHandle.PlayerRespawned }, 
-	        #endregion
-            #region ITEMS
-		    {(int) ServerPackets.spawnItems,ClientHandle.SpawnItem },
-            {(int) ServerPackets.itemPicked,ClientHandle.ItemPickedUp },
-            {(int) ServerPackets.itemRespawned,ClientHandle.ItemRespawned}, 
-	        #endregion
-#region Projectiles
-            {(int) ServerPackets.spawnProjectile,ClientHandle.SpawnProjectile},
-            {(int) ServerPackets.projectilePosition,ClientHandle.ProjectilePosition},
-            {(int) ServerPackets.explodeProjectile,ClientHandle.Explode}, 
-	#endregion
+            {(int) ServerPackets.playerRespawned,ClientHandle.PlayerRespawned },
+            #endregion
+            #region WEAPONS
+            {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },
+            #endregion
+            #region Enemies
+            {(int)ServerPackets.enemyHealth, ClientHandle.EnemyHealth },
+            {(int)ServerPackets.enemyRespawned, ClientHandle.EnemyRespawned },
+            {(int)ServerPackets.playerShoot, ClientHandle.PlayerShoot },
+        	#endregion
         };
         Debug.Log("Packets initialized");
     }
@@ -294,7 +284,7 @@ public class Client : MonoBehaviour
             tcp.socket.Close();
             udp.socket.Close();
 
-            Debug.Log("Disconnected from server.");
+            Debug.Log("Disconnected from server. :18:yellow;".Interpolate());
         }
     }
 }
