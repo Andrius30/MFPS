@@ -1,11 +1,12 @@
 using MFPS.ServerCharacters;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
-
     public GameObject playerPrefab;
+    public static Dictionary<int, Player> players = new Dictionary<int, Player>();
 
     void Awake()
     {
@@ -24,6 +25,4 @@ public class NetworkManager : MonoBehaviour
     void OnApplicationQuit() => Server.Stop();
 
     public Player InstantiatePlayer() => Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity).GetComponent<Player>();
-
-
 }

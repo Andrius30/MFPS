@@ -173,5 +173,28 @@ class PacketsToSend
             SendTCPDataToAll(packet);
         }
     }
+
     #endregion
+    public static void SpawnProjectile(Projectile projectile)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.spawnProjectile))
+        {
+            packet.Write(projectile.nextProjectile);
+            packet.Write(projectile.transform.position);
+            packet.Write(projectile.transform.rotation);
+
+            SendUDPDataToAll(packet);
+        }
+    }
+    public static void ProjectilePosition(Projectile projectile)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.projectilePosition))
+        {
+            packet.Write(projectile.nextProjectile);
+            packet.Write(projectile.transform.position);
+            packet.Write(projectile.transform.rotation);
+
+            SendUDPDataToAll(packet);
+        }
+    }
 }

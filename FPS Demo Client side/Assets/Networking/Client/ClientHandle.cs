@@ -90,11 +90,39 @@ public class ClientHandle
         Enemy.onEnemyRespawned?.Invoke(health);
     }
 
-    public static void PlayerShoot(Packet packet)
+    #endregion
+
+    #region Effects VFX,SFX
+    public static void PlayEffectsOnPlayerShoot(Packet packet)
     {
         int id = packet.ReadInt();
 
         GameManager.players[id].newWeapon.PlayShootingSound();
+        GameManager.players[id].newWeapon.PlayMuzleFlash();
     }
+
+    public static void SpawnProjectile(Packet packet)
+    {
+        int id = packet.ReadInt();
+        Vector3 pos = packet.ReadVector3();
+        Quaternion rot = packet.ReadQuaternion();
+
+        GameManager.instance.SpawnProjectile(id, pos, rot);
+    }
+    public static void ProjectilePosition(Packet packet)
+    {
+        int id = packet.ReadInt();
+        Vector3 pos = packet.ReadVector3();
+        Quaternion rot = packet.ReadQuaternion();
+
+        if (GameManager.projectiles.TryGetValue(id, out Projectile projectile))
+        {
+            projectile.transform.position = pos;
+            projectile.transform.rotation = rot;
+        }
+    }
+
     #endregion
+
+
 }

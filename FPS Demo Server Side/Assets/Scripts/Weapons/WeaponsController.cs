@@ -23,7 +23,7 @@ namespace MFPS.Weapons.Controllers
             }
         }
 
-        public void ChangeWeapon()
+        public void ChangeWeapon(Player player)
         {
             if (player.inputs[2] > 0) // up
             {
@@ -32,7 +32,7 @@ namespace MFPS.Weapons.Controllers
                 {
                     currentWeaponIndex = 0;
                 }
-                SetWeapon(currentWeaponIndex);
+                SetWeapon(player, currentWeaponIndex);
             }
             if (player.inputs[2] < 0) // down
             {
@@ -41,16 +41,17 @@ namespace MFPS.Weapons.Controllers
                 {
                     currentWeaponIndex = weapons.Count - 1;
                 }
-                SetWeapon(currentWeaponIndex);
+                SetWeapon(player, currentWeaponIndex);
             }
         }
-        void SetWeapon(int index)
+        void SetWeapon(Player player, int index)
         {
             if (oldWep != null)
             {
                 MonoBehaviour.Destroy(oldWep.gameObject);
             }
-            GameObject gm = MonoBehaviour.Instantiate(weapons[index].gameObject);
+            GameObject gm = MonoBehaviour.Instantiate(weapons[index].gameObject, player.transform);
+            gm.transform.localPosition = Vector3.zero;
             currentWepon = gm.GetComponent<BaseWeapon>();
             oldWep = currentWepon;
             PacketsToSend.PlayerChangedWeapon(player, currentWepon);

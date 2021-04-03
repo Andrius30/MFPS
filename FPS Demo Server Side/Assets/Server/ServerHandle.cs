@@ -42,4 +42,11 @@ class ServerHandle
         Server.clients[fromClient].player.Shoot(viewDirection);
     }
 
+    internal static void WeaponRotation(int fromClient, Packet packet)
+    {
+        int wepID = packet.ReadInt();
+        Quaternion rot = packet.ReadQuaternion();
+
+        Server.clients[fromClient].player.weaponsController.GetCurrentWeapon().transform.rotation = rot;
+    }
 }

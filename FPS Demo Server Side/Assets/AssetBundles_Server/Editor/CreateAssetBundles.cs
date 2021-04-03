@@ -4,7 +4,7 @@ using System.IO;
 
 public class CreateAssetBundles
 {
-    [MenuItem("Assets/Build AssetBundles")]
+    [MenuItem("AssetBundle builder/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
         string assetBundleDirectory = "C:/wamp64/www/Assetbundles";

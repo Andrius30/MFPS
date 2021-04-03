@@ -75,7 +75,7 @@ namespace MFPS.ServerCharacters
             _inputDirection.y = inputs[1];
             playerMove.Move(_inputDirection);
 
-            weaponsController.ChangeWeapon();
+            weaponsController.ChangeWeapon(this);
         }
 
         public void Shoot(Vector3 _viewDirection)
@@ -83,12 +83,12 @@ namespace MFPS.ServerCharacters
             if (timer.IsDone())
             {
                 PacketsToSend.PlayerShoot(this);
+                weaponsController.GetCurrentWeapon().SpawnProjectile(_viewDirection);
                 if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
                 {
                     IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
                     if (damagable != null)
                     {
-                        Debug.Log(weaponsController.GetCurrentWeaponType() == null);
                         weaponsController.GetCurrentWeaponType()?.DoDamage(damagable);
                     }
                 }

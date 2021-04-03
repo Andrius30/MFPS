@@ -271,7 +271,12 @@ public class Client : MonoBehaviour
             #region Enemies
             {(int)ServerPackets.enemyHealth, ClientHandle.EnemyHealth },
             {(int)ServerPackets.enemyRespawned, ClientHandle.EnemyRespawned },
-            {(int)ServerPackets.playerShoot, ClientHandle.PlayerShoot },
+            {(int)ServerPackets.playerShoot, ClientHandle.PlayEffectsOnPlayerShoot },
+        	#endregion
+            #region Projectiles
+            {(int) ServerPackets.spawnProjectile, ClientHandle.SpawnProjectile },
+            {(int) ServerPackets.projectilePosition, ClientHandle.ProjectilePosition },
+
         	#endregion
         };
         Debug.Log("Packets initialized");
