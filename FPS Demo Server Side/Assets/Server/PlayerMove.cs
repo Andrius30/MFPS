@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Server
+namespace MFPS.ServerCharacters
 {
     class PlayerMove
     {

@@ -1,8 +1,10 @@
-
-public class AK47 : BaseWeapon
+namespace MFPS.Weapons
 {
-    void Awake()
+    public class AK47 : BaseWeapon, IWeapon
     {
-        weaponType = this;
+        void Awake()
+        {
+            weaponType = this;
+        }
     }
 }

@@ -1,50 +1,62 @@
+using MFPS.ServerCharacters;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponsController
+namespace MFPS.Weapons.Controllers
 {
-    public List<BaseWeapon> weapons;
-
-    public int currentWeaponIndex { get; set; }
-    BaseWeapon currentWepon;
-    Player player;
-
-    public WeaponsController(Player player, List<BaseWeapon> allWeapons)
+    public class WeaponsController
     {
-        this.player = player;
-        weapons = new List<BaseWeapon>(allWeapons);
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            weapons[i].id = i;
-        }
-    }
+        public List<BaseWeapon> weapons;
 
-    public void ChangeWeapon()
-    {
-        if (player.inputs[2] > 0) // up
+        public int currentWeaponIndex { get; set; }
+        BaseWeapon currentWepon;
+        BaseWeapon oldWep;
+        Player player;
+
+        public WeaponsController(Player player, List<BaseWeapon> allWeapons)
         {
-            currentWeaponIndex++;
-            if (currentWeaponIndex > weapons.Count - 1)
+            this.player = player;
+            weapons = new List<BaseWeapon>(allWeapons);
+            for (int i = 0; i < weapons.Count; i++)
             {
-                currentWeaponIndex = 0;
+                weapons[i].id = i;
             }
-            SetWeapon(currentWeaponIndex);
         }
-        if (player.inputs[2] < 0) // down
+
+        public void ChangeWeapon()
         {
-            currentWeaponIndex--;
-            if (currentWeaponIndex < 0)
+            if (player.inputs[2] > 0) // up
             {
-                currentWeaponIndex = weapons.Count - 1;
+                currentWeaponIndex++;
+                if (currentWeaponIndex > weapons.Count - 1)
+                {
+                    currentWeaponIndex = 0;
+                }
+                SetWeapon(currentWeaponIndex);
             }
-            SetWeapon(currentWeaponIndex);
+            if (player.inputs[2] < 0) // down
+            {
+                currentWeaponIndex--;
+                if (currentWeaponIndex < 0)
+                {
+                    currentWeaponIndex = weapons.Count - 1;
+                }
+                SetWeapon(currentWeaponIndex);
+            }
         }
+        void SetWeapon(int index)
+        {
+            if (oldWep != null)
+            {
+                MonoBehaviour.Destroy(oldWep.gameObject);
+            }
+            GameObject gm = MonoBehaviour.Instantiate(weapons[index].gameObject);
+            currentWepon = gm.GetComponent<BaseWeapon>();
+            oldWep = currentWepon;
+            PacketsToSend.PlayerChangedWeapon(player, currentWepon);
+        }
+        public IWeapon GetCurrentWeaponType() => currentWepon.weaponType;
+        public BaseWeapon GetCurrentWeapon() => currentWepon;
+        public float GetCoolDown() => currentWepon.coolDown;
     }
-    void SetWeapon(int index)
-    {
-        currentWepon = weapons[index];
-        PacketsToSend.PlayerChangedWeapon(player, currentWepon);
-    }
-    public BaseWeapon GetCurrentWeapon() => currentWepon;
-    public float GetCoolDown() => currentWepon.coolDown;
 }

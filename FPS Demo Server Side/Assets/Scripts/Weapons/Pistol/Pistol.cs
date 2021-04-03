@@ -1,8 +1,10 @@
-
-public class Pistol : BaseWeapon
+namespace MFPS.Weapons
 {
-    void Awake()
+    public class Pistol : BaseWeapon, IWeapon
     {
-        weaponType = this;    
+        void Awake()
+        {
+            weaponType = this;
+        }
     }
 }

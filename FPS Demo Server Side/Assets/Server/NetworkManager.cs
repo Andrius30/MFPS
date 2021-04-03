@@ -1,3 +1,4 @@
+using MFPS.ServerCharacters;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
