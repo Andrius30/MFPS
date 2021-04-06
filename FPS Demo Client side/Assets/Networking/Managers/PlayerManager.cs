@@ -13,20 +13,23 @@ public class PlayerManager : MonoBehaviour
     [Space(10)]
 
     [Header("Weapons")]
-    public List<BaseWeapon> allWeapons;
-    public Transform weaponPosition;
-
+    public Transform weaponsparent;
+    public BaseWeapon newWeapon { get; protected set; }
+    public int startingWeaponIndex = 0;
+    
     public MeshRenderer model;
-
-    [HideInInspector] public BaseWeapon newWeapon;
-    BaseWeapon oldWeapon;
+    public Animator characterAnimator;
 
     internal void Initialize(int id, string userName)
     {
         this.id = id;
         this.username = userName;
         health = maxHealth;
+
+        PacketsToSend.SetStartingWeapon(GetAllWeapons()[startingWeaponIndex]); // send msg: set starting weapon
     }
+
+    #region Damagable section
     public void SetHealth(float health)
     {
         this.health = health;
@@ -43,18 +46,35 @@ public class PlayerManager : MonoBehaviour
         model.enabled = true;
         SetHealth(maxHealth);
         PlayerController.onLocalPlayerLiveStateChanged?.Invoke(false);
-    }
+    } 
+    #endregion
 
+    #region Weapons section
     public void ChangeWeapon(int id, string weaponName, int fireMode)
     {
-        if (oldWeapon != null)
-        {
-            Destroy(oldWeapon.gameObject);
-            oldWeapon = null;
-        }
-        GameObject gm = Instantiate(allWeapons[id].gameObject, weaponPosition);
-        newWeapon = gm.GetComponent<BaseWeapon>();
-        newWeapon.Initialize(id, weaponName, fireMode);
-        oldWeapon = newWeapon;
+        DisableAllWeapons();
+        SetWeapon(id, weaponName, fireMode);
     }
+    void SetWeapon(int id, string name, int fireMode)
+    {
+        newWeapon = GetAllWeapons()[id];
+        newWeapon.gameObject.SetActive(true);
+        newWeapon.Initialize(id, name, fireMode);
+    }
+    void DisableAllWeapons()
+    {
+        foreach (var weapon in GetAllWeapons())
+        {
+            weapon.gameObject.SetActive(false);
+        }
+    }
+    BaseWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<BaseWeapon>(true); 
+    #endregion
+
+    public void PlayMoveAnimation(float x, float z)
+    {
+        characterAnimator.SetFloat("horizontal", x);
+        characterAnimator.SetFloat("vertical", z);
+    }
+    public void PlayAimingAnimation(float angle) => characterAnimator.SetFloat("aimAngle", angle);
 }

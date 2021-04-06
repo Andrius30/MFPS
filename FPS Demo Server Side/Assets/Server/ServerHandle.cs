@@ -1,3 +1,4 @@
+using MFPS.ServerCharacters;
 using System;
 using UnityEngine;
 
@@ -42,6 +43,7 @@ class ServerHandle
         Server.clients[fromClient].player.Shoot(viewDirection);
     }
 
+    #region Weapons section
     internal static void WeaponRotation(int fromClient, Packet packet)
     {
         int wepID = packet.ReadInt();
@@ -49,4 +51,12 @@ class ServerHandle
 
         Server.clients[fromClient].player.weaponsController.GetCurrentWeapon().transform.rotation = rot;
     }
+    internal static void SetStartingWeapon(int fromClient, Packet packet)
+    {
+        int wepID = packet.ReadInt();
+
+        Player player = Server.clients[fromClient].player;
+        player.weaponsController.SetWeapon(player, wepID);
+    } 
+    #endregion
 }

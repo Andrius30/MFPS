@@ -33,7 +33,7 @@ namespace MFPS.ServerCharacters
         public float gravity = -9.81f;
         [Space(10)]
         [Header("Player Weapons")]
-        public List<BaseWeapon> allWeapons;
+        public Transform weaponsParent;
 
         public float velocityY;
         [HideInInspector] public float[] inputs;
@@ -47,7 +47,7 @@ namespace MFPS.ServerCharacters
         void Start()
         {
             timer = new Timer(0, false);
-            weaponsController = new WeaponsController(this, allWeapons);
+            weaponsController = new WeaponsController(this);
             playerMove = new PlayerMove(this);
             gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
             moveSpeed *= Time.fixedDeltaTime;
@@ -75,6 +75,7 @@ namespace MFPS.ServerCharacters
             _inputDirection.y = inputs[1];
             playerMove.Move(_inputDirection);
 
+            PacketsToSend.PlayMovementAnimation(this, _inputDirection.x, _inputDirection.y);
             weaponsController.ChangeWeapon(this);
         }
 

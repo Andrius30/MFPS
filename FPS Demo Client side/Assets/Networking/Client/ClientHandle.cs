@@ -46,6 +46,7 @@ public class ClientHandle
             player.transform.rotation = rotation;
         }
     }
+    // TODO: add msg from server player direction float values and play animation
     public static void PlayerDisconnected(Packet packet)
     {
         int id = packet.ReadInt();
@@ -117,9 +118,19 @@ public class ClientHandle
 
         if (GameManager.projectiles.TryGetValue(id, out Projectile projectile))
         {
+            if (projectile == null) return;
             projectile.transform.position = pos;
             projectile.transform.rotation = rot;
         }
+    }
+
+    internal static void PlayMoveAnimation(Packet packet)
+    {
+        int playerID = packet.ReadInt();
+        float x = packet.ReadFloat();
+        float z = packet.ReadFloat();
+
+        GameManager.players[playerID].PlayMoveAnimation(x, z);
     }
 
     #endregion

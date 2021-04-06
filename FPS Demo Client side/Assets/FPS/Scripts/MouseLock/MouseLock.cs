@@ -1,19 +1,29 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseLock
 {
     public void CursorState()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            LockCursor();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            UnLockCursor();
         }
+    }
+    public void LockCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void UnLockCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

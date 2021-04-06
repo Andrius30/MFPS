@@ -1,11 +1,12 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - AK47
     - Enemy
+    - MFPS.ServerCharacters.Player
+    - MFPS.Weapons.AK47
+    - MFPS.Weapons.Pistol
     - NetworkManager
-    - Pistol
-    - Player
+    - Projectile
     - ThreadManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -33,6 +34,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
@@ -46,15 +49,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1968}
     - Class: 114
-      Script: {instanceID: 2330}
+      Script: {instanceID: 2332}
     - Class: 114
-      Script: {instanceID: 2988}
+      Script: {instanceID: 2990}
     - Class: 114
-      Script: {instanceID: 3124}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3246}
+      Script: {instanceID: 3204}
     - Class: 114
-      Script: {instanceID: 3490}
+      Script: {instanceID: 3250}
+    - Class: 114
+      Script: {instanceID: 3496}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 143
@@ -258,15 +263,21 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: 395ac762df079352d0283138550e84b8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: MFPS.Bundles
+    className: SpawnStreamedAssets
+  - hash:
+      serializedVersion: 2
       Hash: f1d735cc1a21c3704ab52568f4fbfcf8
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: 4135c47726a88c6fe59aeed63c41e904
+      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
+    namespaceName: MFPS.Weapons
     className: Pistol
   - hash:
       serializedVersion: 2
@@ -384,9 +395,9 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: fa1943549bbcf689cd0d94dc1e3e893f
+      Hash: e21d759cb1a2eea1baf293218aed258b
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
+    namespaceName: MFPS.ServerCharacters
     className: Player
   - hash:
       serializedVersion: 2
@@ -438,16 +449,22 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
+      Hash: 36fdc1a4ae603ddb9221e97f20c85ae8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Projectile
+  - hash:
+      serializedVersion: 2
+      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: MFPS.Weapons
+    className: AK47
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: TestResultRendererCallback
-  - hash:
-      serializedVersion: 2
-      Hash: 4135c47726a88c6fe59aeed63c41e904
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AK47
   - hash:
       serializedVersion: 2
       Hash: 748dd2a2a28da4e618912da5ac45684b
@@ -474,9 +491,9 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
-      Hash: 4135c47726a88c6fe59aeed63c41e904
+      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
+    namespaceName: MFPS.Weapons
     className: BaseWeapon
   - hash:
       serializedVersion: 2

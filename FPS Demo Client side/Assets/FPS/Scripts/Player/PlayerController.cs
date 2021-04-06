@@ -1,18 +1,20 @@
 using System;
+using TMPro;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IConsole
 {
     public static Action<bool> onLocalPlayerLiveStateChanged;
 
     [SerializeField] Transform camTransform;
-   
+
     PlayerInputs playerInputs;
     MouseLock mouseLock;
     PlayerManager playerManager;
-    
+
     float mouseScroll;
     bool isDied;
+    bool cursorLockDisabled = false;
 
     void Start()
     {
@@ -20,10 +22,15 @@ public class PlayerController : MonoBehaviour
         mouseLock = new MouseLock();
         playerInputs = new PlayerInputs();
         onLocalPlayerLiveStateChanged += SetIsDied;
+        Com com = new Com();
+        com.Init();
+        com.AddCommand("dscr","Disables cursor locking");
+        ConsoleController.instance.consoles.Add(com, this);
     }
     void Update()
     {
-        mouseLock.CursorState();
+        if (!cursorLockDisabled)
+            mouseLock.CursorState();
         // ===================== shoot =================
         if (!isDied && playerManager.newWeapon != null && playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()))
         {
@@ -37,6 +44,7 @@ public class PlayerController : MonoBehaviour
         // move =================================
         float x = playerInputs.HorizontalInputs();
         float z = playerInputs.VerticalInputs();
+        playerManager.PlayMoveAnimation(x, z);
 
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
@@ -57,4 +65,15 @@ public class PlayerController : MonoBehaviour
         PacketsToSend.SendOtherInputs(otherInputs);
     }
     void SetIsDied(bool isAlive) => isDied = isAlive;
+
+    public void Execute()
+    {
+        if (cursorLockDisabled)
+            mouseLock.UnLockCursor();
+    }
+
+    public void PrintToConsole(ref TextMeshProUGUI output, string prefix)
+    {
+        output.text += $" { prefix } Cursor locking has been disabled.";
+    }
 }

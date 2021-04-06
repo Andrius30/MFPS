@@ -276,6 +276,7 @@ public class Client : MonoBehaviour
             #region Projectiles
             {(int) ServerPackets.spawnProjectile, ClientHandle.SpawnProjectile },
             {(int) ServerPackets.projectilePosition, ClientHandle.ProjectilePosition },
+            {(int) ServerPackets.playMoveAnimation, ClientHandle.PlayMoveAnimation },
 
         	#endregion
         };

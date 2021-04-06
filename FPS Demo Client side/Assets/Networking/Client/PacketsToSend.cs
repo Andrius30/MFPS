@@ -57,6 +57,15 @@ public class PacketsToSend
     // ===========================================================
 
     // ================= WEAPONS =================================
+    public static void SetStartingWeapon(BaseWeapon weapon)
+    {
+        using(Packet packet =new Packet((int)ClientPackets.setStartingWeapon))
+        {
+            packet.Write(weapon.weaponID);
+
+            SendTCPData(packet);
+        }
+    }
     public static void WeaponRotation(BaseWeapon weapon)
     {
         using(Packet packet = new Packet((int)ClientPackets.weaponRotation))

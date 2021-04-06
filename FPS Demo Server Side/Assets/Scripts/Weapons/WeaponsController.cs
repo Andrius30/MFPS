@@ -10,17 +10,11 @@ namespace MFPS.Weapons.Controllers
 
         public int currentWeaponIndex { get; set; }
         BaseWeapon currentWepon;
-        BaseWeapon oldWep;
         Player player;
 
-        public WeaponsController(Player player, List<BaseWeapon> allWeapons)
+        public WeaponsController(Player player)
         {
             this.player = player;
-            weapons = new List<BaseWeapon>(allWeapons);
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                weapons[i].id = i;
-            }
         }
 
         public void ChangeWeapon(Player player)
@@ -28,7 +22,7 @@ namespace MFPS.Weapons.Controllers
             if (player.inputs[2] > 0) // up
             {
                 currentWeaponIndex++;
-                if (currentWeaponIndex > weapons.Count - 1)
+                if (currentWeaponIndex > GetWeaponsLength() - 1)
                 {
                     currentWeaponIndex = 0;
                 }
@@ -39,23 +33,27 @@ namespace MFPS.Weapons.Controllers
                 currentWeaponIndex--;
                 if (currentWeaponIndex < 0)
                 {
-                    currentWeaponIndex = weapons.Count - 1;
+                    currentWeaponIndex = GetWeaponsLength() - 1;
                 }
                 SetWeapon(player, currentWeaponIndex);
             }
         }
-        void SetWeapon(Player player, int index)
+        public void SetWeapon(Player player, int index)
         {
-            if (oldWep != null)
-            {
-                MonoBehaviour.Destroy(oldWep.gameObject);
-            }
-            GameObject gm = MonoBehaviour.Instantiate(weapons[index].gameObject, player.transform);
-            gm.transform.localPosition = Vector3.zero;
-            currentWepon = gm.GetComponent<BaseWeapon>();
-            oldWep = currentWepon;
+            DisableAllWeapons();
+            currentWepon = GetAllWeapons()[index];
+            currentWepon.gameObject.SetActive(true);
             PacketsToSend.PlayerChangedWeapon(player, currentWepon);
         }
+        void DisableAllWeapons()
+        {
+            foreach (BaseWeapon weapon in GetAllWeapons())
+            {
+                weapon.gameObject.SetActive(false);
+            }
+        }
+        BaseWeapon[] GetAllWeapons() => player.weaponsParent.GetComponentsInChildren<BaseWeapon>(true);
+        int GetWeaponsLength() => GetAllWeapons().Length;
         public IWeapon GetCurrentWeaponType() => currentWepon.weaponType;
         public BaseWeapon GetCurrentWeapon() => currentWepon;
         public float GetCoolDown() => currentWepon.coolDown;

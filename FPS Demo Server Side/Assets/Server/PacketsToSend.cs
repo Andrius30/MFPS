@@ -102,7 +102,17 @@ class PacketsToSend
             SendUDPDataToAll(player.id, packet);
         }
     }
+    public static void PlayMovementAnimation(Player player, float x, float z)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.playMoveAnimation))
+        {
+            packet.Write(player.id);
+            packet.Write(x);
+            packet.Write(z);
 
+            SendUDPDataToAll(player.id, packet);
+        }
+    }
     public static void PlayerDisconnected(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
@@ -145,7 +155,7 @@ class PacketsToSend
     }
     public static void PlayerShoot(Player player)
     {
-        using(Packet packet = new Packet((int)ServerPackets.playerShoot))
+        using (Packet packet = new Packet((int)ServerPackets.playerShoot))
         {
             packet.Write(player.id);
 
@@ -166,7 +176,7 @@ class PacketsToSend
     }
     public static void EnemyRespawned(Enemy enemy)
     {
-        using(Packet packet = new Packet((int)ServerPackets.enemyRespawned))
+        using (Packet packet = new Packet((int)ServerPackets.enemyRespawned))
         {
             packet.Write(enemy.GetHealth());
 
@@ -177,7 +187,7 @@ class PacketsToSend
     #endregion
     public static void SpawnProjectile(Projectile projectile)
     {
-        using(Packet packet = new Packet((int)ServerPackets.spawnProjectile))
+        using (Packet packet = new Packet((int)ServerPackets.spawnProjectile))
         {
             packet.Write(projectile.nextProjectile);
             packet.Write(projectile.transform.position);
