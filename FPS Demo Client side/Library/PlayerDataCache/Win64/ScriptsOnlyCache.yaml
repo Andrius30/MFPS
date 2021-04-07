@@ -31,8 +31,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -646,7 +648,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: b4584da9d6abac386ca7e99918ef6f6a
+      Hash: 79c7f4e585181e55f56cdd0be4bbdd2b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BaseWeapon
@@ -676,7 +678,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 7ef59e30c9328449c2c32a64f2f8a589
+      Hash: 86c1cc85fe574b0d02d0fe232df37cb3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager

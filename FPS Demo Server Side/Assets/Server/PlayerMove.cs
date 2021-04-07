@@ -7,10 +7,7 @@ namespace MFPS.ServerCharacters
         Player player;
         bool isCrouching;
 
-        public PlayerMove(Player player)
-        {
-            this.player = player;
-        }
+        public PlayerMove(Player player) => this.player = player;
 
         /// <summary>Calculates the player's desired movement direction and moves him.</summary>
         /// <param name="_inputDirection"></param>
@@ -55,9 +52,15 @@ namespace MFPS.ServerCharacters
         void Crouch()
         {
             if (isCrouching)
-                player.characterController.height = 1;
+                SetCharacterController(1, player.crouchCenter);
             else
-                player.characterController.height = 2;
+                SetCharacterController(2, 0);
+        }
+
+        void SetCharacterController(float height, float center)
+        {
+            player.characterController.height = height;
+            player.characterController.center = new Vector3(0, center, 0);
         }
     }
 }

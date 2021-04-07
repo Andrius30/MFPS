@@ -24,6 +24,7 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public float moveSpeed;
         public float runSpeed = 5f;
         public float crouchSpeed = 2f;
+        public float crouchCenter = -.4f;
         [Space(10)]
         [Header("Jump settings")]
         public float jumpSpeed = 10f;
@@ -80,6 +81,7 @@ namespace MFPS.ServerCharacters
         }
         public void Shoot(Vector3 _viewDirection)
         {
+            if (health <= 0) return;
             if (timer.IsDone())
             {
                 PacketsToSend.PlayerShoot(this);

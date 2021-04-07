@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IConsole
 {
-    public static Action<bool> onLocalPlayerLiveStateChanged;
-
     [SerializeField] Transform camTransform;
 
     PlayerInputs playerInputs;
@@ -13,7 +11,6 @@ public class PlayerController : MonoBehaviour, IConsole
     PlayerManager playerManager;
 
     float mouseScroll;
-    bool isDied;
     bool cursorLockDisabled = false;
 
     void Start()
@@ -21,7 +18,6 @@ public class PlayerController : MonoBehaviour, IConsole
         playerManager = GetComponent<PlayerManager>();
         mouseLock = new MouseLock();
         playerInputs = new PlayerInputs();
-        onLocalPlayerLiveStateChanged += SetIsDied;
         Com com = new Com();
         com.Init();
         com.AddCommand("dscr","Disables cursor locking");
@@ -32,7 +28,7 @@ public class PlayerController : MonoBehaviour, IConsole
         if (!cursorLockDisabled)
             mouseLock.CursorState();
         // ===================== shoot =================
-        if (!isDied && playerManager.newWeapon != null && playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()))
+        if (playerManager.newWeapon != null && playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()))
         {
             PacketsToSend.PlayerShoot(camTransform.forward);
         }
@@ -45,9 +41,9 @@ public class PlayerController : MonoBehaviour, IConsole
         float x = playerInputs.HorizontalInputs();
         float z = playerInputs.VerticalInputs();
         playerManager.PlayMoveAnimation(x, z);
-
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
+        playerManager.PlayCrouchAnimation(crouchInput);
 
         float[] inputs = new float[]
         {
@@ -64,7 +60,6 @@ public class PlayerController : MonoBehaviour, IConsole
         PacketsToSend.SendPlayerInputs(inputs);
         PacketsToSend.SendOtherInputs(otherInputs);
     }
-    void SetIsDied(bool isAlive) => isDied = isAlive;
 
     public void Execute()
     {

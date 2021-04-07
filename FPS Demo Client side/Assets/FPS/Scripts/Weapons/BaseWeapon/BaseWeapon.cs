@@ -1,5 +1,6 @@
 using FPSClient.Timers;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public enum FireMode
 {
@@ -20,6 +21,10 @@ public class BaseWeapon : MonoBehaviour
     [Header("Weapon muzle flash prefab")]
     [SerializeField] GameObject muzleFlash;
     [SerializeField] Light muzleLight;
+
+    [Space(10)]
+    [Header("Unity animation riging. RIG")]
+    [SerializeField] Rig rig;
 
     int fireMode;
     Timer timer;
@@ -64,4 +69,6 @@ public class BaseWeapon : MonoBehaviour
         }
     }
 
+    void OnEnable() => rig.weight = 1;
+    void OnDisable() => rig.weight = 0;
 }

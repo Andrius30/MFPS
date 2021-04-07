@@ -14,9 +14,10 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Weapons")]
     public Transform weaponsparent;
+    public Vector3 weaponParentPositionOnCrouching;
     public BaseWeapon newWeapon { get; protected set; }
     public int startingWeaponIndex = 0;
-    
+
     public MeshRenderer model;
     public Animator characterAnimator;
 
@@ -39,14 +40,12 @@ public class PlayerManager : MonoBehaviour
     void Die()
     {
         model.enabled = false;
-        PlayerController.onLocalPlayerLiveStateChanged?.Invoke(true);
     }
     public void Respawn()
     {
         model.enabled = true;
         SetHealth(maxHealth);
-        PlayerController.onLocalPlayerLiveStateChanged?.Invoke(false);
-    } 
+    }
     #endregion
 
     #region Weapons section
@@ -68,7 +67,7 @@ public class PlayerManager : MonoBehaviour
             weapon.gameObject.SetActive(false);
         }
     }
-    BaseWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<BaseWeapon>(true); 
+    BaseWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<BaseWeapon>(true);
     #endregion
 
     public void PlayMoveAnimation(float x, float z)
@@ -76,9 +75,26 @@ public class PlayerManager : MonoBehaviour
         characterAnimator.SetFloat("horizontal", x);
         characterAnimator.SetFloat("vertical", z);
     }
-    public void PlayAimingAnimation(float angle,Quaternion localRot)
+    public void PlayCrouchAnimation(bool isCrouching)
+    {
+        if (isCrouching)
+        {
+            CrouchAnimation(true, weaponParentPositionOnCrouching);
+        }
+        else
+        {
+            CrouchAnimation(false, Vector3.zero);
+        }
+        // TODO: Send msg to server play crouch anim
+    }
+    public void PlayAimingAnimation(float angle, Quaternion localRot)
     {
         weaponsparent.localRotation = localRot;
         characterAnimator.SetFloat("aimAngle", angle);
+    }
+    void CrouchAnimation(bool isPlaying, Vector3 pos)
+    {
+        characterAnimator.SetBool("isCrouching", isPlaying);
+        weaponsparent.localPosition = pos;
     }
 }
