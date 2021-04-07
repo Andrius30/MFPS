@@ -78,7 +78,6 @@ namespace MFPS.ServerCharacters
             PacketsToSend.PlayMovementAnimation(this, _inputDirection.x, _inputDirection.y);
             weaponsController.ChangeWeapon(this);
         }
-
         public void Shoot(Vector3 _viewDirection)
         {
             if (timer.IsDone())
@@ -109,6 +108,11 @@ namespace MFPS.ServerCharacters
         public void SetOtherInputs(bool[] inputs)
         {
             this.otherInputs = inputs;
+        }
+        public void UpdateAimingPivotRotation(float angle, Quaternion localRot)
+        {
+            weaponsParent.localRotation = localRot;
+            PacketsToSend.PlayerAimingRotation(this, angle, weaponsParent.localRotation);
         }
         #endregion
 

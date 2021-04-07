@@ -128,8 +128,8 @@ public class Server
                 {(int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
                 {(int)ClientPackets.playerOtherInputs, ServerHandle.PlayerOtherInputs },
                 {(int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
-                {(int)ClientPackets.weaponRotation, ServerHandle.WeaponRotation },
                 {(int)ClientPackets.setStartingWeapon, ServerHandle.SetStartingWeapon },
+                {(int)ClientPackets.playerAimingAnim, ServerHandle.PlayerAiming },
 
         };
         Debug.Log("Server packets initialized");

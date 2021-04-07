@@ -33,7 +33,6 @@ public class ConsoleController : MonoBehaviour, IConsole
 
         consoles.Add(newCommands, this);
     }
-
     void Update()
     {
         if (Input.GetKeyDown(consoleInput))
@@ -43,28 +42,6 @@ public class ConsoleController : MonoBehaviour, IConsole
         }
         if (Input.GetKeyDown(consoleOpenCloseInput))
             OpenClose();
-    }
-
-    public void ExecuteCommand(string input)
-    {
-        if (input.Equals(string.Empty)) return;
-        foreach (var console in consoles)
-        {
-            foreach (var com in console.Key.GetAvailableCommands())
-            {
-                Debug.Log($"com {com.Key } input {input }");
-                if (!com.Key.Equals(input)) continue;
-                if (com.Key.Equals(input))
-                {
-                    console.Value.Execute();
-                    console.Value.PrintToConsole(ref outputText);
-                    KeepFocused();
-                    return;
-                }
-            }
-        }
-        outputText.text += $"\nCommand { input } was not found! Type help to show available commands :red;".Interpolate();
-        KeepFocused();
     }
 
     public void Execute() { }
@@ -77,6 +54,27 @@ public class ConsoleController : MonoBehaviour, IConsole
                 output.text += $"{ prefix } { com.Key } -> { com.Value } :yellow;".Interpolate();
             }
         }
+    }
+    
+    void ExecuteCommand(string input)
+    {
+        if (input.Equals(string.Empty)) return;
+        foreach (var console in consoles)
+        {
+            foreach (var com in console.Key.GetAvailableCommands())
+            {
+                if (!com.Key.Equals(input)) continue;
+                if (com.Key.Equals(input))
+                {
+                    console.Value.Execute();
+                    console.Value.PrintToConsole(ref outputText);
+                    KeepFocused();
+                    return;
+                }
+            }
+        }
+        outputText.text += $"\nCommand { input } was not found! Type help to show available commands :red;".Interpolate();
+        KeepFocused();
     }
     void ClearInput() => userInput.text = string.Empty;
     void OpenClose()

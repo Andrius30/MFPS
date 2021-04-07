@@ -123,7 +123,9 @@ public class ClientHandle
             projectile.transform.rotation = rot;
         }
     }
+    #endregion
 
+    #region Player Animations
     internal static void PlayMoveAnimation(Packet packet)
     {
         int playerID = packet.ReadInt();
@@ -132,8 +134,16 @@ public class ClientHandle
 
         GameManager.players[playerID].PlayMoveAnimation(x, z);
     }
+    internal static void PlayerAiming(Packet packet)
+    {
+        int playerID = packet.ReadInt();
+        float angle = packet.ReadFloat();
+        Quaternion localRot = packet.ReadQuaternion();
+
+        GameManager.players[playerID].PlayAimingAnimation(angle, localRot);
+    }
+
 
     #endregion
-
 
 }

@@ -162,6 +162,17 @@ class PacketsToSend
             SendUDPDataToAll(packet);
         }
     }
+    public static void PlayerAimingRotation(Player player, float angle, Quaternion localRot)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.playerAiming))
+        {
+            packet.Write(player.id);
+            packet.Write(angle);
+            packet.Write(localRot);
+
+            SendUDPDataToAll(player.id, packet);
+        }
+    }
     #endregion
 
     #region Enemies Section

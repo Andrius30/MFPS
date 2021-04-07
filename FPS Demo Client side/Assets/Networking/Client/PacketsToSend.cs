@@ -66,16 +66,6 @@ public class PacketsToSend
             SendTCPData(packet);
         }
     }
-    public static void WeaponRotation(BaseWeapon weapon)
-    {
-        using(Packet packet = new Packet((int)ClientPackets.weaponRotation))
-        {
-            packet.Write(weapon.weaponID);
-            packet.Write(weapon.transform.rotation);
-
-            SendUDPData(packet);
-        }
-    }
     public static void PlayerShoot(Vector3 facing)
     {
         using (Packet packet = new Packet((int)ClientPackets.playerShoot))
@@ -83,6 +73,16 @@ public class PacketsToSend
             packet.Write(facing);
 
             SendTCPData(packet);
+        }
+    }
+    public static void PlayerAimingAnim(float angle, Quaternion localRot)
+    {
+        using(Packet packet = new Packet((int)ClientPackets.playerAimingAnim))
+        {
+            packet.Write(angle);
+            packet.Write(localRot);
+
+            SendUDPData(packet);
         }
     }
     // ===========================================================

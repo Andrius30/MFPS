@@ -277,6 +277,7 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.spawnProjectile, ClientHandle.SpawnProjectile },
             {(int) ServerPackets.projectilePosition, ClientHandle.ProjectilePosition },
             {(int) ServerPackets.playMoveAnimation, ClientHandle.PlayMoveAnimation },
+            {(int) ServerPackets.playerAiming, ClientHandle.PlayerAiming },
 
         	#endregion
         };

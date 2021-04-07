@@ -45,7 +45,6 @@ public class BaseWeapon : MonoBehaviour
         }
 
     }
-    void FixedUpdate() => PacketsToSend.WeaponRotation(this);
     public int GetFireMode() => fireMode;
     public virtual void PlayShootingSound() => source.PlayOneShot(shootingSound);
     public virtual void PlayMuzleFlash()

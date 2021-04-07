@@ -1,6 +1,5 @@
 using MFPS.ServerCharacters;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace MFPS.Weapons.Controllers
 {
@@ -12,10 +11,7 @@ namespace MFPS.Weapons.Controllers
         BaseWeapon currentWepon;
         Player player;
 
-        public WeaponsController(Player player)
-        {
-            this.player = player;
-        }
+        public WeaponsController(Player player) => this.player = player;
 
         public void ChangeWeapon(Player player)
         {
@@ -45,6 +41,10 @@ namespace MFPS.Weapons.Controllers
             currentWepon.gameObject.SetActive(true);
             PacketsToSend.PlayerChangedWeapon(player, currentWepon);
         }
+        public IWeapon GetCurrentWeaponType() => currentWepon.weaponType;
+        public BaseWeapon GetCurrentWeapon() => currentWepon;
+        public float GetCoolDown() => currentWepon.coolDown;
+
         void DisableAllWeapons()
         {
             foreach (BaseWeapon weapon in GetAllWeapons())
@@ -54,8 +54,5 @@ namespace MFPS.Weapons.Controllers
         }
         BaseWeapon[] GetAllWeapons() => player.weaponsParent.GetComponentsInChildren<BaseWeapon>(true);
         int GetWeaponsLength() => GetAllWeapons().Length;
-        public IWeapon GetCurrentWeaponType() => currentWepon.weaponType;
-        public BaseWeapon GetCurrentWeapon() => currentWepon;
-        public float GetCoolDown() => currentWepon.coolDown;
     }
 }

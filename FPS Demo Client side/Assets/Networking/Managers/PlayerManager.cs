@@ -76,5 +76,9 @@ public class PlayerManager : MonoBehaviour
         characterAnimator.SetFloat("horizontal", x);
         characterAnimator.SetFloat("vertical", z);
     }
-    public void PlayAimingAnimation(float angle) => characterAnimator.SetFloat("aimAngle", angle);
+    public void PlayAimingAnimation(float angle,Quaternion localRot)
+    {
+        weaponsparent.localRotation = localRot;
+        characterAnimator.SetFloat("aimAngle", angle);
+    }
 }
