@@ -24,6 +24,7 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public float moveSpeed;
         public float runSpeed = 5f;
         public float crouchSpeed = 2f;
+        public float walkSpeed = 2.5f;
         public float crouchCenter = -.4f;
         [Space(10)]
         [Header("Jump settings")]
@@ -41,7 +42,7 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public bool[] otherInputs;
         public CharacterController characterController;
 
-        PlayerMove playerMove;
+        [HideInInspector] public PlayerMove playerMove;
         Timer timer;
         [HideInInspector] public WeaponsController weaponsController;
 
@@ -54,6 +55,7 @@ namespace MFPS.ServerCharacters
             moveSpeed *= Time.fixedDeltaTime;
             runSpeed *= Time.fixedDeltaTime;
             crouchSpeed *= Time.fixedDeltaTime;
+            walkSpeed *= Time.fixedDeltaTime;
             jumpSpeed *= Time.fixedDeltaTime;
             health = maxHealth;
         }
@@ -65,7 +67,7 @@ namespace MFPS.ServerCharacters
             characterController = GetComponent<CharacterController>();
 
             inputs = new float[3];
-            otherInputs = new bool[2];
+            otherInputs = new bool[3];
         }
         void Update() => timer.StartTimer();
         void FixedUpdate()

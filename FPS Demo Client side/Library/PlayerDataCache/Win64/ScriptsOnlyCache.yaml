@@ -14,7 +14,7 @@ ScriptsOnlyBuild:
     - ThreadManager
     - UIManager
     Unity.Animation.Rigging.dll:
-    - UnityEngine.Animations.Rigging.BoneRenderer
+    - UnityEngine.Animations.Rigging.MultiAimConstraint
     - UnityEngine.Animations.Rigging.Rig
     - UnityEngine.Animations.Rigging.RigBuilder
     - UnityEngine.Animations.Rigging.RigTransform
@@ -108,6 +108,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1990}
     - Class: 114
+      Script: {instanceID: 2144}
+    - Class: 114
       Script: {instanceID: 2312}
     - Class: 114
       Script: {instanceID: 2326}
@@ -129,8 +131,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 2640}
     - Class: 114
       Script: {instanceID: 2770}
-    - Class: 114
-      Script: {instanceID: 2828}
     - Class: 114
       Script: {instanceID: 2872}
     - Class: 114
@@ -648,7 +648,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 79c7f4e585181e55f56cdd0be4bbdd2b
+      Hash: 8c24ae57c41ea9dab4b62b7d82e8646e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BaseWeapon

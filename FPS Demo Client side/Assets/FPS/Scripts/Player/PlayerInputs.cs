@@ -7,6 +7,7 @@ public class PlayerInputs
     public float VerticalInputs() => Input.GetAxis("Vertical");
     public bool JumpInput() => Input.GetKey(KeyCode.Space);
     public bool CrouchInput() => Input.GetKey(KeyCode.C);
+    public bool WalkInput() => Input.GetKey(KeyCode.LeftShift);
 
     // =========== MOVE END =====================================================
 

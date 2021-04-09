@@ -14,8 +14,13 @@ public class BaseWeapon : MonoBehaviour
     public int weaponID;
     public string weaponName;
 
+    [Space(10)]
     [Header("Weapon sounds")]
     public AudioClip shootingSound;
+
+    [Space(10)]
+    [Header("Weapon Animator")]
+    public Animator weaponAnimator;
 
     [Space(10)]
     [Header("Weapon muzle flash prefab")]
@@ -68,6 +73,7 @@ public class BaseWeapon : MonoBehaviour
             }
         }
     }
+    public virtual void PlayShootingAnimation() => weaponAnimator.SetTrigger("shoot");
 
     void OnEnable() => rig.weight = 1;
     void OnDisable() => rig.weight = 0;

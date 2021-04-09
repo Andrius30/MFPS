@@ -1,8 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Idle,
+    Running,
+    Walking,
+    Crouching
+}
+
 public class PlayerManager : MonoBehaviour
 {
+    PlayerState playerState;
+
     public int id;
     public string username;
 
@@ -85,7 +95,13 @@ public class PlayerManager : MonoBehaviour
         {
             CrouchAnimation(false, Vector3.zero);
         }
-        // TODO: Send msg to server play crouch anim
+    }
+    public void PlayWalkAnimation(bool isWalking)
+    {
+        if (isWalking)
+            characterAnimator.SetBool("isWalking", isWalking);
+        else
+            characterAnimator.SetBool("isWalking", isWalking);
     }
     public void PlayAimingAnimation(float angle, Quaternion localRot)
     {
@@ -96,5 +112,28 @@ public class PlayerManager : MonoBehaviour
     {
         characterAnimator.SetBool("isCrouching", isPlaying);
         weaponsparent.localPosition = pos;
+    }
+
+    /// <summary>
+    /// Play network animations
+    /// </summary>
+    /// <param name="state"></param>
+    public void PlayAnimationsDependingOnPlayerState(int state)
+    {
+        switch (state)
+        {
+            case (int)PlayerState.Crouching:
+                PlayCrouchAnimation(true);
+                PlayWalkAnimation(false);
+                break;
+            case (int)PlayerState.Walking:
+                PlayWalkAnimation(true);
+                PlayCrouchAnimation(false);
+                break;
+            case (int)PlayerState.Running:
+                PlayCrouchAnimation(false);
+                PlayWalkAnimation(false);
+                break;
+        }
     }
 }

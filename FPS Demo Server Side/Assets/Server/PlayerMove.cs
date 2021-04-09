@@ -2,10 +2,17 @@
 
 namespace MFPS.ServerCharacters
 {
-    class PlayerMove
+    public enum PlayerState
+    {
+        Idle,
+        Running,
+        Walking,
+        Crouching
+    }
+    public class PlayerMove
     {
         Player player;
-        bool isCrouching;
+        PlayerState playerState;
 
         public PlayerMove(Player player) => this.player = player;
 
@@ -15,16 +22,12 @@ namespace MFPS.ServerCharacters
         {
             Vector3 _moveDirection = player.transform.right * _inputDirection.x + player.transform.forward * _inputDirection.y;
 
-            if (!player.otherInputs[1])
-            {
-                player.moveSpeed = player.runSpeed;
-                isCrouching = false;
-            }
+            if (player.otherInputs[1])
+                SetPlayerStateAndSpeed(PlayerState.Crouching, player.crouchSpeed);
+            else if (player.otherInputs[2])
+                SetPlayerStateAndSpeed(PlayerState.Walking, player.walkSpeed);
             else
-            {
-                player.moveSpeed = player.crouchSpeed;
-                isCrouching = true;
-            }
+                SetPlayerStateAndSpeed(PlayerState.Running, player.runSpeed);
 
             _moveDirection *= player.moveSpeed;
 
@@ -43,6 +46,11 @@ namespace MFPS.ServerCharacters
             PacketsToSend.PlayerRotation(player);
         }
 
+        private void SetPlayerStateAndSpeed(PlayerState state, float speed)
+        {
+            player.moveSpeed = speed;
+            playerState = state;
+        }
         // REFACTOR later if I decide to go further with this demo =======
         void Jump(bool input)
         {
@@ -51,7 +59,7 @@ namespace MFPS.ServerCharacters
         }
         void Crouch()
         {
-            if (isCrouching)
+            if (playerState == PlayerState.Crouching)
                 SetCharacterController(1, player.crouchCenter);
             else
                 SetCharacterController(2, 0);
@@ -62,5 +70,6 @@ namespace MFPS.ServerCharacters
             player.characterController.height = height;
             player.characterController.center = new Vector3(0, center, 0);
         }
+        public PlayerState GetPlayerState() => playerState;
     }
 }

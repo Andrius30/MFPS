@@ -40,10 +40,13 @@ public class PlayerController : MonoBehaviour, IConsole
         // move =================================
         float x = playerInputs.HorizontalInputs();
         float z = playerInputs.VerticalInputs();
-        playerManager.PlayMoveAnimation(x, z);
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
+        bool walkInput = playerInputs.WalkInput();
+        
+        playerManager.PlayMoveAnimation(x, z);
         playerManager.PlayCrouchAnimation(crouchInput);
+        playerManager.PlayWalkAnimation(walkInput);
 
         float[] inputs = new float[]
         {
@@ -54,7 +57,8 @@ public class PlayerController : MonoBehaviour, IConsole
         bool[] otherInputs = new bool[]
         {
             jumpInput,
-            crouchInput
+            crouchInput,
+            walkInput
         };
 
         PacketsToSend.SendPlayerInputs(inputs);

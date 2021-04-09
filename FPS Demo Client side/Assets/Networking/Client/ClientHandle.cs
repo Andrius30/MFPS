@@ -100,6 +100,7 @@ public class ClientHandle
 
         GameManager.players[id].newWeapon.PlayShootingSound();
         GameManager.players[id].newWeapon.PlayMuzleFlash();
+        GameManager.players[id].newWeapon.PlayShootingAnimation();
     }
 
     public static void SpawnProjectile(Packet packet)
@@ -131,8 +132,11 @@ public class ClientHandle
         int playerID = packet.ReadInt();
         float x = packet.ReadFloat();
         float z = packet.ReadFloat();
+        int playerState = packet.ReadInt();
 
-        GameManager.players[playerID].PlayMoveAnimation(x, z);
+        PlayerManager player = GameManager.players[playerID];
+        player.PlayMoveAnimation(x, z);
+        player.PlayAnimationsDependingOnPlayerState(playerState);
     }
     internal static void PlayerAiming(Packet packet)
     {

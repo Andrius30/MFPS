@@ -109,6 +109,7 @@ class PacketsToSend
             packet.Write(player.id);
             packet.Write(x);
             packet.Write(z);
+            packet.Write((int)player.playerMove.GetPlayerState());
 
             SendUDPDataToAll(player.id, packet);
         }
