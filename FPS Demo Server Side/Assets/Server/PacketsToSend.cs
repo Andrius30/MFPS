@@ -154,11 +154,12 @@ class PacketsToSend
             SendTCPDataToAll(packet);
         }
     }
-    public static void PlayerShoot(Player player)
+    public static void WeaponState(Player player)
     {
-        using (Packet packet = new Packet((int)ServerPackets.playerShoot))
+        using (Packet packet = new Packet((int)ServerPackets.weaponState))
         {
             packet.Write(player.id);
+            packet.Write((int)player.weaponsController.GetCurrentWeapon().GetWeaponState());
 
             SendUDPDataToAll(packet);
         }

@@ -275,7 +275,7 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
+      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: Pistol
@@ -395,7 +395,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: e21d759cb1a2eea1baf293218aed258b
+      Hash: 9493f092e197d9f9293def6af392c4c5
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.ServerCharacters
     className: Player
@@ -455,7 +455,7 @@ ScriptsOnlyBuild:
     className: Projectile
   - hash:
       serializedVersion: 2
-      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
+      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: AK47
@@ -491,7 +491,7 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
-      Hash: 69380b1e4c07a53e6c42f466a6efa3e9
+      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: BaseWeapon

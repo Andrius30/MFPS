@@ -14832,7 +14832,7 @@ Animator:
   m_GameObject: {fileID: 3953835863050456978}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5d06c8e481e9c63409f7653006d9e396, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f133fde8e3f7d9d4f82b47fb6d521363, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -15248,9 +15248,10 @@ MonoBehaviour:
   weaponID: 0
   weaponName: 
   shootingSound: {fileID: 8300000, guid: 91eb75b6f9d7f6b4da18f6b66e82bd7f, type: 3}
+  weaponAnimator: {fileID: 0}
   muzleFlash: {fileID: 2902564538812066526}
   muzleLight: {fileID: 2902564538805954558}
-  projectilePosition: {fileID: 9070015926768161098}
+  rig: {fileID: 0}
 --- !u!82 &269681331598827054
 AudioSource:
   m_ObjectHideFlags: 0

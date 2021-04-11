@@ -8,7 +8,7 @@ namespace MFPS.Weapons.Controllers
         public List<BaseWeapon> weapons;
 
         public int currentWeaponIndex { get; set; }
-        BaseWeapon currentWepon;
+        BaseWeapon currentWeapon;
         Player player;
 
         public WeaponsController(Player player) => this.player = player;
@@ -37,13 +37,15 @@ namespace MFPS.Weapons.Controllers
         public void SetWeapon(Player player, int index)
         {
             DisableAllWeapons();
-            currentWepon = GetAllWeapons()[index];
-            currentWepon.gameObject.SetActive(true);
-            PacketsToSend.PlayerChangedWeapon(player, currentWepon);
+            currentWeapon = GetAllWeapons()[index];
+            currentWeapon.Init();
+            currentWeapon.SetWeaponState(WeaponState.DrawWeapon);
+            currentWeapon.gameObject.SetActive(true);
+            PacketsToSend.PlayerChangedWeapon(player, currentWeapon);
         }
-        public IWeapon GetCurrentWeaponType() => currentWepon.weaponType;
-        public BaseWeapon GetCurrentWeapon() => currentWepon;
-        public float GetCoolDown() => currentWepon.coolDown;
+        public IWeapon GetCurrentWeaponType() => currentWeapon.weaponType;
+        public BaseWeapon GetCurrentWeapon() => currentWeapon;
+        public float GetCoolDown() => currentWeapon.coolDown;
 
         void DisableAllWeapons()
         {

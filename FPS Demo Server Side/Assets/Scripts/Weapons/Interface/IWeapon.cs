@@ -1,5 +1,6 @@
 
 public interface IWeapon 
 {
+    void Init();
     void DoDamage(IDamagable damagable);
 }

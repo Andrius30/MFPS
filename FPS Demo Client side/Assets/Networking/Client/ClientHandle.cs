@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using UnityEngine;
 
@@ -46,7 +45,6 @@ public class ClientHandle
             player.transform.rotation = rotation;
         }
     }
-    // TODO: add msg from server player direction float values and play animation
     public static void PlayerDisconnected(Packet packet)
     {
         int id = packet.ReadInt();
@@ -71,9 +69,10 @@ public class ClientHandle
         int playerID = packet.ReadInt();
         string weaponname = packet.ReadString();
         int fireMode = packet.ReadInt();
+        // weapon state
         int currentWeponID = packet.ReadInt();
 
-        GameManager.players[playerID].ChangeWeapon(currentWeponID, weaponname, fireMode);
+        GameManager.players[playerID].ChangeWeapon(currentWeponID, weaponname, fireMode/* weapon state*/);
     }
     #endregion
 
@@ -94,13 +93,12 @@ public class ClientHandle
     #endregion
 
     #region Effects VFX,SFX
-    public static void PlayEffectsOnPlayerShoot(Packet packet)
+    public static void ChangeWeaponState(Packet packet)
     {
         int id = packet.ReadInt();
+        int weaponState = packet.ReadInt();
 
-        GameManager.players[id].newWeapon.PlayShootingSound();
-        GameManager.players[id].newWeapon.PlayMuzleFlash();
-        GameManager.players[id].newWeapon.PlayShootingAnimation();
+        GameManager.players[id].newWeapon.ActionsByWeaponState(weaponState);
     }
 
     public static void SpawnProjectile(Packet packet)
@@ -135,8 +133,8 @@ public class ClientHandle
         int playerState = packet.ReadInt();
 
         PlayerManager player = GameManager.players[playerID];
-        player.PlayMoveAnimation(x, z);
-        player.PlayAnimationsDependingOnPlayerState(playerState);
+        player.playerAnimations.PlayMoveAnimation(x, z);
+        player.playerAnimations.PlayAnimationsDependingOnPlayerState(playerState);
     }
     internal static void PlayerAiming(Packet packet)
     {
@@ -144,7 +142,7 @@ public class ClientHandle
         float angle = packet.ReadFloat();
         Quaternion localRot = packet.ReadQuaternion();
 
-        GameManager.players[playerID].PlayAimingAnimation(angle, localRot);
+        GameManager.players[playerID].playerAnimations.PlayAimingAnimation(angle, localRot);
     }
 
 

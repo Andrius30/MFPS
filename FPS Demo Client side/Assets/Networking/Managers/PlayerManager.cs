@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using FPSClient.Timers;
 using UnityEngine;
 
 public enum PlayerState
@@ -12,6 +12,7 @@ public enum PlayerState
 public class PlayerManager : MonoBehaviour
 {
     PlayerState playerState;
+    public SurfaceTypes currentSurface;
 
     public int id;
     public string username;
@@ -25,19 +26,52 @@ public class PlayerManager : MonoBehaviour
     [Header("Weapons")]
     public Transform weaponsparent;
     public Vector3 weaponParentPositionOnCrouching;
-    public BaseWeapon newWeapon { get; protected set; }
+    public ClientWeapon newWeapon { get; protected set; }
     public int startingWeaponIndex = 0;
 
     public MeshRenderer model;
     public Animator characterAnimator;
+    public PlayerAnimations playerAnimations { get; private set; }
+
+    [Space(10)]
+    [Header("Player foot steps audio settings")]
+    [SerializeField] PlayerAudio playerAudio;
+
+    [Space(10)]
+    [Header("Surface checking settings")]
+    public Transform surfaceCheckPosition;
+    public float checkDistance = 1f;
+    public float checkRatio = 0.3f;
+    public bool isDebugEnabled = false;
+
+    Timer timer;
+
+    [HideInInspector] public AudioSource playerSource;
+    SurfaceChecker surfaceChecker;
 
     internal void Initialize(int id, string userName)
     {
         this.id = id;
         this.username = userName;
         health = maxHealth;
+        playerAnimations = new PlayerAnimations(this);
 
+        playerAudio.Init(this);
+        playerSource = GetComponent<AudioSource>();
         PacketsToSend.SetStartingWeapon(GetAllWeapons()[startingWeaponIndex]); // send msg: set starting weapon
+        SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
+        surfaceChecker = new SurfaceChecker(this);
+        timer = new Timer(checkRatio, false);
+    }
+
+    void Update()
+    {
+        timer.StartTimer();
+        if (timer.IsDone())
+        {
+            surfaceChecker.CheckSurface();
+            timer.SetTimer(checkRatio, false);
+        }
     }
 
     #region Damagable section
@@ -69,6 +103,7 @@ public class PlayerManager : MonoBehaviour
         newWeapon = GetAllWeapons()[id];
         newWeapon.gameObject.SetActive(true);
         newWeapon.Initialize(id, name, fireMode);
+        newWeapon.weaponAnimations.DrawAnimations();
     }
     void DisableAllWeapons()
     {
@@ -77,63 +112,7 @@ public class PlayerManager : MonoBehaviour
             weapon.gameObject.SetActive(false);
         }
     }
-    BaseWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<BaseWeapon>(true);
+    ClientWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<ClientWeapon>(true);
     #endregion
 
-    public void PlayMoveAnimation(float x, float z)
-    {
-        characterAnimator.SetFloat("horizontal", x);
-        characterAnimator.SetFloat("vertical", z);
-    }
-    public void PlayCrouchAnimation(bool isCrouching)
-    {
-        if (isCrouching)
-        {
-            CrouchAnimation(true, weaponParentPositionOnCrouching);
-        }
-        else
-        {
-            CrouchAnimation(false, Vector3.zero);
-        }
-    }
-    public void PlayWalkAnimation(bool isWalking)
-    {
-        if (isWalking)
-            characterAnimator.SetBool("isWalking", isWalking);
-        else
-            characterAnimator.SetBool("isWalking", isWalking);
-    }
-    public void PlayAimingAnimation(float angle, Quaternion localRot)
-    {
-        weaponsparent.localRotation = localRot;
-        characterAnimator.SetFloat("aimAngle", angle);
-    }
-    void CrouchAnimation(bool isPlaying, Vector3 pos)
-    {
-        characterAnimator.SetBool("isCrouching", isPlaying);
-        weaponsparent.localPosition = pos;
-    }
-
-    /// <summary>
-    /// Play network animations
-    /// </summary>
-    /// <param name="state"></param>
-    public void PlayAnimationsDependingOnPlayerState(int state)
-    {
-        switch (state)
-        {
-            case (int)PlayerState.Crouching:
-                PlayCrouchAnimation(true);
-                PlayWalkAnimation(false);
-                break;
-            case (int)PlayerState.Walking:
-                PlayWalkAnimation(true);
-                PlayCrouchAnimation(false);
-                break;
-            case (int)PlayerState.Running:
-                PlayCrouchAnimation(false);
-                PlayWalkAnimation(false);
-                break;
-        }
-    }
 }

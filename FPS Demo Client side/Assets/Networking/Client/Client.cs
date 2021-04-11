@@ -267,11 +267,11 @@ public class Client : MonoBehaviour
             #endregion
             #region WEAPONS
             {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },
+            {(int)ServerPackets.weaponState, ClientHandle.ChangeWeaponState },
             #endregion
             #region Enemies
             {(int)ServerPackets.enemyHealth, ClientHandle.EnemyHealth },
             {(int)ServerPackets.enemyRespawned, ClientHandle.EnemyRespawned },
-            {(int)ServerPackets.playerShoot, ClientHandle.PlayEffectsOnPlayerShoot },
         	#endregion
             #region Projectiles
             {(int) ServerPackets.spawnProjectile, ClientHandle.SpawnProjectile },

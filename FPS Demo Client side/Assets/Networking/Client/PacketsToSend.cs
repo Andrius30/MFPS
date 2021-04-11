@@ -57,7 +57,7 @@ public class PacketsToSend
     // ===========================================================
 
     // ================= WEAPONS =================================
-    public static void SetStartingWeapon(BaseWeapon weapon)
+    public static void SetStartingWeapon(ClientWeapon weapon)
     {
         using(Packet packet =new Packet((int)ClientPackets.setStartingWeapon))
         {

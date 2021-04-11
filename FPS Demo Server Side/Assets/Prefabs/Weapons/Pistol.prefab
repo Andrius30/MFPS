@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859229116864261928}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43300003, y: 0.48000002, z: 1.56}
+  m_LocalRotation: {x: 0.000000014901161, y: -0.7628836, z: 0.000000015366822, w: 0.6465359}
+  m_LocalPosition: {x: 0.354, y: -0.334, z: -0.694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 977483790072100722}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -99.438, z: 0}
 --- !u!1 &1878580075041493556
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,10 +137,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firemode: 1
+  weaponState: 0
   id: 0
   weaponName: Pistol
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
   projectileSpawnPosition: {fileID: 6441396936032553952}
   bulletForce: 130
+  totalBullets: 21
+  magazineCapacity: 7
   weaponDamage: 10
-  coolDown: 1
+  coolDown: 0.8
+  weaponDrawTime: 0.5
+  reloadTime: 1.4

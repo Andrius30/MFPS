@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -44,9 +43,9 @@ public class PlayerController : MonoBehaviour, IConsole
         bool crouchInput = playerInputs.CrouchInput();
         bool walkInput = playerInputs.WalkInput();
         
-        playerManager.PlayMoveAnimation(x, z);
-        playerManager.PlayCrouchAnimation(crouchInput);
-        playerManager.PlayWalkAnimation(walkInput);
+        playerManager.playerAnimations.PlayMoveAnimation(x, z);
+        playerManager.playerAnimations.PlayCrouchAnimation(crouchInput);
+        playerManager.playerAnimations.PlayWalkAnimation(walkInput);
 
         float[] inputs = new float[]
         {
@@ -65,6 +64,7 @@ public class PlayerController : MonoBehaviour, IConsole
         PacketsToSend.SendOtherInputs(otherInputs);
     }
 
+    #region Developer console test
     public void Execute()
     {
         if (cursorLockDisabled)
@@ -74,5 +74,6 @@ public class PlayerController : MonoBehaviour, IConsole
     public void PrintToConsole(ref TextMeshProUGUI output, string prefix)
     {
         output.text += $" { prefix } Cursor locking has been disabled.";
-    }
+    } 
+    #endregion
 }

@@ -75,13 +75,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firemode: 3
+  weaponState: 0
   id: 1
   weaponName: Ak47
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
   projectileSpawnPosition: {fileID: 8223427602329897744}
   bulletForce: 200
+  totalBullets: 90
+  magazineCapacity: 30
   weaponDamage: 30
-  coolDown: 0.1
+  coolDown: 0.037
+  weaponDrawTime: 0.5
+  reloadTime: 1.5
 --- !u!1 &5851520734333053009
 GameObject:
   m_ObjectHideFlags: 0

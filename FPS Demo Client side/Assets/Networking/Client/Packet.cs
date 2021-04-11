@@ -22,7 +22,7 @@ public enum ServerPackets
     // Enemies
     enemyHealth,
     enemyRespawned,
-    playerShoot,
+    weaponState,
     spawnProjectile,
     projectilePosition,
     playMoveAnimation,

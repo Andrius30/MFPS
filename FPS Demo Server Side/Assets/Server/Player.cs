@@ -42,8 +42,8 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public bool[] otherInputs;
         public CharacterController characterController;
 
-        [HideInInspector] public PlayerMove playerMove;
         Timer timer;
+        [HideInInspector] public PlayerMove playerMove;
         [HideInInspector] public WeaponsController weaponsController;
 
         void Start()
@@ -69,7 +69,14 @@ namespace MFPS.ServerCharacters
             inputs = new float[3];
             otherInputs = new bool[3];
         }
-        void Update() => timer.StartTimer();
+        void Update()
+        {
+            timer.StartTimer();
+            if (!timer.IsDone() && // if timer is not done and not realoding and not out of ammo and not drawing weapon set to idle
+                WepState() != WeaponState.Reloading &&
+                WepState() != WeaponState.DrawWeapon)
+                weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Idle);
+        }
         void FixedUpdate()
         {
             if (health <= 0) return;
@@ -80,20 +87,31 @@ namespace MFPS.ServerCharacters
 
             PacketsToSend.PlayMovementAnimation(this, _inputDirection.x, _inputDirection.y);
             weaponsController.ChangeWeapon(this);
+            if (weaponsController.GetCurrentWeapon() == null) return;
+            PacketsToSend.WeaponState(this);
         }
         public void Shoot(Vector3 _viewDirection)
         {
             if (health <= 0) return;
+            if (WepState() == WeaponState.Reloading ||
+                WepState() == WeaponState.DrawWeapon)
+                return;
+
             if (timer.IsDone())
             {
-                PacketsToSend.PlayerShoot(this);
-                weaponsController.GetCurrentWeapon().SpawnProjectile(_viewDirection);
-                if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+                if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
+                    weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
+                else
                 {
-                    IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
-                    if (damagable != null)
+                    weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
+                    weaponsController.GetCurrentWeapon().SpawnProjectile(_viewDirection);
+                    if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
                     {
-                        weaponsController.GetCurrentWeaponType()?.DoDamage(damagable);
+                        IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
+                        if (damagable != null)
+                        {
+                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable);
+                        }
                     }
                 }
                 timer.SetTimer(weaponsController.GetCoolDown(), false);
@@ -148,5 +166,6 @@ namespace MFPS.ServerCharacters
             PacketsToSend.PlayerRespawned(this);
         }
         #endregion
+        WeaponState WepState() => weaponsController.GetCurrentWeapon().GetWeaponState();
     }
 }

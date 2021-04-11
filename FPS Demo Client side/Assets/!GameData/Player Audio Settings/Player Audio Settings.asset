@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6708d2e78635a9c43815234471378a7d, type: 3}
+  m_Name: Player Audio Settings
+  m_EditorClassIdentifier: 
+  concreteClips:
+  - {fileID: 8300000, guid: e85da47020d629f4eb8b7f92a31759f5, type: 3}
+  - {fileID: 8300000, guid: 9084fab6a9acc27438964a6b25543c4b, type: 3}
+  dirtClips:
+  - {fileID: 8300000, guid: 9222b76a392de004a9609da616c19fb8, type: 3}
+  - {fileID: 8300000, guid: 93fdd958d5d24fd4089659f6c2cb1874, type: 3}
+  metalClips:
+  - {fileID: 8300000, guid: f31b448065bc9234c9a13b93d44d32ae, type: 3}
+  - {fileID: 8300000, guid: 58b274c7bb6cf16458cc4864d7b31547, type: 3}
+  woodClips:
+  - {fileID: 8300000, guid: 84f96825ca88a4749bb9d9de21937068, type: 3}
+  - {fileID: 8300000, guid: c206430f8573f8b4a82632d40426ff25, type: 3}
+  grassClips:
+  - {fileID: 8300000, guid: 564b5ddd7d2f71a40ba1e0a6bb6e8d44, type: 3}
+  - {fileID: 8300000, guid: 823cf568e6233174e9d86a455435b430, type: 3}
