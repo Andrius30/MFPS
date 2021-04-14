@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - MFPS.Weapons.Pistol
     - NetworkManager
     - Projectile
+    - Surface
     - ThreadManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -47,19 +48,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1968}
+      Script: {instanceID: 1522}
     - Class: 114
-      Script: {instanceID: 2332}
+      Script: {instanceID: 1970}
     - Class: 114
-      Script: {instanceID: 2990}
+      Script: {instanceID: 2334}
     - Class: 114
-      Script: {instanceID: 3126}
+      Script: {instanceID: 2992}
     - Class: 114
-      Script: {instanceID: 3204}
+      Script: {instanceID: 3128}
     - Class: 114
-      Script: {instanceID: 3250}
+      Script: {instanceID: 3206}
     - Class: 114
-      Script: {instanceID: 3496}
+      Script: {instanceID: 3252}
+    - Class: 114
+      Script: {instanceID: 3498}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 143
@@ -87,6 +90,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ContentSizeFitter
+  - hash:
+      serializedVersion: 2
+      Hash: adb1f6d24085ee3a0516d7199b752725
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Surface
   - hash:
       serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2

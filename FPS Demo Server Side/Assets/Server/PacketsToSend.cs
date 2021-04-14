@@ -123,16 +123,25 @@ class PacketsToSend
             SendTCPDataToAll(_packet);
         }
     }
-    public static void PlayerHealth(Player player)
+    public static void PlayerHealthAndDmg(Transform attacker, float dmg, Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerHealth))
         {
             packet.Write(player.id);
             packet.Write(player.health);
+            packet.Write(dmg);
+            Player pl = attacker.GetComponent<Player>();
+            Enemy en = attacker.GetComponent<Enemy>();
+          
+            if (pl != null)
+                packet.Write(pl.id);
+            if (en != null)
+                packet.Write(en.id);
 
             SendTCPDataToAll(packet);
         }
     }
+
     internal static void PlayerRespawned(Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerRespawned))
@@ -178,6 +187,18 @@ class PacketsToSend
     #endregion
 
     #region Enemies Section
+    public static void SpawnEnemy(Enemy enemy)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            packet.Write(enemy.id);
+            packet.Write(enemy.transform.position);
+            packet.Write(enemy.transform.rotation);
+
+            SendTCPDataToAll(packet);
+        }
+    }
+    // TODO: Send enemy position and rotation
     public static void EnemyHealth(Enemy enemy)
     {
         using (Packet packet = new Packet((int)ServerPackets.enemyHealth))

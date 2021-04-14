@@ -42,6 +42,11 @@ public class ClientWeapon : MonoBehaviour
     [Header("Unity animation riging. RIG")]
     [SerializeField] Rig rig;
 
+    [Space(10)]
+    [Header("Weapon shoot position")]
+    public Transform shootPosition;
+    public Transform model;
+
     int fireMode;
     Weapons_SFX weapons_SFX;
     Weapon_VFX weapon_VFX;

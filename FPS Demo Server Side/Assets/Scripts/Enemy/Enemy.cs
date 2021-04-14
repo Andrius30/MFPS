@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    //public int id;
+    public int id;
     public float maxHealth = 100f;
     float health;
 
@@ -15,8 +14,9 @@ public class Enemy : MonoBehaviour, IDamagable
         health = maxHealth;
     }
 
-    public void TakeDamage(float dmg)
+    public void TakeDamage(float dmg, Transform attacker)
     {
+        Debug.Log($"Enemy taking damage {dmg} from {attacker.name}");
         if (health > 0)
             health -= dmg;
         if (health <= 0)
@@ -40,6 +40,5 @@ public class Enemy : MonoBehaviour, IDamagable
 
         PacketsToSend.EnemyRespawned(this);
     }
-
     public float GetHealth() => health;
 }

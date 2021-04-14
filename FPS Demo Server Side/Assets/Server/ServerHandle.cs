@@ -40,6 +40,7 @@ class ServerHandle
     {
         Vector3 viewDirection = packet.ReadVector3();
 
+
         Server.clients[fromClient].player.Shoot(viewDirection);
     }
     public static void PlayerAiming(int fromClient, Packet packet)
@@ -50,12 +51,23 @@ class ServerHandle
         Server.clients[fromClient].player.UpdateAimingPivotRotation(angle, localRot);
     }
     #region Weapons section
-    internal static void SetStartingWeapon(int fromClient, Packet packet)
+    internal static void SetStartingWeaponAndAllPositions(int fromClient, Packet packet)
     {
-        int wepID = packet.ReadInt();
+        int startingWeaponIndex = packet.ReadInt();
 
         Player player = Server.clients[fromClient].player;
-        player.weaponsController.SetWeapon(player, wepID);
+        player.weaponsController.SetWeapon(player, startingWeaponIndex);
+
+        foreach (var weapon in player.weaponsController.GetAllWeapons())
+        {
+            // model position and rotation
+            Vector3 modelPosition = packet.ReadVector3();
+            Quaternion modelRotation = packet.ReadQuaternion();
+            // Shoot position and rotation
+            Vector3 shootPosition = packet.ReadVector3();
+            Quaternion rot = packet.ReadQuaternion();
+            weapon.InitializeWeapons(modelPosition, modelRotation, shootPosition, rot);
+        }
     }
     #endregion
 }

@@ -128,7 +128,7 @@ public class Server
                 {(int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
                 {(int)ClientPackets.playerOtherInputs, ServerHandle.PlayerOtherInputs },
                 {(int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
-                {(int)ClientPackets.setStartingWeapon, ServerHandle.SetStartingWeapon },
+                {(int)ClientPackets.setStartingWeapon, ServerHandle.SetStartingWeaponAndAllPositions },
                 {(int)ClientPackets.playerAimingAnim, ServerHandle.PlayerAiming },
 
         };

@@ -57,11 +57,20 @@ public class PacketsToSend
     // ===========================================================
 
     // ================= WEAPONS =================================
-    public static void SetStartingWeapon(ClientWeapon weapon)
+    public static void InitializeWeaponsAndSetStartingWeapon(ClientWeapon[] weapons, int startingWeaponIndex)
     {
-        using(Packet packet =new Packet((int)ClientPackets.setStartingWeapon))
+        using (Packet packet = new Packet((int)ClientPackets.setStartingWeapon))
         {
-            packet.Write(weapon.weaponID);
+            packet.Write(startingWeaponIndex);
+            foreach (var weapon in weapons)
+            {
+                packet.Write(weapon.model.localPosition);
+                packet.Write(weapon.model.localRotation);
+                packet.Write(weapon.shootPosition.localPosition);
+                packet.Write(weapon.shootPosition.localRotation);
+                //Debug.Log($"Send to server weapon {weapon.weaponID} position {weapon.model.localPosition} rotation " +
+                //    $" {weapon.model.localRotation}:green:18;".Interpolate());
+            }
 
             SendTCPData(packet);
         }
@@ -77,7 +86,7 @@ public class PacketsToSend
     }
     public static void PlayerAimingAnim(float angle, Quaternion localRot)
     {
-        using(Packet packet = new Packet((int)ClientPackets.playerAimingAnim))
+        using (Packet packet = new Packet((int)ClientPackets.playerAimingAnim))
         {
             packet.Write(angle);
             packet.Write(localRot);

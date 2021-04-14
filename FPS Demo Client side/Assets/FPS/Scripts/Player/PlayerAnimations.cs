@@ -44,13 +44,13 @@ public class PlayerAnimations
         playerManager.characterAnimator.SetBool("isCrouching", isPlaying);
         playerManager.weaponsparent.localPosition = pos;
     }
-
     /// <summary>
     /// Play network animations
     /// </summary>
     /// <param name="state"></param>
     public void PlayAnimationsDependingOnPlayerState(int state)
     {
+        Debug.Log($"State {state}");
         switch (state)
         {
             case (int)PlayerState.Crouching:

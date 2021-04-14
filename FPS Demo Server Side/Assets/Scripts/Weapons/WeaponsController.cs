@@ -46,6 +46,7 @@ namespace MFPS.Weapons.Controllers
         public IWeapon GetCurrentWeaponType() => currentWeapon.weaponType;
         public BaseWeapon GetCurrentWeapon() => currentWeapon;
         public float GetCoolDown() => currentWeapon.coolDown;
+        public BaseWeapon[] GetAllWeapons() => player.weaponsParent.GetComponentsInChildren<BaseWeapon>(true);
 
         void DisableAllWeapons()
         {
@@ -54,7 +55,6 @@ namespace MFPS.Weapons.Controllers
                 weapon.gameObject.SetActive(false);
             }
         }
-        BaseWeapon[] GetAllWeapons() => player.weaponsParent.GetComponentsInChildren<BaseWeapon>(true);
         int GetWeaponsLength() => GetAllWeapons().Length;
     }
 }

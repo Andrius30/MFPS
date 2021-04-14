@@ -236,6 +236,10 @@ public class Client
             }
         }
 
+        foreach (var enemy in EnemySpawner.enemies.Values)
+        {
+            PacketsToSend.SpawnEnemy(enemy);
+        }
     }
 }
 

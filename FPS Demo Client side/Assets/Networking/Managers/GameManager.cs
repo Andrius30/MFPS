@@ -6,9 +6,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public static Dictionary<int, Projectile> projectiles = new Dictionary<int, Projectile>();
+    public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
+
     [SerializeField] GameObject localPlayerPrefab;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject sceneCamera;
 
     void Awake()
@@ -44,5 +47,10 @@ public class GameManager : MonoBehaviour
         Projectile projectile = gm.GetComponent<Projectile>();
         projectiles.Add(id, projectile);
     }
-
+    public void SpawnEnemy(int id,Vector3 position,Quaternion rotation)
+    {
+        GameObject gm = Instantiate(enemyPrefab, position, rotation);
+        Enemy enemy = gm.GetComponent<Enemy>();
+        enemies.Add(id, enemy);
+    }
 }

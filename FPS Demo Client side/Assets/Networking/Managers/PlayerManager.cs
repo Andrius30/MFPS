@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
 
         playerAudio.Init(this);
         playerSource = GetComponent<AudioSource>();
-        PacketsToSend.SetStartingWeapon(GetAllWeapons()[startingWeaponIndex]); // send msg: set starting weapon
+        PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
         SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
         surfaceChecker = new SurfaceChecker(this);
         timer = new Timer(checkRatio, false);

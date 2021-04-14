@@ -2,7 +2,6 @@ using MFPS.ServerTimers;
 using MFPS.Weapons;
 using MFPS.Weapons.Controllers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MFPS.ServerCharacters
@@ -99,18 +98,23 @@ namespace MFPS.ServerCharacters
 
             if (timer.IsDone())
             {
-                if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
-                    weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
+                if (GetCurrentWeapon().IsoutOfAmmo())
+                    GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
                 else
                 {
-                    weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
-                    weaponsController.GetCurrentWeapon().SpawnProjectile(_viewDirection);
-                    if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+                    GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
+                    GetCurrentWeapon().SpawnProjectile();
+                    // ======== DEBUGING ====================================================
+                    Debug.DrawRay(shootOrigin.position, _viewDirection * 25f, Color.red);
+                    // ======================================================================
+                    if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, GetCurrentWeapon().weaponRange))
                     {
+                        Debug.Log($"Hit tr {_hit.transform.name} :red;".Interpolate());
                         IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
                         if (damagable != null)
                         {
-                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable);
+                            Debug.Log($"Damagable {_hit.transform.name} :red:18;".Interpolate());
+                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root);
                         }
                     }
                 }
@@ -139,7 +143,7 @@ namespace MFPS.ServerCharacters
         #endregion
 
         #region Damage section
-        public void TakeDamage(float dmg)
+        public void TakeDamage(float dmg, Transform attacker)
         {
             if (health <= 0) return;
             health -= dmg;
@@ -147,7 +151,7 @@ namespace MFPS.ServerCharacters
             if (health <= 0)
                 Die();
 
-            PacketsToSend.PlayerHealth(this);
+            PacketsToSend.PlayerHealthAndDmg(attacker, dmg, this);
         }
         public void Die()
         {
@@ -166,6 +170,7 @@ namespace MFPS.ServerCharacters
             PacketsToSend.PlayerRespawned(this);
         }
         #endregion
-        WeaponState WepState() => weaponsController.GetCurrentWeapon().GetWeaponState();
+        WeaponState WepState() => GetCurrentWeapon().GetWeaponState();
+        BaseWeapon GetCurrentWeapon() => weaponsController.GetCurrentWeapon();
     }
 }

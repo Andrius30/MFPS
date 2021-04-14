@@ -22,8 +22,12 @@ namespace MFPS.Weapons
         public FireMode firemode;
         [SerializeField] WeaponState weaponState;
 
+        [Header("Other Weapon settings and options")]
         public int id;
         public string weaponName;
+        public float weaponRange = 25f;
+        [SerializeField] Transform weaponModel;
+
         [Space(10)]
         [Header("Bullets Setting")]
         public GameObject projectile;
@@ -46,50 +50,6 @@ namespace MFPS.Weapons
         Timer drawWeaponTimer;
         Timer reloadTimer;
 
-        public virtual void Init()
-        {
-            if (drawWeaponTimer == null)
-                drawWeaponTimer = new Timer(weaponDrawTime, false);
-            else
-                drawWeaponTimer.SetTimer(weaponDrawTime, false);
-
-            if (reloadTimer == null)
-                reloadTimer = new Timer(reloadTime, false);
-            else
-                reloadTimer.SetTimer(reloadTime, false);
-        }
-        public virtual void DoDamage(IDamagable damagable)
-        {
-            damagable.TakeDamage(weaponDamage);
-        }
-        public void SpawnProjectile(Vector3 direction)
-        {
-            if (IsMagazineEmpty())
-            {
-                reloadTimer.SetTimer(reloadTime, false);
-                SetWeaponState(WeaponState.Reloading);
-                return;
-            }
-            if (firemode == FireMode.auto)
-            {
-                count++;
-                if (count >= 3)
-                {
-                    CreateBullet(direction);
-                    count = 0;
-                }
-            }
-            else
-            {
-                CreateBullet(direction);
-            }
-            shootedbullets++;
-        }
-
-        public bool IsoutOfAmmo() => (GetCurrentBulletsAtMagazine() <= 0 && totalBullets - shootedbullets <= 0);
-        public void SetWeaponState(WeaponState state) => weaponState = state;
-        public WeaponState GetWeaponState() => weaponState;
-
         void Update()
         {
             if (GetWeaponState() == WeaponState.DrawWeapon)
@@ -107,11 +67,71 @@ namespace MFPS.Weapons
                 }
             }
         }
-        void CreateBullet(Vector3 direction)
+
+        /// <summary>
+        /// Getting all required weapon position from client when new client connect
+        /// </summary>
+        /// <param name="modelPosition"></param>
+        /// <param name="modelRotation"></param>
+        /// <param name="shootPos"></param>
+        /// <param name="shootRot"></param>
+        public virtual void InitializeWeapons(Vector3 modelPosition, Quaternion modelRotation, Vector3 shootPos, Quaternion shootRot)
         {
-            GameObject gm = Instantiate(projectile, projectileSpawnPosition.position, projectileSpawnPosition.rotation);
+            weaponModel.localPosition = modelPosition;
+            weaponModel.localRotation = modelRotation;
+            projectileSpawnPosition.localPosition = shootPos;
+            projectileSpawnPosition.localRotation = shootRot;
+            //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
+        }
+       
+        public virtual void Init()
+        {
+            if (drawWeaponTimer == null)
+                drawWeaponTimer = new Timer(weaponDrawTime, false);
+            else
+                drawWeaponTimer.SetTimer(weaponDrawTime, false);
+
+            if (reloadTimer == null)
+                reloadTimer = new Timer(reloadTime, false);
+            else
+                reloadTimer.SetTimer(reloadTime, false);
+        }
+        public virtual void DoDamage(IDamagable damagable, Transform attacker)
+        {
+            damagable.TakeDamage(weaponDamage, attacker);
+        }
+        public void SpawnProjectile()
+        {
+            if (IsMagazineEmpty())
+            {
+                reloadTimer.SetTimer(reloadTime, false);
+                SetWeaponState(WeaponState.Reloading);
+                return;
+            }
+            if (firemode == FireMode.auto)
+            {
+                count++;
+                if (count >= 3)
+                {
+                    CreateBullet(projectileSpawnPosition);
+                    count = 0;
+                }
+            }
+            else
+            {
+                CreateBullet(projectileSpawnPosition);
+            }
+            shootedbullets++;
+        }
+        public virtual bool IsoutOfAmmo() => (GetCurrentBulletsAtMagazine() <= 0 && totalBullets - shootedbullets <= 0);
+        public virtual void SetWeaponState(WeaponState state) => weaponState = state;
+        public WeaponState GetWeaponState() => weaponState;
+
+        void CreateBullet(Transform spawntr)
+        {
+            GameObject gm = Instantiate(projectile, spawntr.position, spawntr.rotation);
             Projectile proj = gm.GetComponent<Projectile>();
-            proj.GetComponent<Rigidbody>().AddForce(projectileSpawnPosition.position + direction * bulletForce, ForceMode.Impulse);
+            proj.GetComponent<Rigidbody>().AddForce(spawntr.forward * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
         void ReloadWeapon()

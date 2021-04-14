@@ -270,6 +270,7 @@ public class Client : MonoBehaviour
             {(int)ServerPackets.weaponState, ClientHandle.ChangeWeaponState },
             #endregion
             #region Enemies
+            {(int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy},
             {(int)ServerPackets.enemyHealth, ClientHandle.EnemyHealth },
             {(int)ServerPackets.enemyRespawned, ClientHandle.EnemyRespawned },
         	#endregion

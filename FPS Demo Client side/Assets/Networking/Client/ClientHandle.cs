@@ -55,6 +55,8 @@ public class ClientHandle
     {
         int id = packet.ReadInt();
         float health = packet.ReadFloat();
+        // TODO: get dmg
+        // TODO: get attacker id
 
         GameManager.players[id].SetHealth(health);
     }
@@ -77,6 +79,15 @@ public class ClientHandle
     #endregion
 
     #region Enemies
+    public static void SpawnEnemy(Packet packet)
+    {
+        int enemyID = packet.ReadInt();
+        Vector3 pos = packet.ReadVector3();
+        Quaternion rot = packet.ReadQuaternion();
+
+        GameManager.instance.SpawnEnemy(enemyID, pos, rot);
+    }
+    //TODO: Update enemy position and rotation
     public static void EnemyHealth(Packet packet)
     {
         float health = packet.ReadFloat();
