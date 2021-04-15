@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Enemy
+    - EnemySpawner
     - MFPS.ServerCharacters.Player
     - MFPS.Weapons.AK47
     - MFPS.Weapons.Pistol
@@ -54,16 +55,20 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2334}
     - Class: 114
-      Script: {instanceID: 2992}
+      Script: {instanceID: 2944}
     - Class: 114
-      Script: {instanceID: 3128}
+      Script: {instanceID: 2994}
     - Class: 114
-      Script: {instanceID: 3206}
+      Script: {instanceID: 3130}
     - Class: 114
-      Script: {instanceID: 3252}
+      Script: {instanceID: 3208}
     - Class: 114
-      Script: {instanceID: 3498}
+      Script: {instanceID: 3254}
+    - Class: 114
+      Script: {instanceID: 3500}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 143
       Script: {instanceID: 0}
@@ -218,7 +223,7 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 1bfe86dde29707e57f768fcc85ea1283
+      Hash: 7e9ba255b10c1b4234be160aa7938aff
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
@@ -284,7 +289,7 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
+      Hash: c3316bb9dee0323d3ce20661504fdd12
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: Pistol
@@ -404,7 +409,13 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: 9493f092e197d9f9293def6af392c4c5
+      Hash: cb180a665159e12b7af23d4139455b21
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemySpawner
+  - hash:
+      serializedVersion: 2
+      Hash: c7b1385afe9f9571ae649dfcb5292886
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.ServerCharacters
     className: Player
@@ -464,7 +475,7 @@ ScriptsOnlyBuild:
     className: Projectile
   - hash:
       serializedVersion: 2
-      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
+      Hash: c3316bb9dee0323d3ce20661504fdd12
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: AK47
@@ -500,7 +511,7 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
-      Hash: 97a7356aa010f5ae3dd4dc142e9f8cfe
+      Hash: c3316bb9dee0323d3ce20661504fdd12
     assemblyName: Assembly-CSharp.dll
     namespaceName: MFPS.Weapons
     className: BaseWeapon

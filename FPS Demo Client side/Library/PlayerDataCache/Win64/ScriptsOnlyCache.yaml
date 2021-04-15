@@ -1,11 +1,14 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - BloodSplatter
     - BundleWebLoader
     - CameraController
     - Client
     - ClientWeapon
     - ConsoleController
+    - DamageIndicators
+    - DirectionalDamageIndicator
     - Enemy
     - GameManager
     - PlayerAudio
@@ -33,10 +36,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -98,7 +99,7 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1518}
+      Script: {instanceID: 1476}
     - Class: 114
       Script: {instanceID: 1542}
     - Class: 114
@@ -108,66 +109,74 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1750}
     - Class: 114
-      Script: {instanceID: 1988}
+      Script: {instanceID: 1936}
     - Class: 114
-      Script: {instanceID: 2138}
+      Script: {instanceID: 1990}
     - Class: 114
-      Script: {instanceID: 2306}
+      Script: {instanceID: 2140}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 2308}
     - Class: 114
-      Script: {instanceID: 2340}
+      Script: {instanceID: 2322}
     - Class: 114
-      Script: {instanceID: 2428}
+      Script: {instanceID: 2330}
     - Class: 114
-      Script: {instanceID: 2470}
+      Script: {instanceID: 2344}
     - Class: 114
-      Script: {instanceID: 2492}
+      Script: {instanceID: 2432}
     - Class: 114
-      Script: {instanceID: 2522}
+      Script: {instanceID: 2474}
     - Class: 114
-      Script: {instanceID: 2560}
+      Script: {instanceID: 2496}
     - Class: 114
-      Script: {instanceID: 2572}
+      Script: {instanceID: 2526}
     - Class: 114
-      Script: {instanceID: 2636}
+      Script: {instanceID: 2564}
     - Class: 114
-      Script: {instanceID: 2766}
+      Script: {instanceID: 2576}
     - Class: 114
-      Script: {instanceID: 2868}
+      Script: {instanceID: 2640}
     - Class: 114
-      Script: {instanceID: 2884}
+      Script: {instanceID: 2770}
     - Class: 114
-      Script: {instanceID: 3144}
+      Script: {instanceID: 2872}
     - Class: 114
-      Script: {instanceID: 3156}
+      Script: {instanceID: 2888}
     - Class: 114
-      Script: {instanceID: 3216}
+      Script: {instanceID: 3148}
     - Class: 114
-      Script: {instanceID: 3466}
+      Script: {instanceID: 3160}
     - Class: 114
-      Script: {instanceID: 3680}
+      Script: {instanceID: 3220}
     - Class: 114
-      Script: {instanceID: 3744}
+      Script: {instanceID: 3470}
     - Class: 114
-      Script: {instanceID: 3780}
+      Script: {instanceID: 3684}
     - Class: 114
-      Script: {instanceID: 3798}
+      Script: {instanceID: 3748}
     - Class: 114
-      Script: {instanceID: 3996}
+      Script: {instanceID: 3784}
     - Class: 114
-      Script: {instanceID: 4052}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4056}
+      Script: {instanceID: 4002}
+    - Class: 114
+      Script: {instanceID: 4008}
     - Class: 114
       Script: {instanceID: 4060}
     - Class: 114
-      Script: {instanceID: 4124}
+      Script: {instanceID: 4064}
+    - Class: 114
+      Script: {instanceID: 4068}
+    - Class: 114
+      Script: {instanceID: 4132}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
@@ -187,6 +196,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    - Class: 225
+      Script: {instanceID: 0}
     - Class: 241
       Script: {instanceID: 0}
     - Class: 243
@@ -196,16 +207,16 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
-      Hash: 5ab533713adae59372fb3e10a585c186
-    assemblyName: Unity.Timeline.dll
-    namespaceName: UnityEngine.Timeline
-    className: AnimationPlayableAsset
-  - hash:
-      serializedVersion: 2
       Hash: a6e561615949734e9f12f9b61661f43e
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 5ab533713adae59372fb3e10a585c186
+    assemblyName: Unity.Timeline.dll
+    namespaceName: UnityEngine.Timeline
+    className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2
@@ -274,6 +285,12 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
+      Hash: 123f488f13911c48be833d6e5b54b2f3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DirectionalDamageIndicator
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -340,6 +357,12 @@ ScriptsOnlyBuild:
     className: RigBuilder
   - hash:
       serializedVersion: 2
+      Hash: 201fa500e19666fcc571c9dd16d3b35c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BloodSplatter
+  - hash:
+      serializedVersion: 2
       Hash: 28b999ae0c5db053ad9a641c236c3676
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -382,7 +405,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 021fa4b3e90cdcc639cf4b2663883718
+      Hash: 573059666172d48c454894bd81944520
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -640,7 +663,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 382f6eca0294ca07007dcc372571cba8
+      Hash: 588d65203b7c5f521f3d7742b9e2be9f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ClientWeapon
@@ -734,6 +757,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SurfaceAnimationEvents
+  - hash:
+      serializedVersion: 2
+      Hash: cd254a5d328c1e6f72a9b50bb582c3b3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DamageIndicators
   - hash:
       serializedVersion: 2
       Hash: 10f20404aa1cb1da4ecede3a4b6357d6

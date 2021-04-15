@@ -49,8 +49,11 @@ public class GameManager : MonoBehaviour
     }
     public void SpawnEnemy(int id,Vector3 position,Quaternion rotation)
     {
-        GameObject gm = Instantiate(enemyPrefab, position, rotation);
-        Enemy enemy = gm.GetComponent<Enemy>();
-        enemies.Add(id, enemy);
+        if (!enemies.ContainsKey(id))
+        {
+            GameObject gm = Instantiate(enemyPrefab, position, rotation);
+            Enemy enemy = gm.GetComponent<Enemy>();
+            enemies.Add(id, enemy);
+        }
     }
 }

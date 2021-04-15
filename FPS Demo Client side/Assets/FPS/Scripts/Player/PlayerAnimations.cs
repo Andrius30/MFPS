@@ -50,7 +50,6 @@ public class PlayerAnimations
     /// <param name="state"></param>
     public void PlayAnimationsDependingOnPlayerState(int state)
     {
-        Debug.Log($"State {state}");
         switch (state)
         {
             case (int)PlayerState.Crouching:
