@@ -8,6 +8,8 @@ namespace MFPS.ServerCharacters
 {
     public class Player : MonoBehaviour, IDamagable
     {
+        public AttackerTypes attackerType = AttackerTypes.Player;
+
         [HideInInspector] public int id;
         [HideInInspector] public string userName;
 
@@ -114,7 +116,7 @@ namespace MFPS.ServerCharacters
                         if (damagable != null)
                         {
                             Debug.Log($"Damagable {_hit.transform.name} :red:18;".Interpolate());
-                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root);
+                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
                         }
                     }
                 }
@@ -143,15 +145,16 @@ namespace MFPS.ServerCharacters
         #endregion
 
         #region Damage section
-        public void TakeDamage(float dmg, Transform attacker)
+        public void TakeDamage(float dmg, Transform attacker, AttackerTypes type)
         {
             if (health <= 0) return;
             health -= dmg;
-
+            Debug.Log($"Player geting {dmg} dmg from aattacker {attacker.name } attacker type {type}:yellow;".Interpolate());
             if (health <= 0)
                 Die();
 
-            PacketsToSend.PlayerHealthAndDmg(attacker, dmg, this);
+            PacketsToSend.PlayerHealth(this);
+            PacketsToSend.SendAttackerAndDamage(attacker, dmg, id, type);
         }
         public void Die()
         {
@@ -172,5 +175,6 @@ namespace MFPS.ServerCharacters
         #endregion
         WeaponState WepState() => GetCurrentWeapon().GetWeaponState();
         BaseWeapon GetCurrentWeapon() => weaponsController.GetCurrentWeapon();
+
     }
 }

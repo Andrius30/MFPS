@@ -140,10 +140,11 @@ MonoBehaviour:
   weaponState: 0
   id: 0
   weaponName: Pistol
+  weaponRange: 25
   weaponModel: {fileID: 977483790072100722}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
   projectileSpawnPosition: {fileID: 6441396936032553952}
-  bulletForce: 130
+  bulletForce: 400
   totalBullets: 21
   magazineCapacity: 7
   weaponDamage: 10

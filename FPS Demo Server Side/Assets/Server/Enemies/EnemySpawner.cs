@@ -15,8 +15,8 @@ public class EnemySpawner : MonoBehaviour
         {
             int randPos = Random.Range(0, spawnPositions.Count);
             var enemy = Instantiate(enemyPrefab, spawnPositions[randPos].position, Quaternion.identity).GetComponent<Enemy>();
-            enemy.id++;
-            enemies.Add(enemy.id, enemy);
+            enemy.id = i;
+            enemies.Add(i, enemy);
             PacketsToSend.SpawnEnemy(enemy);
         }
     }

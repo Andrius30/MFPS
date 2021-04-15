@@ -123,22 +123,31 @@ class PacketsToSend
             SendTCPDataToAll(_packet);
         }
     }
-    public static void PlayerHealthAndDmg(Transform attacker, float dmg, Player player)
+    public static void PlayerHealth(Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerHealth))
         {
             packet.Write(player.id);
             packet.Write(player.health);
+
+            SendTCPDataToAll(packet);
+        }
+    }
+    public static void SendAttackerAndDamage(Transform attacker, float dmg, int attackedPlayerId, AttackerTypes type)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.attackerAndDmg))
+        {
+            packet.Write(attackedPlayerId);
             packet.Write(dmg);
             Player pl = attacker.GetComponent<Player>();
             Enemy en = attacker.GetComponent<Enemy>();
-          
-            if (pl != null)
-                packet.Write(pl.id);
-            if (en != null)
-                packet.Write(en.id);
 
-            SendTCPDataToAll(packet);
+            if (pl != null) packet.Write(pl.id); // if player
+            if (en != null) packet.Write(en.id); // if enemy
+
+            packet.Write((int)type);
+
+            SendTCPData(attackedPlayerId, packet);
         }
     }
 
@@ -189,7 +198,7 @@ class PacketsToSend
     #region Enemies Section
     public static void SpawnEnemy(Enemy enemy)
     {
-        using(Packet packet = new Packet((int)ServerPackets.spawnEnemy))
+        using (Packet packet = new Packet((int)ServerPackets.spawnEnemy))
         {
             packet.Write(enemy.id);
             packet.Write(enemy.transform.position);

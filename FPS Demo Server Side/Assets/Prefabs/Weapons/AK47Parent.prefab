@@ -79,10 +79,11 @@ MonoBehaviour:
   weaponState: 0
   id: 1
   weaponName: Ak47
+  weaponRange: 25
   weaponModel: {fileID: 4531977851351410217}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
   projectileSpawnPosition: {fileID: 8223427602329897744}
-  bulletForce: 200
+  bulletForce: 400
   totalBullets: 90
   magazineCapacity: 30
   weaponDamage: 30

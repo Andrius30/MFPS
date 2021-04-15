@@ -264,6 +264,7 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.playerDisconnected,ClientHandle.PlayerDisconnected },
             {(int) ServerPackets.playerHealth,ClientHandle.PlayerHealth },
             {(int) ServerPackets.playerRespawned,ClientHandle.PlayerRespawned },
+            {(int) ServerPackets.attackerAndDmg,ClientHandle.GetAttackerAndDmg},
             #endregion
             #region WEAPONS
             {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },

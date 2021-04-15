@@ -389,7 +389,7 @@ MonoBehaviour:
   - {fileID: 1622897663}
   - {fileID: 1636797335}
   - {fileID: 136248834}
-  numberTospawn: 1
+  numberTospawn: 3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

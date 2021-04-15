@@ -83,7 +83,7 @@ namespace MFPS.Weapons
             projectileSpawnPosition.localRotation = shootRot;
             //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
-       
+
         public virtual void Init()
         {
             if (drawWeaponTimer == null)
@@ -96,9 +96,9 @@ namespace MFPS.Weapons
             else
                 reloadTimer.SetTimer(reloadTime, false);
         }
-        public virtual void DoDamage(IDamagable damagable, Transform attacker)
+        public virtual void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type)
         {
-            damagable.TakeDamage(weaponDamage, attacker);
+            damagable.TakeDamage(weaponDamage, attacker, type);
         }
         public void SpawnProjectile()
         {

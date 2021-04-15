@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6416919760730611941}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102254701008331701}
-  m_LocalRotation: {x: -0.04220824, y: -0.044910893, z: 0.010999408, w: 0.99803835}
+  m_LocalRotation: {x: -0.0020381361, y: -0.0016453735, z: -0.008511161, w: -0.9999604}
   m_LocalPosition: {x: 0.048867047, y: 0.52908945, z: 0.9848919}
   m_LocalScale: {x: 1.5000002, y: 1.5000001, z: 1.2000002}
   m_Children: []
   m_Father: {fileID: 6187086784780052797}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.232, y: 0.191, z: 0.976}
 --- !u!1 &2366092030502222614
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7178745612396286037}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightHandTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 2950625699701206792}
   - component: {fileID: 2950625699687049800}
   - component: {fileID: 2950625699687142376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzle flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,8 +86,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2950625699701175080}
   m_LocalRotation: {x: -0, y: -0.05122614, z: -0, w: 0.99868715}
-  m_LocalPosition: {x: 0.036, y: 0.526, z: 1.026}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.052, y: 0.526, z: 0.99}
+  m_LocalScale: {x: 0.46757162, y: 0.46757162, z: 0.46757162}
   m_Children:
   - {fileID: 2950625699701206796}
   - {fileID: 2950625699701206794}
@@ -4911,7 +4911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2950625699701206794}
   - component: {fileID: 2950625699695099400}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 2950625699701206796}
   - component: {fileID: 2950625699687049802}
   - component: {fileID: 2950625699687142378}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9861,7 +9861,7 @@ GameObject:
   - component: {fileID: 2950625699701206798}
   - component: {fileID: 2950625699687049804}
   - component: {fileID: 2950625699687142380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14715,7 +14715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6294392288232671970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lefthandTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14747,7 +14747,7 @@ GameObject:
   - component: {fileID: 3611042537686883264}
   - component: {fileID: 3611042537685556206}
   - component: {fileID: 3611042537684588846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM_magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14828,7 +14828,7 @@ GameObject:
   - component: {fileID: 3611042537686883266}
   - component: {fileID: 3611042537685556192}
   - component: {fileID: 3611042537684588832}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM_rear_sight_leaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14909,7 +14909,7 @@ GameObject:
   - component: {fileID: 3611042537686883268}
   - component: {fileID: 3611042537685556194}
   - component: {fileID: 3611042537684588834}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM_safetyswitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14990,7 +14990,7 @@ GameObject:
   - component: {fileID: 3611042537686883270}
   - component: {fileID: 3611042537685556196}
   - component: {fileID: 3611042537684588836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM_trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15071,7 +15071,7 @@ GameObject:
   - component: {fileID: 3611042537686883274}
   - component: {fileID: 3611042537679107112}
   - component: {fileID: 2108664953790088655}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15142,7 +15142,7 @@ GameObject:
   - component: {fileID: 3611042537686883276}
   - component: {fileID: 3611042537685556202}
   - component: {fileID: 3611042537684588842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15223,7 +15223,7 @@ GameObject:
   - component: {fileID: 3611042537686883278}
   - component: {fileID: 3611042537685556204}
   - component: {fileID: 3611042537684588844}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPN_AKM_bolt_carrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15302,7 +15302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6187086783943816639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15336,7 +15336,7 @@ GameObject:
   - component: {fileID: 6187086784780052797}
   - component: {fileID: 4909928077101207168}
   - component: {fileID: 1616048071839909146}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AK47Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15357,6 +15357,7 @@ Transform:
   - {fileID: 6416919760730611941}
   - {fileID: 6187086783943816639}
   - {fileID: 1428751881404615996}
+  - {fileID: 494878392786404902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15490,7 +15491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1428751881404615996}
   - component: {fileID: 1156052685471268521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: otherAudiosource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15607,3 +15608,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &7795707681923605549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494878392786404902}
+  - component: {fileID: 3055387302528828861}
+  - component: {fileID: 3862892958596009422}
+  m_Layer: 6
+  m_Name: 'WeaponCamera '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &494878392786404902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795707681923605549}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0312, y: 0.559, z: -0.204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6187086784780052797}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &3055387302528828861
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795707681923605549}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 24.8
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &3862892958596009422
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795707681923605549}
+  m_Enabled: 1

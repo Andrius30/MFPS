@@ -1,22 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BloodSplatter
+public class BloodSplatter : MonoBehaviour
 {
-    Image bloodimage;
-    float fadeOutTime;
-    Color color;
+    public static Action<float> onDamage;
+    [SerializeField] Image bloodimage;
+    [SerializeField] float fadeOutTime;
 
-    public BloodSplatter(Image bloodimage, float fadeOutTime)
+    [SerializeField] Color color; // hide after testing
+
+    public void Start()
     {
-        this.bloodimage = bloodimage;
-        this.fadeOutTime = fadeOutTime;
         color = bloodimage.color;
         color.a = 0;
         SetAlpha(color);
     }
 
-    public void Splash(float dmg)
+    void Update() => SetToZeroAlpha();
+
+    void Splash(float dmg)
     {
         if (color.a >= 1f)
         {
@@ -27,9 +30,7 @@ public class BloodSplatter
         SetAlpha(color);
     }
 
-    void SetAlpha(Color color) => bloodimage.color = color;
-
-    public void ReleaseAlpha()
+    void SetToZeroAlpha()
     {
         if (color.a <= 0)
         {
@@ -40,4 +41,8 @@ public class BloodSplatter
         //Debug.Log($"Fade out {color.a}");
         SetAlpha(color);
     }
+    void SetAlpha(Color color) => bloodimage.color = color;
+
+    void OnEnable() => onDamage += Splash;
+    void OnDisable() => onDamage -= Splash;
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -9,17 +8,12 @@ public enum ServerPackets
 {
     welcome = 1,
     spawnPlayer,
-    // movement
     playerPosition,
     playerRotation,
-    // disconnected
     playerDisconnected,
-    // health
     playerHealth,
     playerRespawned,
-    // weapons
     playerChangedWeapon,
-    // Enemies
     enemyHealth,
     enemyRespawned,
     weaponState,
@@ -27,7 +21,8 @@ public enum ServerPackets
     projectilePosition,
     playMoveAnimation,
     playerAiming,
-    spawnEnemy
+    spawnEnemy,
+    attackerAndDmg
 }
 
 /// <summary>Sent from client to server.</summary>

@@ -1,8 +1,8 @@
 
 using UnityEngine;
 
-public interface IWeapon 
+public interface IWeapon
 {
     void Init();
-    void DoDamage(IDamagable damagable, Transform attacker);
+    void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type);
 }

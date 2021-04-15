@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3690267072684273184}
   - component: {fileID: 3690267072664873826}
   - component: {fileID: 3690267072664900290}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4867,7 +4867,7 @@ GameObject:
   - component: {fileID: 3690267072684273186}
   - component: {fileID: 3690267072664873828}
   - component: {fileID: 3690267072664900292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9722,8 +9722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3690267072684273188}
   - component: {fileID: 3690267072673644326}
-  - component: {fileID: 3690267072673171430}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9806,19 +9805,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &3690267072673171430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3690267072684438020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d332ab3dbfaaf40bdd9745ff0b19f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 0.05
 --- !u!1 &3690267072684438022
 GameObject:
   m_ObjectHideFlags: 0
@@ -9830,7 +9816,7 @@ GameObject:
   - component: {fileID: 3690267072684273190}
   - component: {fileID: 3690267072664873830}
   - component: {fileID: 3690267072664900294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzle flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9846,7 +9832,7 @@ Transform:
   m_GameObject: {fileID: 3690267072684438022}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.018, z: 0.517}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 3690267072684273186}
   - {fileID: 3690267072684273188}

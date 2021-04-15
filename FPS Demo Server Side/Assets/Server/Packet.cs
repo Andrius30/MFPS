@@ -26,7 +26,8 @@ public enum ServerPackets
     projectilePosition,
     playMoveAnimation,
     playerAiming,
-    spawnEnemy
+    spawnEnemy,
+    attackerAndDmg
 }
 
 /// <summary>Sent from client to server.</summary>

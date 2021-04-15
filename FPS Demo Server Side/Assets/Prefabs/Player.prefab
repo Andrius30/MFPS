@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f78b61d0d44a1449e207b77adad9ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackerType: 0
   id: 0
   userName: 
   shootOrigin: {fileID: 3820064971512591811}

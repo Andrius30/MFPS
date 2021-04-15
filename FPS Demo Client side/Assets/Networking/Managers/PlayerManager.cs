@@ -1,4 +1,5 @@
 using FPSClient.Timers;
+using System;
 using UnityEngine;
 
 public enum PlayerState
@@ -75,6 +76,25 @@ public class PlayerManager : MonoBehaviour
     }
 
     #region Damagable section
+    public void GetAttackerAndDmg(int type, int id, float dmg)
+    {
+        Transform attacker = GetType(id, type);
+        if (!DamageIndicators.isVisible.Invoke(attacker))
+            DamageIndicators.onIndicatorCreated?.Invoke(attacker);
+        BloodSplatter.onDamage?.Invoke(dmg);
+    }
+
+    Transform GetType(int attackerID, int attackerTypes)
+    {
+        switch (attackerTypes)
+        {
+            case (int)AttackerTypes.Player:
+                return GameManager.players[attackerID].transform;
+            case (int)AttackerTypes.Enemy:
+                return GameManager.enemies[attackerID].transform;
+        }
+        return null;
+    }
     public void SetHealth(float health)
     {
         this.health = health;

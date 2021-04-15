@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2772746579324105167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightHandTarget
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,9 +39,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7744457404383397197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ProjectileSpawnPos
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2339661036192876453}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: muni_rot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 2339661036192876455}
   - component: {fileID: 2339661036194170777}
   - component: {fileID: 2339661036195169625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: muzzle_fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2339661036192876465}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bullet_shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,9 +212,9 @@ GameObject:
   - component: {fileID: 2339661036192876467}
   - component: {fileID: 2339661036194170775}
   - component: {fileID: 2339661036195169623}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube_002
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,9 +293,9 @@ GameObject:
   - component: {fileID: 2339661036192876469}
   - component: {fileID: 2339661036200634453}
   - component: {fileID: 2543832411612393484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pistol
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 2339661036192876473}
   - component: {fileID: 2339661036194170781}
   - component: {fileID: 2339661036195169629}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun_trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 2339661036192876477}
   - component: {fileID: 2339661036194170769}
   - component: {fileID: 2339661036195169617}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,9 +523,9 @@ GameObject:
   - component: {fileID: 2339661036192876479}
   - component: {fileID: 2339661036194170771}
   - component: {fileID: 2339661036195169619}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 3295161945165849458}
   - component: {fileID: 3295161945165849457}
   - component: {fileID: 1520215743760484905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PistolParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,6 +630,7 @@ Transform:
   - {fileID: 3295161946474860654}
   - {fileID: 6946127733158988402}
   - {fileID: 2118621808494275710}
+  - {fileID: 3147725349007990914}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -762,7 +763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3295161946474860654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,6 +786,89 @@ Transform:
   m_Father: {fileID: 3295161945165849458}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4329779332434902290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3147725349007990914}
+  - component: {fileID: 125567020592972546}
+  - component: {fileID: 7330762281644604529}
+  m_Layer: 6
+  m_Name: WeaponCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3147725349007990914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4329779332434902290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.178, y: 0.494, z: -0.148}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3295161945165849458}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &125567020592972546
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4329779332434902290}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 24.8
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &7330762281644604529
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4329779332434902290}
+  m_Enabled: 1
 --- !u!1 &4530909871797026521
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,9 +880,9 @@ GameObject:
   - component: {fileID: 4530909871796790009}
   - component: {fileID: 4530909871782635449}
   - component: {fileID: 4530909871782731289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzle flash
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -812,7 +896,7 @@ Transform:
   m_GameObject: {fileID: 4530909871797026521}
   m_LocalRotation: {x: -0.013656449, y: -0.064429134, z: 0.03402958, w: 0.9972484}
   m_LocalPosition: {x: -0.05946517, y: 0.45109057, z: 0.84011745}
-  m_LocalScale: {x: 0.6000001, y: 0.6, z: 0.6000001}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4530909871796790013}
   - {fileID: 4530909871796790011}
@@ -5636,7 +5720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4530909871796790011}
   - component: {fileID: 4530909871790420985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5730,7 +5814,7 @@ GameObject:
   - component: {fileID: 4530909871796790013}
   - component: {fileID: 4530909871782635451}
   - component: {fileID: 4530909871782731291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10586,7 +10670,7 @@ GameObject:
   - component: {fileID: 4530909871796790015}
   - component: {fileID: 4530909871782635453}
   - component: {fileID: 4530909871782731293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15440,7 +15524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6946127733158988402}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15470,9 +15554,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2153117634964796149}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftHandTarget
-  m_TagString: Untagged
+  m_TagString: weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15501,7 +15585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2118621808494275710}
   - component: {fileID: 5173191242877482153}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: otherAudiosource
   m_TagString: Untagged
   m_Icon: {fileID: 0}

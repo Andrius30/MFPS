@@ -55,10 +55,17 @@ public class ClientHandle
     {
         int id = packet.ReadInt();
         float health = packet.ReadFloat();
-        // TODO: get dmg
-        // TODO: get attacker id
 
         GameManager.players[id].SetHealth(health);
+    }
+    public static void GetAttackerAndDmg(Packet packet)
+    {
+        int playerID = packet.ReadInt();
+        float dmg = packet.ReadFloat();
+        int attackerID = packet.ReadInt();
+        int attackerType = packet.ReadInt();
+
+        GameManager.players[playerID].GetAttackerAndDmg(attackerType, attackerID, dmg);
     }
     public static void PlayerRespawned(Packet packet)
     {
