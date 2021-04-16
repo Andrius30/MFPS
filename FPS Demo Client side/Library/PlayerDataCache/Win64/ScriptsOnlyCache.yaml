@@ -18,6 +18,7 @@ ScriptsOnlyBuild:
     - SurfaceAnimationEvents
     - ThreadManager
     - UIManager
+    - UtilityMethods
     Unity.Animation.Rigging.dll:
     - UnityEngine.Animations.Rigging.MultiAimConstraint
     - UnityEngine.Animations.Rigging.Rig
@@ -170,6 +171,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4068}
     - Class: 114
       Script: {instanceID: 4132}
+    - Class: 114
+      Script: {instanceID: 21636}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -693,7 +696,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 0b838f627004a9446f3b14e5c29b7438
+      Hash: 024dda4653b136cbfc062004da377fa5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -835,6 +838,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UtilityMethods
   platform: 19
   scenePathNames:
   - Assets/Scenes/Client.unity

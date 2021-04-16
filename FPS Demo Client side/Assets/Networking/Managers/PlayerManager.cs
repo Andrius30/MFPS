@@ -12,16 +12,16 @@ public enum PlayerState
 
 public class PlayerManager : MonoBehaviour
 {
-    PlayerState playerState;
+    public PlayerState playerState;
     public SurfaceTypes currentSurface;
 
     public int id;
     public string username;
+    public bool isLocalPlayer;
 
     [Space(10)]
     [Header("Player health")]
     public float maxHealth = 100f;
-    public float health;
     [Space(10)]
 
     [Header("Weapons")]
@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space(10)]
     [Header("Player foot steps audio settings")]
-    [SerializeField] PlayerAudio playerAudio;
+    [SerializeField] PlayerAudio playerAudio; // scriptable object
 
     [Space(10)]
     [Header("Surface checking settings")]
@@ -45,22 +45,33 @@ public class PlayerManager : MonoBehaviour
     public float checkRatio = 0.3f;
     public bool isDebugEnabled = false;
 
+    [Space(10)]
+    [Header("Player Health UI")]
+    public GameObject healthCanvas;
+
     Timer timer;
 
     [HideInInspector] public AudioSource playerSource;
     SurfaceChecker surfaceChecker;
+    public PlayerHealth playerHealth { get; private set; }
+    public PlayerHealth_UI playerHealth_UI { get; private set; }
 
-    internal void Initialize(int id, string userName)
+    internal void Initialize(int id, string userName, bool isLocal)
     {
         this.id = id;
         this.username = userName;
-        health = maxHealth;
-        playerAnimations = new PlayerAnimations(this);
+        isLocalPlayer = isLocal;
+        // ===============================================================
 
         playerAudio.Init(this);
         playerSource = GetComponent<AudioSource>();
         PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
         SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
+
+        // ================================================================================
+        playerAnimations = new PlayerAnimations(this);
+        playerHealth = new PlayerHealth(this);
+        playerHealth_UI = new PlayerHealth_UI(this);
         surfaceChecker = new SurfaceChecker(this);
         timer = new Timer(checkRatio, false);
     }
@@ -95,20 +106,16 @@ public class PlayerManager : MonoBehaviour
         }
         return null;
     }
-    public void SetHealth(float health)
-    {
-        this.health = health;
-        if (this.health <= 0)
-            Die();
-    }
-    void Die()
+
+    public void Die()
     {
         model.enabled = false;
     }
     public void Respawn()
     {
         model.enabled = true;
-        SetHealth(maxHealth);
+        playerHealth.SetHealth(maxHealth);
+        playerHealth_UI.ShowHealthAt_UI(playerHealth.GetHealth());
     }
     #endregion
 

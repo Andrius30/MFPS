@@ -22,23 +22,28 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer(int id, string userName, Vector3 position, Quaternion rotation)
     {
-        GameObject player;
+        PlayerManager playerManager;
 
-        if (id == Client.instance.id)
-        {
-            player = Instantiate(localPlayerPrefab, position, rotation);
-        }
-        else
-        {
-            player = Instantiate(playerPrefab, position, rotation);
-        }
-        PlayerManager playerManager = player.GetComponent<PlayerManager>();
-        playerManager.Initialize(id, userName);
+        if (id == Client.instance.id) // local player
+            CreatePlayer(id, userName, position, rotation, out playerManager, true);
+        else // remote player
+            CreatePlayer(id, userName, position, rotation, out playerManager, false);
 
         if (!players.ContainsKey(id))
             players.Add(id, playerManager);
 
         sceneCamera.SetActive(false);
+    }
+
+    void CreatePlayer(int id, string userName, Vector3 position, Quaternion rotation, out PlayerManager playerManager, bool isLocal)
+    {
+        GameObject player;
+        if (isLocal)
+            player = Instantiate(localPlayerPrefab, position, rotation);
+        else
+            player = Instantiate(playerPrefab, position, rotation);
+        playerManager = player.GetComponent<PlayerManager>();
+        playerManager.Initialize(id, userName, isLocal);
     }
 
     public void SpawnProjectile(int id, Vector3 position, Quaternion rot)
@@ -47,7 +52,7 @@ public class GameManager : MonoBehaviour
         Projectile projectile = gm.GetComponent<Projectile>();
         projectiles.Add(id, projectile);
     }
-    public void SpawnEnemy(int id,Vector3 position,Quaternion rotation)
+    public void SpawnEnemy(int id, Vector3 position, Quaternion rotation)
     {
         if (!enemies.ContainsKey(id))
         {

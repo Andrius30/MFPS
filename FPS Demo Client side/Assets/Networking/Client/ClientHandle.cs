@@ -56,7 +56,8 @@ public class ClientHandle
         int id = packet.ReadInt();
         float health = packet.ReadFloat();
 
-        GameManager.players[id].SetHealth(health);
+        GameManager.players[id].playerHealth.SetHealth(health);
+        GameManager.players[id].playerHealth_UI.ShowHealthAt_UI(health);
     }
     public static void GetAttackerAndDmg(Packet packet)
     {

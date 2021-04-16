@@ -3064,8 +3064,8 @@ MonoBehaviour:
   currentSurface: 0
   id: 0
   username: 
+  isLocalPlayer: 0
   maxHealth: 100
-  health: 0
   weaponsparent: {fileID: 1575869403841672644}
   weaponParentPositionOnCrouching: {x: 0, y: -0.56, z: 0}
   startingWeaponIndex: 0
@@ -3076,6 +3076,7 @@ MonoBehaviour:
   checkDistance: 1
   checkRatio: 0.3
   isDebugEnabled: 0
+  healthCanvas: {fileID: 6213321135422506516, guid: 094f1399ea19ea34bb6643ccf7906097, type: 3}
   playerSource: {fileID: 0}
 --- !u!114 &7403307773635623808
 MonoBehaviour:
