@@ -3061,6 +3061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a6c1c7324b43840b86ce0be37bf8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: 0
   currentSurface: 0
   id: 0
   username: 
@@ -3077,6 +3078,7 @@ MonoBehaviour:
   checkRatio: 0.3
   isDebugEnabled: 0
   healthCanvas: {fileID: 6213321135422506516, guid: 094f1399ea19ea34bb6643ccf7906097, type: 3}
+  ammunitionCanvas: {fileID: 9204227920296514836, guid: ceca3c016a977554a8307d2ee2f86a8b, type: 3}
   playerSource: {fileID: 0}
 --- !u!114 &7403307773635623808
 MonoBehaviour:

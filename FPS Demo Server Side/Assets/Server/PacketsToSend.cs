@@ -160,6 +160,20 @@ class PacketsToSend
             SendTCPDataToAll(packet);
         }
     }
+    public static void PlayerAimingRotation(Player player, float angle, Quaternion localRot)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.playerAiming))
+        {
+            packet.Write(player.id);
+            packet.Write(angle);
+            packet.Write(localRot);
+
+            SendUDPDataToAll(player.id, packet);
+        }
+    }
+    #endregion
+
+    #region Weapons section
     public static void PlayerChangedWeapon(Player player, BaseWeapon weapon)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerChangedWeapon))
@@ -168,6 +182,9 @@ class PacketsToSend
             packet.Write(weapon.weaponName);
             packet.Write((int)weapon.firemode);
             packet.Write(weapon.id);
+            packet.Write(weapon.GetMaxBullets);
+            packet.Write(weapon.GetCurrentBulletsAtMagazine());
+            packet.Write(weapon.coolDown);
 
             SendTCPDataToAll(packet);
         }
@@ -182,15 +199,15 @@ class PacketsToSend
             SendUDPDataToAll(packet);
         }
     }
-    public static void PlayerAimingRotation(Player player, float angle, Quaternion localRot)
+    public static void UpdateBullets(Player player, BaseWeapon weapon)
     {
-        using (Packet packet = new Packet((int)ServerPackets.playerAiming))
+        using (Packet packet = new Packet((int)ServerPackets.updateBullets))
         {
             packet.Write(player.id);
-            packet.Write(angle);
-            packet.Write(localRot);
+            packet.Write(weapon.GetMaxBullets);
+            packet.Write(weapon.GetCurrentBulletsAtMagazine());
 
-            SendUDPDataToAll(player.id, packet);
+            SendTCPData(player.id, packet);
         }
     }
     #endregion

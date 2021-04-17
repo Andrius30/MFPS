@@ -22,7 +22,8 @@ public enum ServerPackets
     playMoveAnimation,
     playerAiming,
     spawnEnemy,
-    attackerAndDmg
+    attackerAndDmg,
+    updateBullets
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -34,6 +35,7 @@ public enum ClientPackets
     playerShoot,
     setStartingWeapon,
     playerAimingAnim,
+    weaponIndex,
 }
 
 public class Packet : IDisposable

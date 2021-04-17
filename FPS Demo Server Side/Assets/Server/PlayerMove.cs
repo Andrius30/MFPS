@@ -18,8 +18,11 @@ namespace MFPS.ServerCharacters
 
         /// <summary>Calculates the player's desired movement direction and moves him.</summary>
         /// <param name="_inputDirection"></param>
-        public void Move(Vector2 _inputDirection)
+        public void Move(float[] inputs)
         {
+            Vector2 _inputDirection = Vector2.zero;
+            _inputDirection.x = inputs[0];
+            _inputDirection.y = inputs[1];
             Vector3 _moveDirection = player.transform.right * _inputDirection.x + player.transform.forward * _inputDirection.y;
 
             if (player.otherInputs[1])
@@ -44,9 +47,10 @@ namespace MFPS.ServerCharacters
 
             PacketsToSend.PlayerPosition(player);
             PacketsToSend.PlayerRotation(player);
+            PacketsToSend.PlayMovementAnimation(player, _inputDirection.x, _inputDirection.y);
         }
 
-        private void SetPlayerStateAndSpeed(PlayerState state, float speed)
+        void SetPlayerStateAndSpeed(PlayerState state, float speed)
         {
             player.moveSpeed = speed;
             playerState = state;
@@ -64,7 +68,6 @@ namespace MFPS.ServerCharacters
             else
                 SetCharacterController(2, 0);
         }
-
         void SetCharacterController(float height, float center)
         {
             player.characterController.height = height;

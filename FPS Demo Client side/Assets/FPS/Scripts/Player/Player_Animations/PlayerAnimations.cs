@@ -4,10 +4,7 @@ public class PlayerAnimations
 {
     PlayerManager playerManager;
 
-    public PlayerAnimations(PlayerManager playerManager)
-    {
-        this.playerManager = playerManager;
-    }
+    public PlayerAnimations(PlayerManager playerManager) => this.playerManager = playerManager;
 
     public void PlayMoveAnimation(float x, float z)
     {
@@ -39,11 +36,7 @@ public class PlayerAnimations
         playerManager.weaponsparent.localRotation = localRot;
         playerManager.characterAnimator.SetFloat("aimAngle", angle);
     }
-    void CrouchAnimation(bool isPlaying, Vector3 pos)
-    {
-        playerManager.characterAnimator.SetBool("isCrouching", isPlaying);
-        playerManager.weaponsparent.localPosition = pos;
-    }
+   
     /// <summary>
     /// Play network animations
     /// </summary>
@@ -68,6 +61,12 @@ public class PlayerAnimations
                 PlayWalkAnimation(false);
                 break;
         }
+    }
+    
+    void CrouchAnimation(bool isPlaying, Vector3 pos)
+    {
+        playerManager.characterAnimator.SetBool("isCrouching", isPlaying);
+        playerManager.weaponsparent.localPosition = pos;
     }
 }
 

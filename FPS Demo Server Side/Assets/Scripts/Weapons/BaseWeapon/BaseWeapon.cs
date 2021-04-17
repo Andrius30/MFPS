@@ -1,3 +1,4 @@
+using MFPS.ServerCharacters;
 using MFPS.ServerTimers;
 using UnityEngine;
 
@@ -31,10 +32,12 @@ namespace MFPS.Weapons
         [Space(10)]
         [Header("Bullets Setting")]
         public GameObject projectile;
+        AnimationCurve weaponAcuracy;
         [SerializeField] Transform projectileSpawnPosition;
         [SerializeField] float bulletForce = 100f;
         [SerializeField] int totalBullets = 100;
         [SerializeField] int magazineCapacity = 20;
+        public int GetMaxBullets => totalBullets;
         int shootedbullets;
 
         [Header("Weapon damage seetings")]
@@ -47,26 +50,6 @@ namespace MFPS.Weapons
 
         public IWeapon weaponType;
         int count = 0;
-        Timer drawWeaponTimer;
-        Timer reloadTimer;
-
-        void Update()
-        {
-            if (GetWeaponState() == WeaponState.DrawWeapon)
-            {
-                drawWeaponTimer.StartTimer();
-                if (drawWeaponTimer.IsDone())
-                    SetWeaponState(WeaponState.Idle);
-            }
-            if (GetWeaponState() == WeaponState.Reloading)
-            {
-                reloadTimer.StartTimer();
-                if (reloadTimer.IsDone())
-                {
-                    ReloadWeapon();
-                }
-            }
-        }
 
         /// <summary>
         /// Getting all required weapon position from client when new client connect
@@ -84,30 +67,13 @@ namespace MFPS.Weapons
             //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
 
-        public virtual void Init()
-        {
-            if (drawWeaponTimer == null)
-                drawWeaponTimer = new Timer(weaponDrawTime, false);
-            else
-                drawWeaponTimer.SetTimer(weaponDrawTime, false);
-
-            if (reloadTimer == null)
-                reloadTimer = new Timer(reloadTime, false);
-            else
-                reloadTimer.SetTimer(reloadTime, false);
-        }
         public virtual void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type)
         {
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
+     
         public void SpawnProjectile()
         {
-            if (IsMagazineEmpty())
-            {
-                reloadTimer.SetTimer(reloadTime, false);
-                SetWeaponState(WeaponState.Reloading);
-                return;
-            }
             if (firemode == FireMode.auto)
             {
                 count++;
@@ -123,9 +89,20 @@ namespace MFPS.Weapons
             }
             shootedbullets++;
         }
-        public virtual bool IsoutOfAmmo() => (GetCurrentBulletsAtMagazine() <= 0 && totalBullets - shootedbullets <= 0);
+        public virtual bool IsoutOfAmmo() => totalBullets - shootedbullets < 0;
         public virtual void SetWeaponState(WeaponState state) => weaponState = state;
         public WeaponState GetWeaponState() => weaponState;
+        public void ReloadWeapon(Player player)
+        {
+            if (totalBullets - shootedbullets >= 0)
+            {
+                totalBullets -= shootedbullets;
+                shootedbullets = 0;
+                SetWeaponState(WeaponState.Idle);
+                PacketsToSend.UpdateBullets(player, this);
+            }
+        }
+        public bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
 
         void CreateBullet(Transform spawntr)
         {
@@ -134,16 +111,6 @@ namespace MFPS.Weapons
             proj.GetComponent<Rigidbody>().AddForce(spawntr.forward * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
-        void ReloadWeapon()
-        {
-            if (totalBullets - shootedbullets >= 0)
-            {
-                totalBullets -= shootedbullets;
-                shootedbullets = 0;
-                SetWeaponState(WeaponState.Idle);
-            }
-        }
-        int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
-        bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
+        public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
     }
 }

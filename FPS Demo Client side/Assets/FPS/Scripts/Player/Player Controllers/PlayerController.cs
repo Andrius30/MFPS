@@ -1,3 +1,4 @@
+using FPSClient.Timers;
 using TMPro;
 using UnityEngine;
 
@@ -11,29 +12,69 @@ public class PlayerController : MonoBehaviour, IConsole
 
     float mouseScroll;
     bool cursorLockDisabled = false;
+    int currentWeaponIndex = 0;
+    Timer cdTimer;
 
     void Start()
     {
+        cdTimer = new Timer(0, true);
         playerManager = GetComponent<PlayerManager>();
         mouseLock = new MouseLock();
         playerInputs = new PlayerInputs();
         Com com = new Com();
         com.Init();
-        com.AddCommand("dscr","Disables cursor locking");
+        com.AddCommand("dscr", "Disables cursor locking");
         ConsoleController.instance.consoles.Add(com, this);
     }
-    void Update()
+    void Update() => cdTimer.StartTimer();
+    void FixedUpdate()
     {
+        // ====== DEBUGING ==== TESTING =======
         if (!cursorLockDisabled)
             mouseLock.CursorState();
-        // ===================== shoot =================
-        if (playerManager.newWeapon != null && playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()))
+        // =====================================
+
+        #region Player shoot
+        if (CanShoot())
         {
-            PacketsToSend.PlayerShoot(camTransform.forward);
+            if (cdTimer.IsDone())
+            {
+
+                playerManager.newWeapon.bulletsLeft--;
+                if (playerManager.newWeapon.bulletsLeft <= 0)
+                {
+                    playerManager.newWeapon.bulletsLeft = 0;
+                }
+                playerManager.playerAmunition.UpdateBulletsLeft(playerManager.newWeapon.bulletsLeft);
+                cdTimer.SetTimer(playerManager.newWeapon.coolDown, false);
+                PacketsToSend.PlayerShoot(camTransform.forward);
+            }
         }
+        #endregion
+
+        #region Changing and sending weapon index
         mouseScroll = playerInputs.MouseScrollInput();
+
+
+
+        if (mouseScroll > 0) // up
+        {
+            currentWeaponIndex++;
+            if (currentWeaponIndex > playerManager.GetWeaponsLength() - 1)
+                currentWeaponIndex = 0;
+            PacketsToSend.PlayerChangingWeapon(currentWeaponIndex);
+        }
+        else if (mouseScroll < 0) // down
+        {
+            currentWeaponIndex--;
+            if (currentWeaponIndex < 0)
+                currentWeaponIndex = playerManager.GetWeaponsLength() - 1;
+            PacketsToSend.PlayerChangingWeapon(currentWeaponIndex);
+        }
+        #endregion
+
+        SendInputsToServer();
     }
-    void FixedUpdate() => SendInputsToServer();
     void SendInputsToServer()
     {
         // move =================================
@@ -42,7 +83,7 @@ public class PlayerController : MonoBehaviour, IConsole
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
         bool walkInput = playerInputs.WalkInput();
-        
+
         playerManager.playerAnimations.PlayMoveAnimation(x, z);
         playerManager.playerAnimations.PlayCrouchAnimation(crouchInput);
         playerManager.playerAnimations.PlayWalkAnimation(walkInput);
@@ -51,7 +92,6 @@ public class PlayerController : MonoBehaviour, IConsole
         {
             x,
             z,
-            mouseScroll
         };
         bool[] otherInputs = new bool[]
         {
@@ -63,7 +103,14 @@ public class PlayerController : MonoBehaviour, IConsole
         PacketsToSend.SendPlayerInputs(inputs);
         PacketsToSend.SendOtherInputs(otherInputs);
     }
-
+    bool CanShoot()
+    {
+        return
+            playerManager.newWeapon != null &&
+            playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()) &&
+            GetCurState() != WeaponState.Reloading;
+    }
+    WeaponState GetCurState() => playerManager.newWeapon.weaponState;
     #region Developer console test
     public void Execute()
     {
@@ -74,6 +121,6 @@ public class PlayerController : MonoBehaviour, IConsole
     public void PrintToConsole(ref TextMeshProUGUI output, string prefix)
     {
         output.text += $" { prefix } Cursor locking has been disabled.";
-    } 
+    }
     #endregion
 }

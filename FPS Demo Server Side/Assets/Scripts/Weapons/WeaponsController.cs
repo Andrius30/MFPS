@@ -7,38 +7,16 @@ namespace MFPS.Weapons.Controllers
     {
         public List<BaseWeapon> weapons;
 
-        public int currentWeaponIndex { get; set; }
         BaseWeapon currentWeapon;
         Player player;
 
         public WeaponsController(Player player) => this.player = player;
 
-        public void ChangeWeapon(Player player)
-        {
-            if (player.inputs[2] > 0) // up
-            {
-                currentWeaponIndex++;
-                if (currentWeaponIndex > GetWeaponsLength() - 1)
-                {
-                    currentWeaponIndex = 0;
-                }
-                SetWeapon(player, currentWeaponIndex);
-            }
-            if (player.inputs[2] < 0) // down
-            {
-                currentWeaponIndex--;
-                if (currentWeaponIndex < 0)
-                {
-                    currentWeaponIndex = GetWeaponsLength() - 1;
-                }
-                SetWeapon(player, currentWeaponIndex);
-            }
-        }
+        public void ChangeWeapon(int currentWeaponIndex) => SetWeapon(player, currentWeaponIndex);
         public void SetWeapon(Player player, int index)
         {
             DisableAllWeapons();
             currentWeapon = GetAllWeapons()[index];
-            currentWeapon.Init();
             currentWeapon.SetWeaponState(WeaponState.DrawWeapon);
             currentWeapon.gameObject.SetActive(true);
             PacketsToSend.PlayerChangedWeapon(player, currentWeapon);
@@ -55,6 +33,5 @@ namespace MFPS.Weapons.Controllers
                 weapon.gameObject.SetActive(false);
             }
         }
-        int GetWeaponsLength() => GetAllWeapons().Length;
     }
 }

@@ -148,6 +148,6 @@ MonoBehaviour:
   totalBullets: 21
   magazineCapacity: 7
   weaponDamage: 10
-  coolDown: 0.8
+  coolDown: 0.1
   weaponDrawTime: 0.5
   reloadTime: 1.4

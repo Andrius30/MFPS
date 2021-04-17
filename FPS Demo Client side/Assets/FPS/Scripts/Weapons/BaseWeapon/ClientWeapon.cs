@@ -18,9 +18,16 @@ public enum WeaponState
 }
 public class ClientWeapon : MonoBehaviour
 {
+    public WeaponState weaponState;
     #region Vars
     public int weaponID;
     public string weaponName;
+
+    [Space(10)]
+    [Header("Weapon other settings")]
+    public int maxBullets;
+    public int bulletsLeft;
+    public float coolDown;
 
     [Space(10)]
     [Header("Weapon sounds")]
@@ -72,44 +79,56 @@ public class ClientWeapon : MonoBehaviour
 
     }
 
-    public void Initialize(int id, string weaponName, int fireMode)
+    public void Initialize(int id, string weaponName, int fireMode, int maxBullets, int bulletsLeft,float cd)
     {
         weaponID = id;
         this.weaponName = weaponName;
         this.fireMode = fireMode;
+        this.maxBullets = maxBullets;
+        this.bulletsLeft = bulletsLeft;
+        this.coolDown = cd;
     }
     public int GetFireMode() => fireMode;
-    public void ActionsByWeaponState(int weaponState)
+    public void ActionsByWeaponState(int state)
     {
-        switch (weaponState)
+        switch (state)
         {
             case (int)WeaponState.Idle:
+                weaponState = WeaponState.Idle;
                 ResetSomeStates();
                 break;
             case (int)WeaponState.Shooting:
+                weaponState = WeaponState.Shooting;
                 weapons_SFX.PlayShootAudio();
                 weapon_VFX.PlayMuzleFlash();
                 weaponAnimations.PlayShootingAnimation();
                 break;
             case (int)WeaponState.Reloading:
+                weaponState = WeaponState.Reloading;
                 weapons_SFX.PlayAudio(reloadingSound);
                 weaponAnimations.PlayReloadingAnimation();
                 break;
             case (int)WeaponState.OutOfAmmo:
+                weaponState = WeaponState.OutOfAmmo;
                 weapons_SFX.PlayAudio(outOfAmmoSound);
                 break;
             case (int)WeaponState.DrawWeapon:
+                weaponState = WeaponState.DrawWeapon;
                 weapons_SFX.PlayAudio(drawWeaponSound);
                 break;
         }
     }
-
+    public void UpdateBullets(int maxBs, int bullets)
+    {
+        maxBullets = maxBs;
+        bulletsLeft = bullets;
+    }
     void ResetSomeStates()
     {
         weaponAnimator.SetBool("isReloading", false);
     }
     void SetRig(int value) => rig.weight = value;
-   
+
     void OnEnable() => SetRig(1);
     void OnDisable() => SetRig(0);
 }

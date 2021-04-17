@@ -51,6 +51,12 @@ class ServerHandle
         Server.clients[fromClient].player.UpdateAimingPivotRotation(angle, localRot);
     }
     #region Weapons section
+    public static void PlayerChangedWeapon(int fromClient, Packet packet)
+    {
+        int index = packet.ReadInt();
+
+        Server.clients[fromClient].player.weaponsController.ChangeWeapon(index);
+    }
     internal static void SetStartingWeaponAndAllPositions(int fromClient, Packet packet)
     {
         int startingWeaponIndex = packet.ReadInt();

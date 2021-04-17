@@ -74,15 +74,29 @@ public class ClientHandle
 
         GameManager.players[id].Respawn();
     }
+    #endregion
+
+    #region Weapons
     public static void PlayerChangedWeapon(Packet packet)
     {
         int playerID = packet.ReadInt();
         string weaponname = packet.ReadString();
         int fireMode = packet.ReadInt();
-        // weapon state
         int currentWeponID = packet.ReadInt();
+        int maxBullets = packet.ReadInt();
+        int bulletsLeft = packet.ReadInt();
+        float cd = packet.ReadFloat();
 
-        GameManager.players[playerID].ChangeWeapon(currentWeponID, weaponname, fireMode/* weapon state*/);
+        GameManager.players[playerID].ChangeWeapon(currentWeponID, weaponname, fireMode, maxBullets, bulletsLeft, cd);
+    }
+    public static void UpdateBullets(Packet packet)
+    {
+        int playerID = packet.ReadInt();
+        int maxBullets = packet.ReadInt();
+        int bulletsLeft = packet.ReadInt();
+
+        GameManager.players[playerID].newWeapon.UpdateBullets(maxBullets, bulletsLeft);
+        GameManager.players[playerID].playerAmunition.SetText(maxBullets, bulletsLeft);
     }
     #endregion
 

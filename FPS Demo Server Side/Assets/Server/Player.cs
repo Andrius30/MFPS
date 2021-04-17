@@ -43,14 +43,20 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public bool[] otherInputs;
         public CharacterController characterController;
 
-        Timer timer;
         [HideInInspector] public PlayerMove playerMove;
         [HideInInspector] public WeaponsController weaponsController;
 
+        Timer timer;
+        Timer drawWeaponTimer;
+        Timer reloadTimer;
+
         void Start()
         {
-            timer = new Timer(0, false);
             weaponsController = new WeaponsController(this);
+
+            timer = new Timer(0, false);
+            drawWeaponTimer = new Timer(0, true);
+            reloadTimer = new Timer(0, true);
             playerMove = new PlayerMove(this);
             gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
             moveSpeed *= Time.fixedDeltaTime;
@@ -67,29 +73,49 @@ namespace MFPS.ServerCharacters
             this.userName = userName;
             characterController = GetComponent<CharacterController>();
 
-            inputs = new float[3];
+            inputs = new float[2];
             otherInputs = new bool[3];
         }
         void Update()
         {
+            TrackWeaponStates();
+        }
+
+        private void TrackWeaponStates()
+        {
+            if (GetCurrentWeapon() == null) return;
             timer.StartTimer();
             if (!timer.IsDone() && // if timer is not done and not realoding and not out of ammo and not drawing weapon set to idle
                 WepState() != WeaponState.Reloading &&
                 WepState() != WeaponState.DrawWeapon)
                 weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Idle);
+
+            if (WepState() == WeaponState.DrawWeapon)
+            {
+                drawWeaponTimer.StartTimer();
+                if (drawWeaponTimer.IsDone())
+                    GetCurrentWeapon().SetWeaponState(WeaponState.Idle);
+            }
+            if (WepState() == WeaponState.Reloading)
+            {
+                reloadTimer.StartTimer();
+                if (reloadTimer.IsDone())
+                {
+                    GetCurrentWeapon().ReloadWeapon(this);
+                    return;
+                }
+            }
         }
+
         void FixedUpdate()
         {
             if (health <= 0) return;
-            Vector2 _inputDirection = Vector2.zero;
-            _inputDirection.x = inputs[0];
-            _inputDirection.y = inputs[1];
-            playerMove.Move(_inputDirection);
+            playerMove.Move(inputs);
 
-            PacketsToSend.PlayMovementAnimation(this, _inputDirection.x, _inputDirection.y);
-            weaponsController.ChangeWeapon(this);
-            if (weaponsController.GetCurrentWeapon() == null) return;
-            PacketsToSend.WeaponState(this);
+            if (GetCurrentWeapon() == null) return;
+
+            if (WepState() != WeaponState.OutOfAmmo)
+                PacketsToSend.WeaponState(this);
         }
         public void Shoot(Vector3 _viewDirection)
         {
@@ -100,26 +126,35 @@ namespace MFPS.ServerCharacters
 
             if (timer.IsDone())
             {
-                if (GetCurrentWeapon().IsoutOfAmmo())
-                    GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
-                else
+                if (WepState() == WeaponState.OutOfAmmo)
                 {
-                    GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
-                    GetCurrentWeapon().SpawnProjectile();
-                    // ======== DEBUGING ====================================================
-                    Debug.DrawRay(shootOrigin.position, _viewDirection * 25f, Color.red);
-                    // ======================================================================
-                    if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, GetCurrentWeapon().weaponRange))
+                    PacketsToSend.WeaponState(this);
+                    return;
+                }
+
+                GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
+
+                if (GetCurrentWeapon().IsMagazineEmpty())
+                {
+                    if (GetCurrentWeapon().IsoutOfAmmo())
                     {
-                        Debug.Log($"Hit tr {_hit.transform.name} :red;".Interpolate());
-                        IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
-                        if (damagable != null)
-                        {
-                            Debug.Log($"Damagable {_hit.transform.name} :red:18;".Interpolate());
-                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
-                        }
+                        GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
+                        Debug.Log($"Out Of Ammo!! :red;".Interpolate());
+                        return;
+                    }
+                    reloadTimer.SetTimer(GetCurrentWeapon().reloadTime, false);
+                    GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
+                    return;
+                }
+                if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, GetCurrentWeapon().weaponRange))
+                {
+                    IDamagable damagable = _hit.transform.GetComponent<IDamagable>();
+                    if (damagable != null)
+                    {
+                        weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
                     }
                 }
+                GetCurrentWeapon().SpawnProjectile();
                 timer.SetTimer(weaponsController.GetCoolDown(), false);
             }
         }

@@ -130,6 +130,7 @@ public class Server
                 {(int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
                 {(int)ClientPackets.setStartingWeapon, ServerHandle.SetStartingWeaponAndAllPositions },
                 {(int)ClientPackets.playerAimingAnim, ServerHandle.PlayerAiming },
+                {(int)ClientPackets.weaponIndex, ServerHandle.PlayerChangedWeapon},
 
         };
         Debug.Log("Server packets initialized");

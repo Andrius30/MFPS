@@ -48,6 +48,9 @@ public class PlayerManager : MonoBehaviour
     [Space(10)]
     [Header("Player Health UI")]
     public GameObject healthCanvas;
+    [Header("Player Amunition UI")]
+    [Space(10)]
+    public GameObject ammunitionCanvas;
 
     Timer timer;
 
@@ -55,12 +58,14 @@ public class PlayerManager : MonoBehaviour
     SurfaceChecker surfaceChecker;
     public PlayerHealth playerHealth { get; private set; }
     public PlayerHealth_UI playerHealth_UI { get; private set; }
+    public PlayerAmunition_UI playerAmunition { get; private set; }
 
     internal void Initialize(int id, string userName, bool isLocal)
     {
         this.id = id;
         this.username = userName;
         isLocalPlayer = isLocal;
+        transform.name = userName;
         // ===============================================================
 
         playerAudio.Init(this);
@@ -72,6 +77,7 @@ public class PlayerManager : MonoBehaviour
         playerAnimations = new PlayerAnimations(this);
         playerHealth = new PlayerHealth(this);
         playerHealth_UI = new PlayerHealth_UI(this);
+        playerAmunition = new PlayerAmunition_UI(this);
         surfaceChecker = new SurfaceChecker(this);
         timer = new Timer(checkRatio, false);
     }
@@ -95,17 +101,6 @@ public class PlayerManager : MonoBehaviour
         BloodSplatter.onDamage?.Invoke(dmg);
     }
 
-    Transform GetType(int attackerID, int attackerTypes)
-    {
-        switch (attackerTypes)
-        {
-            case (int)AttackerTypes.Player:
-                return GameManager.players[attackerID].transform;
-            case (int)AttackerTypes.Enemy:
-                return GameManager.enemies[attackerID].transform;
-        }
-        return null;
-    }
 
     public void Die()
     {
@@ -120,16 +115,19 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Weapons section
-    public void ChangeWeapon(int id, string weaponName, int fireMode)
+    public void ChangeWeapon(int id, string weaponName, int fireMode, int maxBullets, int bulletsLeft, float cd)
     {
         DisableAllWeapons();
-        SetWeapon(id, weaponName, fireMode);
+        SetWeapon(id, weaponName, fireMode, maxBullets, bulletsLeft, cd);
+        playerAmunition.SetText(maxBullets, bulletsLeft);
     }
-    void SetWeapon(int id, string name, int fireMode)
+    public int GetWeaponsLength() => GetAllWeapons().Length;
+
+    void SetWeapon(int id, string name, int fireMode, int maxBullets, int bulletsLeft, float cd)
     {
         newWeapon = GetAllWeapons()[id];
         newWeapon.gameObject.SetActive(true);
-        newWeapon.Initialize(id, name, fireMode);
+        newWeapon.Initialize(id, name, fireMode, maxBullets, bulletsLeft, cd);
         newWeapon.weaponAnimations.DrawAnimations();
     }
     void DisableAllWeapons()
@@ -140,6 +138,17 @@ public class PlayerManager : MonoBehaviour
         }
     }
     ClientWeapon[] GetAllWeapons() => weaponsparent.GetComponentsInChildren<ClientWeapon>(true);
+    Transform GetType(int attackerID, int attackerTypes)
+    {
+        switch (attackerTypes)
+        {
+            case (int)AttackerTypes.Player:
+                return GameManager.players[attackerID].transform;
+            case (int)AttackerTypes.Enemy:
+                return GameManager.enemies[attackerID].transform;
+        }
+        return null;
+    }
     #endregion
 
 }

@@ -57,6 +57,14 @@ public class PacketsToSend
     // ===========================================================
 
     // ================= WEAPONS =================================
+    public static void PlayerChangingWeapon(int index)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.weaponIndex))
+        {
+            packet.Write(index);
+            SendTCPData(packet);
+        }
+    }
     public static void InitializeWeaponsAndSetStartingWeapon(ClientWeapon[] weapons, int startingWeaponIndex)
     {
         using (Packet packet = new Packet((int)ClientPackets.setStartingWeapon))
