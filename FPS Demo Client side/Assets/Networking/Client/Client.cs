@@ -268,6 +268,7 @@ public class Client : MonoBehaviour
             #endregion
             #region WEAPONS
             {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },
+            {(int)ServerPackets.weaponRotation, ClientHandle.WeaponRotation },
             {(int)ServerPackets.weaponState, ClientHandle.ChangeWeaponState },
             {(int)ServerPackets.updateBullets, ClientHandle.UpdateBullets},
             #endregion
@@ -283,8 +284,12 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.playerAiming, ClientHandle.PlayerAiming },
 
         	#endregion
+            #region Effects
+            {(int) ServerPackets.hitEffect, ClientHandle.CreateHitEffect},
+
+        	#endregion
         };
-        Debug.Log("Packets initialized");
+        Debug.Log($"Packets initialized :green;".Interpolate());
     }
     void Disconnect()
     {

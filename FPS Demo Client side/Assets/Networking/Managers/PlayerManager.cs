@@ -1,5 +1,6 @@
 using FPSClient.Timers;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public enum PlayerState
@@ -70,6 +71,7 @@ public class PlayerManager : MonoBehaviour
 
         playerAudio.Init(this);
         playerSource = GetComponent<AudioSource>();
+  
         PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
         SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
 

@@ -23,7 +23,9 @@ public enum ServerPackets
     playerAiming,
     spawnEnemy,
     attackerAndDmg,
-    updateBullets
+    updateBullets,
+    hitEffect,
+    weaponRotation
 }
 
 /// <summary>Sent from client to server.</summary>

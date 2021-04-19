@@ -143,11 +143,13 @@ MonoBehaviour:
   weaponRange: 25
   weaponModel: {fileID: 977483790072100722}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
-  projectileSpawnPosition: {fileID: 6441396936032553952}
+  shootPos: {fileID: 6441396936032553952}
   bulletForce: 400
   totalBullets: 21
   magazineCapacity: 7
+  hitOffset: {x: 0, y: 0, z: -0.2}
   weaponDamage: 10
-  coolDown: 0.1
+  coolDown: 0.3
   weaponDrawTime: 0.5
   reloadTime: 1.4
+  acuracy: {fileID: 0}

@@ -3913,9 +3913,21 @@ PrefabInstance:
       propertyPath: rig
       value: 
       objectReference: {fileID: 821253896311552224}
+    - target: {fileID: 4909928077101207168, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: shootPosition
+      value: 
+      objectReference: {fileID: 2502199947458334879}
+    - target: {fileID: 4909928077101207168, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: shootPositionTargetToLookAt
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6187086784780052794, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
       propertyPath: m_Name
       value: AK47Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187086784780052794, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6187086784780052797, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
       propertyPath: m_RootOrder
@@ -3958,6 +3970,58 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6187086784780052797, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5163
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.993
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9991032
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.04234137
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -4.853
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416919760730611941, guid: 8f72f8980d986b24a9bc2a45ad890ac9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -4116,6 +4180,10 @@ PrefabInstance:
       propertyPath: rig
       value: 
       objectReference: {fileID: 4260358397500503186}
+    - target: {fileID: 3295161945165849457, guid: b0ca1cdf1caf2dd4d8b885e794a32058, type: 3}
+      propertyPath: shootPositionTargetToLookAt
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3295161945165849458, guid: b0ca1cdf1caf2dd4d8b885e794a32058, type: 3}
       propertyPath: m_RootOrder
       value: 2

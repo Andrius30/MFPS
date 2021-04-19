@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using UnityEngine;
 
@@ -176,6 +177,23 @@ public class ClientHandle
         Quaternion localRot = packet.ReadQuaternion();
 
         GameManager.players[playerID].playerAnimations.PlayAimingAnimation(angle, localRot);
+    }
+
+    internal static void CreateHitEffect(Packet packet)
+    {
+        Vector3 pos = packet.ReadVector3();
+        Quaternion rot = packet.ReadQuaternion();
+
+        GameManager.instance.CreateHitEffect(pos, rot);
+    }
+
+    internal static void WeaponRotation(Packet packet)
+    {
+        int playerID = packet.ReadInt();
+        int weaponID = packet.ReadInt();
+        Quaternion rot = packet.ReadQuaternion();
+
+        GameManager.players[playerID].newWeapon.shootPosition.rotation = rot;
     }
 
 

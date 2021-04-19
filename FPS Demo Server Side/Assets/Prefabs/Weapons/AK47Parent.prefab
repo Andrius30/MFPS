@@ -60,6 +60,7 @@ Transform:
   m_Children:
   - {fileID: 7131867507937584095}
   - {fileID: 8223427602329897744}
+  - {fileID: 1851834190835211267}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,14 +83,16 @@ MonoBehaviour:
   weaponRange: 30
   weaponModel: {fileID: 4531977851351410217}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
-  projectileSpawnPosition: {fileID: 8223427602329897744}
+  shootPos: {fileID: 8223427602329897744}
   bulletForce: 400
   totalBullets: 90
   magazineCapacity: 30
+  hitOffset: {x: 0, y: 0, z: -0.2}
   weaponDamage: 30
   coolDown: 0.1
   weaponDrawTime: 0.5
   reloadTime: 1.5
+  acuracy: {fileID: 0}
 --- !u!1 &5851520734333053009
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,3 +154,33 @@ Transform:
   m_Father: {fileID: 1142167443278777412}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.183, y: -6.33, z: -0.007}
+--- !u!1 &7608925077236827911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851834190835211267}
+  m_Layer: 0
+  m_Name: accuracyTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1851834190835211267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608925077236827911}
+  m_LocalRotation: {x: -0.093007125, y: -0.05497712, z: -0.0052037803, w: 0.9941328}
+  m_LocalPosition: {x: -0.057, y: 0.751, z: 1.968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1142167443278777412}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -10.69, y: -6.33, z: -0.007}

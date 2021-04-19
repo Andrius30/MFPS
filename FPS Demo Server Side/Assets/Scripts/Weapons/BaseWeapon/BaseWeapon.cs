@@ -1,5 +1,4 @@
 using MFPS.ServerCharacters;
-using MFPS.ServerTimers;
 using UnityEngine;
 
 public enum FireMode
@@ -18,6 +17,7 @@ public enum WeaponState
 }
 namespace MFPS.Weapons
 {
+    [RequireComponent(typeof(Acuracy))]
     public class BaseWeapon : MonoBehaviour, IWeapon
     {
         public FireMode firemode;
@@ -32,13 +32,17 @@ namespace MFPS.Weapons
         [Space(10)]
         [Header("Bullets Setting")]
         public GameObject projectile;
-        AnimationCurve weaponAcuracy;
-        [SerializeField] Transform projectileSpawnPosition;
+        public Transform shootPos;
         [SerializeField] float bulletForce = 100f;
         [SerializeField] int totalBullets = 100;
         [SerializeField] int magazineCapacity = 20;
         public int GetMaxBullets => totalBullets;
         int shootedbullets;
+
+        [Space(10)]
+        [Header("Hit Effects Setting")]
+        //[SerializeField] GameObject hitEffectprefab;
+        [SerializeField] Vector3 hitOffset;
 
         [Header("Weapon damage seetings")]
         [SerializeField] float weaponDamage;
@@ -50,6 +54,7 @@ namespace MFPS.Weapons
 
         public IWeapon weaponType;
         int count = 0;
+        public Acuracy acuracy;
 
         /// <summary>
         /// Getting all required weapon position from client when new client connect
@@ -60,10 +65,12 @@ namespace MFPS.Weapons
         /// <param name="shootRot"></param>
         public virtual void InitializeWeapons(Vector3 modelPosition, Quaternion modelRotation, Vector3 shootPos, Quaternion shootRot)
         {
+            acuracy = GetComponent<Acuracy>();
+            acuracy.Initialize();
             weaponModel.localPosition = modelPosition;
             weaponModel.localRotation = modelRotation;
-            projectileSpawnPosition.localPosition = shootPos;
-            projectileSpawnPosition.localRotation = shootRot;
+            this.shootPos.localPosition = shootPos;
+            this.shootPos.localRotation = shootRot;
             //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
 
@@ -71,7 +78,7 @@ namespace MFPS.Weapons
         {
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
-     
+
         public void SpawnProjectile()
         {
             if (firemode == FireMode.auto)
@@ -79,13 +86,13 @@ namespace MFPS.Weapons
                 count++;
                 if (count >= 3)
                 {
-                    CreateBullet(projectileSpawnPosition);
+                    CreateBullet(shootPos);
                     count = 0;
                 }
             }
             else
             {
-                CreateBullet(projectileSpawnPosition);
+                CreateBullet(shootPos);
             }
             shootedbullets++;
         }

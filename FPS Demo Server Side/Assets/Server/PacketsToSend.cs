@@ -267,4 +267,18 @@ class PacketsToSend
             SendUDPDataToAll(packet);
         }
     }
+
+    #region Effects
+    public static void CreateHitEffect(Vector3 point, Quaternion rotation)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.hitEffect))
+        {
+            packet.Write(point);
+            packet.Write(rotation);
+
+            SendUDPDataToAll(packet);
+        }
+    }
+
+    #endregion
 }

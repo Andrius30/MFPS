@@ -131,4 +131,5 @@ public class ClientWeapon : MonoBehaviour
 
     void OnEnable() => SetRig(1);
     void OnDisable() => SetRig(0);
+
 }

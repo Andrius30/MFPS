@@ -12,7 +12,7 @@ public class PlayerInputs
     // =========== MOVE END =====================================================
 
     // ========== SHOOT =========================================================
-
+    public bool ShootInput() => Input.GetKey(KeyCode.Mouse0);
     public bool ShootInput(int fireMode)
     {
         switch (fireMode)

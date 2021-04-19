@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour, IConsole
         if (!cursorLockDisabled)
             mouseLock.CursorState();
         // =====================================
-
+        if (playerManager.newWeapon == null) return;
+        Debug.DrawRay(playerManager.newWeapon.shootPosition.position, playerManager.newWeapon.shootPosition.forward * 25f, Color.red);
         #region Player shoot
         if (CanShoot())
         {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour, IConsole
                 }
                 playerManager.playerAmunition.UpdateBulletsLeft(playerManager.newWeapon.bulletsLeft);
                 cdTimer.SetTimer(playerManager.newWeapon.coolDown, false);
-                PacketsToSend.PlayerShoot(camTransform.forward);
+                //PacketsToSend.PlayerShoot(camTransform.forward);
             }
         }
         #endregion
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour, IConsole
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
         bool walkInput = playerInputs.WalkInput();
-
+        bool isShooting = playerInputs.ShootInput();
         playerManager.playerAnimations.PlayMoveAnimation(x, z);
         playerManager.playerAnimations.PlayCrouchAnimation(crouchInput);
         playerManager.playerAnimations.PlayWalkAnimation(walkInput);
@@ -97,7 +98,8 @@ public class PlayerController : MonoBehaviour, IConsole
         {
             jumpInput,
             crouchInput,
-            walkInput
+            walkInput,
+            isShooting
         };
 
         PacketsToSend.SendPlayerInputs(inputs);
@@ -107,10 +109,10 @@ public class PlayerController : MonoBehaviour, IConsole
     {
         return
             playerManager.newWeapon != null &&
-            playerInputs.ShootInput((int)playerManager.newWeapon.GetFireMode()) &&
+            GetCurState() == WeaponState.Shooting &&
             GetCurState() != WeaponState.Reloading;
     }
-    WeaponState GetCurState() => playerManager.newWeapon.weaponState;
+    WeaponState GetCurState() => playerManager.newWeapon == null ? WeaponState.Idle : playerManager.newWeapon.weaponState;
     #region Developer console test
     public void Execute()
     {

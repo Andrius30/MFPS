@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, Projectile> projectiles = new Dictionary<int, Projectile>();
     public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
 
+    [Header("Client Prefabs")]
     [SerializeField] GameObject localPlayerPrefab;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject hitEffectPrefab;
+
+    [Space(10)]
+    [Header("Scene main camera")]
     [SerializeField] GameObject sceneCamera;
 
     void Awake()
@@ -60,5 +65,9 @@ public class GameManager : MonoBehaviour
             Enemy enemy = gm.GetComponent<Enemy>();
             enemies.Add(id, enemy);
         }
+    }
+    public void CreateHitEffect(Vector3 pos,Quaternion rot)
+    {
+        GameObject gm = Instantiate(hitEffectPrefab, pos, rot);
     }
 }

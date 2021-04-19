@@ -28,7 +28,8 @@ public enum ServerPackets
     playerAiming,
     spawnEnemy,
     attackerAndDmg,
-    updateBullets
+    updateBullets,
+    hitEffect
 }
 
 /// <summary>Sent from client to server.</summary>
