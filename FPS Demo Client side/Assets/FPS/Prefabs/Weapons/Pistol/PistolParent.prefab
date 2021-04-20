@@ -646,8 +646,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8d74845a4338742af35c74244a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponState: 0
   weaponID: 0
   weaponName: 
+  weaponCam: {fileID: 3147725349007990914}
+  maxBullets: 0
+  bulletsLeft: 0
+  coolDown: 0
   shootingSound: {fileID: 8300000, guid: 91eb75b6f9d7f6b4da18f6b66e82bd7f, type: 3}
   reloadingSound: {fileID: 8300000, guid: 17d4d26467623594ba037745d7da0c89, type: 3}
   drawWeaponSound: {fileID: 8300000, guid: 28aa44bcce1d6a04794319ae476c80b7, type: 3}
@@ -848,7 +853,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -15529,13 +15534,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5782534559560920596}
-  m_LocalRotation: {x: 0.00000039906516, y: -0.000034826866, z: -0.011457792, w: 0.9999344}
-  m_LocalPosition: {x: -0.0616, y: 0.4514, z: 0.8603}
+  m_LocalRotation: {x: -0.016151048, y: -0.054879125, z: 0.09024554, w: 0.9942752}
+  m_LocalPosition: {x: -0.06, y: 0.445, z: 0.86}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 3295161945165849458}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -0.004, z: -1.313}
+  m_LocalEulerAnglesHint: {x: -1.273, y: -6.435, z: 10.444}
 --- !u!1 &6137450343756005791
 GameObject:
   m_ObjectHideFlags: 0

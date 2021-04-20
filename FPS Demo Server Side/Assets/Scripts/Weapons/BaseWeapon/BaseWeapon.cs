@@ -32,7 +32,7 @@ namespace MFPS.Weapons
         [Space(10)]
         [Header("Bullets Setting")]
         public GameObject projectile;
-        public Transform shootPos;
+        public Transform projectileSpawnPoint;
         [SerializeField] float bulletForce = 100f;
         [SerializeField] int totalBullets = 100;
         [SerializeField] int magazineCapacity = 20;
@@ -41,7 +41,7 @@ namespace MFPS.Weapons
 
         [Space(10)]
         [Header("Hit Effects Setting")]
-        //[SerializeField] GameObject hitEffectprefab;
+        [SerializeField] GameObject hitEffectprefab; // testing only
         [SerializeField] Vector3 hitOffset;
 
         [Header("Weapon damage seetings")]
@@ -54,7 +54,7 @@ namespace MFPS.Weapons
 
         public IWeapon weaponType;
         int count = 0;
-        public Acuracy acuracy;
+        public Acuracy acuracy { get; private set; }
 
         /// <summary>
         /// Getting all required weapon position from client when new client connect
@@ -66,11 +66,10 @@ namespace MFPS.Weapons
         public virtual void InitializeWeapons(Vector3 modelPosition, Quaternion modelRotation, Vector3 shootPos, Quaternion shootRot)
         {
             acuracy = GetComponent<Acuracy>();
-            acuracy.Initialize();
             weaponModel.localPosition = modelPosition;
             weaponModel.localRotation = modelRotation;
-            this.shootPos.localPosition = shootPos;
-            this.shootPos.localRotation = shootRot;
+            this.projectileSpawnPoint.localPosition = shootPos;
+            this.projectileSpawnPoint.localRotation = shootRot;
             //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
 
@@ -86,13 +85,13 @@ namespace MFPS.Weapons
                 count++;
                 if (count >= 3)
                 {
-                    CreateBullet(shootPos);
+                    CreateBullet(projectileSpawnPoint);
                     count = 0;
                 }
             }
             else
             {
-                CreateBullet(shootPos);
+                CreateBullet(projectileSpawnPoint);
             }
             shootedbullets++;
         }
@@ -119,5 +118,14 @@ namespace MFPS.Weapons
             PacketsToSend.SpawnProjectile(proj);
         }
         public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
+        // ========== TESTING ====================
+
+        public void SpawnhitEffect(RaycastHit hit)
+        {
+            GameObject gm = Instantiate(hitEffectprefab, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(gm, 5f);
+        }
+
+        // =======================================
     }
 }

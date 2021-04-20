@@ -129,7 +129,7 @@ MonoBehaviour:
   attackerType: 0
   id: 0
   userName: 
-  shootOrigin: {fileID: 0}
+  shootOrigin: {fileID: 4093116407577331127}
   maxHealth: 100
   health: 0
   moveSpeed: 5
@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8373198873274708129}
   m_Layer: 0
-  m_Name: SpawnPos
+  m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,6 +285,36 @@ Transform:
   m_Father: {fileID: 6147085073069744258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -4.776, y: -5.215, z: 1.48}
+--- !u!1 &3814388326763574851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4093116407577331127}
+  m_Layer: 0
+  m_Name: ShootPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4093116407577331127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814388326763574851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.669, z: 0.635}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1291757330658026452}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3982847563220281717
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,16 +399,16 @@ MonoBehaviour:
   weaponRange: 30
   weaponModel: {fileID: 672020546368939380}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
-  shootPos: {fileID: 5019496177354967117}
+  projectileSpawnPoint: {fileID: 5019496177354967117}
   bulletForce: 400
   totalBullets: 90
   magazineCapacity: 30
+  hitEffectprefab: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
   hitOffset: {x: 0, y: 0, z: -0.2}
   weaponDamage: 30
   coolDown: 0.1
   weaponDrawTime: 0.5
   reloadTime: 1.5
-  acuracy: {fileID: 0}
 --- !u!114 &4125166136551463713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,20 +445,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lerpTime: 2
-  timeToSwichBetweenIndex: 0.01
+  lerpTime: 0.5
+  timeToSwichBetweenIndex: 0.05
   offsets:
-  - {x: -2, y: -5, z: 0}
-  - {x: -3, y: -10, z: 0}
-  - {x: -4, y: -15, z: 0}
-  - {x: -5, y: -20, z: 0}
-  - {x: -4, y: -15, z: 0}
-  - {x: -5, y: -10, z: 0}
-  - {x: -6, y: -5, z: 0}
-  - {x: -6, y: 0, z: 0}
-  - {x: -7, y: 5, z: 0}
-  - {x: -8, y: 10, z: 0}
-  - {x: -7, y: 15, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: -1, y: -1, z: 0}
+  - {x: -2, y: 1, z: 0}
+  - {x: -2.5, y: 0, z: 0}
+  - {x: -3, y: -2, z: 0}
+  - {x: -3.5, y: 2, z: 0}
+  - {x: -4, y: -1, z: 0}
+  - {x: -4.5, y: 2, z: 0}
+  - {x: -5, y: 1, z: 0}
+  - {x: -5.5, y: -2, z: 0}
+  - {x: -6, y: 1, z: 0}
+  - {x: -6.5, y: -1, z: 0}
+  - {x: -7, y: 2, z: 0}
+  - {x: -8, y: 0, z: 0}
+  doesRepeatEnabled: 1
+  fromIndex: 8
+  toIndex: 13
 --- !u!1 &6566998461646884271
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,16 +518,16 @@ MonoBehaviour:
   weaponRange: 25
   weaponModel: {fileID: 2361957915474840627}
   projectile: {fileID: 3055972863478969277, guid: 3669b87ef2d37744ea10b17d56163e33, type: 3}
-  shootPos: {fileID: 8373198873274708129}
+  projectileSpawnPoint: {fileID: 8373198873274708129}
   bulletForce: 400
   totalBullets: 21
   magazineCapacity: 7
+  hitEffectprefab: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
   hitOffset: {x: 0, y: 0, z: -0.2}
   weaponDamage: 10
   coolDown: 0.3
   weaponDrawTime: 0.5
   reloadTime: 1.4
-  acuracy: {fileID: 0}
 --- !u!114 &6335876765991740105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,14 +542,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lerpTime: 2
+  lerpTime: 0.1
   timeToSwichBetweenIndex: 0.01
   offsets:
-  - {x: 0, y: 0, z: 0}
+  - {x: -5, y: 0, z: 0}
+  doesRepeatEnabled: 0
+  fromIndex: 0
+  toIndex: 0
 --- !u!1 &6786920185722553434
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5019496177354967117}
   m_Layer: 0
-  m_Name: SpawnPos
+  m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634,6 +691,7 @@ Transform:
   m_Children:
   - {fileID: 1232188841091240019}
   - {fileID: 4066299408215265049}
+  - {fileID: 4093116407577331127}
   m_Father: {fileID: 132376865499475522}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

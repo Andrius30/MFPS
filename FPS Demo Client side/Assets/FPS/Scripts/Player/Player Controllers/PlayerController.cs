@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IConsole
 {
-    [SerializeField] Transform camTransform;
+    [SerializeField] Transform camTransform; // REMOVE AFTER DEBUGING!! =====================================================
 
     PlayerInputs playerInputs;
     MouseLock mouseLock;
@@ -13,11 +13,9 @@ public class PlayerController : MonoBehaviour, IConsole
     float mouseScroll;
     bool cursorLockDisabled = false;
     int currentWeaponIndex = 0;
-    Timer cdTimer;
 
     void Start()
     {
-        cdTimer = new Timer(0, true);
         playerManager = GetComponent<PlayerManager>();
         mouseLock = new MouseLock();
         playerInputs = new PlayerInputs();
@@ -26,7 +24,6 @@ public class PlayerController : MonoBehaviour, IConsole
         com.AddCommand("dscr", "Disables cursor locking");
         ConsoleController.instance.consoles.Add(com, this);
     }
-    void Update() => cdTimer.StartTimer();
     void FixedUpdate()
     {
         // ====== DEBUGING ==== TESTING =======
@@ -34,22 +31,15 @@ public class PlayerController : MonoBehaviour, IConsole
             mouseLock.CursorState();
         // =====================================
         if (playerManager.newWeapon == null) return;
-        Debug.DrawRay(playerManager.newWeapon.shootPosition.position, playerManager.newWeapon.shootPosition.forward * 25f, Color.red);
         #region Player shoot
         if (CanShoot())
         {
-            if (cdTimer.IsDone())
+            playerManager.newWeapon.bulletsLeft--;
+            if (playerManager.newWeapon.bulletsLeft <= 0)
             {
-
-                playerManager.newWeapon.bulletsLeft--;
-                if (playerManager.newWeapon.bulletsLeft <= 0)
-                {
-                    playerManager.newWeapon.bulletsLeft = 0;
-                }
-                playerManager.playerAmunition.UpdateBulletsLeft(playerManager.newWeapon.bulletsLeft);
-                cdTimer.SetTimer(playerManager.newWeapon.coolDown, false);
-                //PacketsToSend.PlayerShoot(camTransform.forward);
+                playerManager.newWeapon.bulletsLeft = 0;
             }
+            playerManager.playerAmunition.UpdateBulletsLeft(playerManager.newWeapon.bulletsLeft);
         }
         #endregion
 

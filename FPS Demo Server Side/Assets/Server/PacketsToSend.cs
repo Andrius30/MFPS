@@ -210,6 +210,20 @@ class PacketsToSend
             SendTCPData(player.id, packet);
         }
     }
+    /// <summary>
+    /// Rotates Client weapon camera to make recoil illution.
+    /// Sending through UDP if we lose some packets its not important
+    /// </summary>
+    public static void RotateWeaponCameraBySpray(Player player)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.spray))
+        {
+            packet.Write(player.id);
+            packet.Write(player.shootOrigin.localRotation);
+
+            SendTCPData(player.id, packet);
+        }
+    }
     #endregion
 
     #region Enemies Section

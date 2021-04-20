@@ -1,3 +1,4 @@
+using MFPS.ServerCharacters;
 using MFPS.ServerTimers;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,59 +11,72 @@ public class Acuracy : MonoBehaviour
     [SerializeField] float timeToSwichBetweenIndex = 0.01f;
     [SerializeField] List<Vector3> offsets = new List<Vector3>();
 
+    [Space(20)]
+    [Header("Repeat random")]
+    [SerializeField] bool doesRepeatEnabled = false;
+    [SerializeField] int fromIndex;
+    [SerializeField] int toIndex;
     Timer timers;
     int index;
     float timer = 0;
 
-    public void Initialize() => timers = new Timer(0, true);
+    public void Awake() => timers = new Timer(0, true);
 
-    public void UpdateWeaponInacuracy(bool isShoot)
+    public void UpdateWeaponInacuracy(Player player, bool isShoot)
     {
         timers.StartTimer();
 
         if (isShoot)
         {
             timer += Time.deltaTime;
-            if (timer > lerpTime)
-                timer = lerpTime;
-
+            if (timer > lerpTime) timer = lerpTime;
             if (timers.IsDone())
             {
-                index++;
+                if (doesRepeatEnabled)
+                {
+                    index = RandomSpray();
+                }
+                else
+                {
+                    index++;
+                }
                 if (index > offsets.Count - 1)
                 {
                     index = offsets.Count - 1;
                 }
                 timers.SetTimer(timeToSwichBetweenIndex, false);
+                Lerp(player);
             }
-
-            Lerp();
         }
         else
         {
             timer -= Time.deltaTime * 5f;
-            if (timer < 0)
-                timer = 0;
+            if (timer < 0) timer = 0;
             if (timers.IsDone())
             {
                 index--;
                 if (index <= 0)
                 {
                     index = 0;
+                    player.shootOrigin.localRotation = Quaternion.identity;
+                    Lerp(player);
                     return;
                 }
                 timers.SetTimer(0.01f, false);
+                Lerp(player);
             }
-            Lerp();
         }
     }
 
-    void Lerp()
+    void Lerp(Player player)
     {
-        //Debug.Log($"List count {offsets.Count} index {index} :red;".Interpolate());
         float r = timer / lerpTime;
-        Vector3 t = curve.Evaluate(r) * offsets[index];
-
-        transform.localEulerAngles = Vector3.Lerp(transform.position, t, r);
+        float evaluate = curve.Evaluate(r);
+        Quaternion rot = Quaternion.Euler(evaluate * offsets[index].x, evaluate * offsets[index].y, 0);
+        player.shootOrigin.localRotation = Quaternion.Lerp(player.shootOrigin.localRotation, rot, r);
+        PacketsToSend.RotateWeaponCameraBySpray(player);
     }
+    // jeigu pasiektas from index pradek parinkineti random nuo to index'o iki (iki)index'o
+
+    int RandomSpray() => Random.Range(fromIndex, toIndex);
 }

@@ -268,9 +268,10 @@ public class Client : MonoBehaviour
             #endregion
             #region WEAPONS
             {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },
-            {(int)ServerPackets.weaponRotation, ClientHandle.WeaponRotation },
+            //{(int)ServerPackets.weaponRotation, ClientHandle.WeaponRotation },
             {(int)ServerPackets.weaponState, ClientHandle.ChangeWeaponState },
             {(int)ServerPackets.updateBullets, ClientHandle.UpdateBullets},
+            {(int)ServerPackets.spray, ClientHandle.RotateWeaponCamera},
             #endregion
             #region Enemies
             {(int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy},

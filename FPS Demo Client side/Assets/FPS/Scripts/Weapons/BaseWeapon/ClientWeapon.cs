@@ -1,4 +1,5 @@
 using FPSClient.Timers;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -22,6 +23,12 @@ public class ClientWeapon : MonoBehaviour
     #region Vars
     public int weaponID;
     public string weaponName;
+
+    [Space(10)]
+    [Header("Weapon camera for recoil illution")]
+    public Transform weaponCam;
+    public float lerpTime = 3f;
+    Quaternion tempRot;
 
     [Space(10)]
     [Header("Weapon other settings")]
@@ -67,6 +74,7 @@ public class ClientWeapon : MonoBehaviour
         weapons_SFX = new Weapons_SFX(this);
         weapon_VFX = new Weapon_VFX(this);
         weaponAnimations = new WeaponAnimations(this);
+        tempRot = weaponCam.localRotation;
     }
     void Update()
     {
@@ -76,10 +84,11 @@ public class ClientWeapon : MonoBehaviour
             if (muzleLight.enabled)
                 muzleLight.enabled = false;
         }
-
+        if (weaponState == WeaponState.Shooting)
+            weaponCam.localRotation = Quaternion.Lerp(weaponCam.localRotation, tempRot, Time.deltaTime * lerpTime);
     }
 
-    public void Initialize(int id, string weaponName, int fireMode, int maxBullets, int bulletsLeft,float cd)
+    public void Initialize(int id, string weaponName, int fireMode, int maxBullets, int bulletsLeft, float cd)
     {
         weaponID = id;
         this.weaponName = weaponName;
@@ -123,12 +132,13 @@ public class ClientWeapon : MonoBehaviour
         maxBullets = maxBs;
         bulletsLeft = bullets;
     }
+    public void RotateSmoth(Quaternion rot) => tempRot = rot;
+
     void ResetSomeStates()
     {
         weaponAnimator.SetBool("isReloading", false);
     }
     void SetRig(int value) => rig.weight = value;
-
     void OnEnable() => SetRig(1);
     void OnDisable() => SetRig(0);
 

@@ -187,16 +187,13 @@ public class ClientHandle
         GameManager.instance.CreateHitEffect(pos, rot);
     }
 
-    internal static void WeaponRotation(Packet packet)
+    internal static void RotateWeaponCamera(Packet packet)
     {
         int playerID = packet.ReadInt();
-        int weaponID = packet.ReadInt();
-        Quaternion rot = packet.ReadQuaternion();
+        Quaternion localRot = packet.ReadQuaternion();
 
-        GameManager.players[playerID].newWeapon.shootPosition.rotation = rot;
+        GameManager.players[playerID].newWeapon.RotateSmoth(localRot);
     }
 
-
     #endregion
-
 }

@@ -1,7 +1,9 @@
 using MFPS.ServerTimers;
 using MFPS.Weapons;
 using MFPS.Weapons.Controllers;
+using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace MFPS.ServerCharacters
@@ -74,7 +76,7 @@ namespace MFPS.ServerCharacters
             characterController = GetComponent<CharacterController>();
 
             inputs = new float[2];
-            otherInputs = new bool[3];
+            otherInputs = new bool[4];
         }
         void Update() => TrackWeaponStates();
         void FixedUpdate()
@@ -87,8 +89,9 @@ namespace MFPS.ServerCharacters
             if (otherInputs[3])
                 Shoot();
             else
-                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(false); // inaccuracy
+                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, false); // inaccuracy
 
+            Debug.DrawRay(shootOrigin.position, shootOrigin.forward * GetCurrentWeapon().weaponRange, Color.red);
 
             if (WepState() != WeaponState.OutOfAmmo)
                 PacketsToSend.WeaponState(this);
@@ -108,7 +111,7 @@ namespace MFPS.ServerCharacters
                     return;
                 }
 
-                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(true); // inaccuracy
+                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, true); // inaccuracy
                 GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
 
                 if (GetCurrentWeapon().IsMagazineEmpty())
@@ -122,7 +125,7 @@ namespace MFPS.ServerCharacters
                     GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
                     return;
                 }
-                if (Physics.Raycast(GetCurrentWeapon().shootPos.position, GetCurrentWeapon().shootPos.forward, out RaycastHit hit, GetCurrentWeapon().weaponRange))
+                if (Physics.Raycast(shootOrigin.position, shootOrigin.forward, out RaycastHit hit, GetCurrentWeapon().weaponRange))
                 {
                     if (hit.transform != this.transform)
                     {
@@ -132,6 +135,7 @@ namespace MFPS.ServerCharacters
                             weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
                         }
                         PacketsToSend.CreateHitEffect(hit.point, Quaternion.LookRotation(hit.normal));
+                        GetCurrentWeapon().SpawnhitEffect(hit);
                     }
                 }
                 GetCurrentWeapon().SpawnProjectile();

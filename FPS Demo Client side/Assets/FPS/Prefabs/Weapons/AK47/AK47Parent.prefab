@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102254701008331701}
-  m_LocalRotation: {x: -0.0020381361, y: -0.0016453735, z: -0.008511161, w: -0.9999604}
-  m_LocalPosition: {x: 0.048867047, y: 0.52908945, z: 0.9848919}
-  m_LocalScale: {x: 1.5000002, y: 1.5000001, z: 1.2000002}
+  m_LocalRotation: {x: -0.047860842, y: -0.051604807, z: -0.045112666, w: 0.9964994}
+  m_LocalPosition: {x: 0.0495, y: 0.5245, z: 1.0025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6187086784780052797}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.232, y: 0.191, z: 0.976}
+  m_LocalEulerAnglesHint: {x: -5.742, y: -5.683, z: -4.899}
 --- !u!1 &2366092030502222614
 GameObject:
   m_ObjectHideFlags: 0
@@ -15373,8 +15373,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8d74845a4338742af35c74244a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponState: 0
   weaponID: 1
   weaponName: 
+  weaponCam: {fileID: 494878392786404902}
+  maxBullets: 0
+  bulletsLeft: 0
+  coolDown: 0
   shootingSound: {fileID: 8300000, guid: 01bea3feba2d56d4db50a06e5ff39031, type: 3}
   reloadingSound: {fileID: 8300000, guid: 5ee311a790a25694e8db2a969ebeb0d1, type: 3}
   drawWeaponSound: {fileID: 8300000, guid: 28aa44bcce1d6a04794319ae476c80b7, type: 3}
@@ -15670,7 +15675,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

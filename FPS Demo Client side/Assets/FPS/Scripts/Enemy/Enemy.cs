@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     public void SetHealth(float hp)
     {
-        Debug.Log($"Enemy taking {health - hp } damage");
+        //Debug.Log($"Enemy taking {health - hp } damage");
         health = hp; // just for testing
         hpBar.fillAmount = health / maxhealth;
         Die();

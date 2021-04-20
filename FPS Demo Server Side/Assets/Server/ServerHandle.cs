@@ -36,13 +36,6 @@ class ServerHandle
         }
         Server.clients[fromClient].player.SetOtherInputs(inputs);
     }
-    //public static void PlayerShoot(int fromClient, Packet packet)
-    //{
-    //    Vector3 viewDirection = packet.ReadVector3();
-
-
-    //    Server.clients[fromClient].player.Shoot(viewDirection);
-    //}
     public static void PlayerAiming(int fromClient, Packet packet)
     {
         float angle = packet.ReadFloat();

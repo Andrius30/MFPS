@@ -29,7 +29,8 @@ public enum ServerPackets
     spawnEnemy,
     attackerAndDmg,
     updateBullets,
-    hitEffect
+    hitEffect,
+    spray
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -38,7 +39,6 @@ public enum ClientPackets
     welcomeReceived = 1,
     playerMovement,
     playerOtherInputs,
-    playerShoot,
     setStartingWeapon,
     playerAimingAnim,
     weaponIndex,
