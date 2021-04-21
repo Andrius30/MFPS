@@ -53,6 +53,10 @@ public class PlayerManager : MonoBehaviour
     [Space(10)]
     public GameObject ammunitionCanvas;
 
+    [Space(10)]
+    [Header("Effects")]
+    [SerializeField] GameObject hitEffectPrefab;
+
     Timer timer;
 
     [HideInInspector] public AudioSource playerSource;
@@ -153,4 +157,11 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
+    #region Effecets
+    public void CreateHitEffect(Vector3 pos, Quaternion rot)
+    {
+        GameObject gm = Instantiate(hitEffectPrefab, pos, rot);
+        Destroy(gm, 5f);
+    }
+    #endregion
 }

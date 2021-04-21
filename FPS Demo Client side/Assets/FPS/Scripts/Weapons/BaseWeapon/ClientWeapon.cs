@@ -61,11 +61,13 @@ public class ClientWeapon : MonoBehaviour
     public Transform shootPosition;
     public Transform model;
 
+    public Timer timer { get; set; }
+    public WeaponAnimations weaponAnimations { get; set; }
+
     int fireMode;
     Weapons_SFX weapons_SFX;
     Weapon_VFX weapon_VFX;
-    public Timer timer { get; set; }
-    public WeaponAnimations weaponAnimations { get; set; }
+    PlayerManager player;
     #endregion
 
     void Awake()
@@ -74,7 +76,9 @@ public class ClientWeapon : MonoBehaviour
         weapons_SFX = new Weapons_SFX(this);
         weapon_VFX = new Weapon_VFX(this);
         weaponAnimations = new WeaponAnimations(this);
-        tempRot = weaponCam.localRotation;
+
+        if (weaponCam)
+            tempRot = weaponCam.localRotation;
     }
     void Update()
     {
@@ -84,7 +88,8 @@ public class ClientWeapon : MonoBehaviour
             if (muzleLight.enabled)
                 muzleLight.enabled = false;
         }
-        if (weaponState == WeaponState.Shooting)
+
+        if (weaponState == WeaponState.Shooting && player && player.isLocalPlayer)
             weaponCam.localRotation = Quaternion.Lerp(weaponCam.localRotation, tempRot, Time.deltaTime * lerpTime);
     }
 
@@ -132,7 +137,11 @@ public class ClientWeapon : MonoBehaviour
         maxBullets = maxBs;
         bulletsLeft = bullets;
     }
-    public void RotateSmoth(Quaternion rot) => tempRot = rot;
+    public void RotateSmoth(PlayerManager player, Quaternion rot)
+    {
+        this.player = player;
+        tempRot = rot;
+    }
 
     void ResetSomeStates()
     {

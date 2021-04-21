@@ -78,20 +78,20 @@ namespace MFPS.Weapons
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
 
-        public void SpawnProjectile()
+        public void SpawnProjectile(Vector3 direction)
         {
             if (firemode == FireMode.auto)
             {
                 count++;
                 if (count >= 3)
                 {
-                    CreateBullet(projectileSpawnPoint);
+                    CreateBullet(projectileSpawnPoint, direction);
                     count = 0;
                 }
             }
             else
             {
-                CreateBullet(projectileSpawnPoint);
+                CreateBullet(projectileSpawnPoint, direction);
             }
             shootedbullets++;
         }
@@ -110,22 +110,24 @@ namespace MFPS.Weapons
         }
         public bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
 
-        void CreateBullet(Transform spawntr)
+        void CreateBullet(Transform spawntr, Vector3 direction)
         {
             GameObject gm = Instantiate(projectile, spawntr.position, spawntr.rotation);
             Projectile proj = gm.GetComponent<Projectile>();
-            proj.GetComponent<Rigidbody>().AddForce(spawntr.forward * bulletForce, ForceMode.Impulse);
+            Vector3 dir = (direction - spawntr.position).normalized;
+            //Debug.DrawRay(spawntr.position, spawntr.position + dir * 25f, Color.red);
+            proj.GetComponent<Rigidbody>().AddForce(spawntr.position + dir * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
         public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
-        // ========== TESTING ====================
+        //// ========== TESTING ==================== REMOVE LATER
 
-        public void SpawnhitEffect(RaycastHit hit)
-        {
-            GameObject gm = Instantiate(hitEffectprefab, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(gm, 5f);
-        }
+        //public void SpawnhitEffect(RaycastHit hit)
+        //{
+        //    GameObject gm = Instantiate(hitEffectprefab, hit.point, Quaternion.LookRotation(hit.normal));
+        //    Destroy(gm, 5f);
+        //}
 
-        // =======================================
+        //// =======================================
     }
 }

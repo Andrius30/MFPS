@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] GameObject hitEffectPrefab;
 
     [Space(10)]
     [Header("Scene main camera")]
@@ -66,8 +65,5 @@ public class GameManager : MonoBehaviour
             enemies.Add(id, enemy);
         }
     }
-    public void CreateHitEffect(Vector3 pos,Quaternion rot)
-    {
-        GameObject gm = Instantiate(hitEffectPrefab, pos, rot);
-    }
+
 }

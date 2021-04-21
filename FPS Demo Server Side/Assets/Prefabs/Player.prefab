@@ -463,7 +463,7 @@ MonoBehaviour:
   - {x: -7, y: 2, z: 0}
   - {x: -8, y: 0, z: 0}
   doesRepeatEnabled: 1
-  fromIndex: 8
+  fromIndex: 7
   toIndex: 13
 --- !u!1 &6566998461646884271
 GameObject:

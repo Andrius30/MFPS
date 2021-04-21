@@ -91,7 +91,7 @@ namespace MFPS.ServerCharacters
             else
                 GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, false); // inaccuracy
 
-            Debug.DrawRay(shootOrigin.position, shootOrigin.forward * GetCurrentWeapon().weaponRange, Color.red);
+            //Debug.DrawRay(shootOrigin.position, shootOrigin.forward * GetCurrentWeapon().weaponRange, Color.red);
 
             if (WepState() != WeaponState.OutOfAmmo)
                 PacketsToSend.WeaponState(this);
@@ -134,11 +134,11 @@ namespace MFPS.ServerCharacters
                         {
                             weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
                         }
-                        PacketsToSend.CreateHitEffect(hit.point, Quaternion.LookRotation(hit.normal));
-                        GetCurrentWeapon().SpawnhitEffect(hit);
+                        PacketsToSend.CreateHitEffect(this, hit.point, Quaternion.LookRotation(hit.normal));
+                        GetCurrentWeapon().SpawnProjectile(hit.point);
+                      //  GetCurrentWeapon().SpawnhitEffect(hit); // just for testing visualize
                     }
                 }
-                GetCurrentWeapon().SpawnProjectile();
                 timer.SetTimer(weaponsController.GetCoolDown(), false);
             }
         }

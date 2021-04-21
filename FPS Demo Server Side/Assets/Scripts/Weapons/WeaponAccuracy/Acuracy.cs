@@ -16,6 +16,7 @@ public class Acuracy : MonoBehaviour
     [SerializeField] bool doesRepeatEnabled = false;
     [SerializeField] int fromIndex;
     [SerializeField] int toIndex;
+
     Timer timers;
     int index;
     float timer = 0;
@@ -32,11 +33,20 @@ public class Acuracy : MonoBehaviour
             if (timer > lerpTime) timer = lerpTime;
             if (timers.IsDone())
             {
-                if (doesRepeatEnabled)
+                if (doesRepeatEnabled) // use random spray from
                 {
-                    index = RandomSpray();
+                    if (index < fromIndex)
+                    {
+                        index++;
+                        Debug.Log($"Less :red:20;".Interpolate());
+                    }
+                    else
+                    {
+                        index = RandomSpray();
+                        Debug.Log($"Random :red:20;".Interpolate());
+                    }
                 }
-                else
+                else // normal spray from index 0, to offsets.Count - 1
                 {
                     index++;
                 }
@@ -59,7 +69,7 @@ public class Acuracy : MonoBehaviour
                 {
                     index = 0;
                     player.shootOrigin.localRotation = Quaternion.identity;
-                    Lerp(player);
+                    PacketsToSend.RotateWeaponCameraBySpray(player);
                     return;
                 }
                 timers.SetTimer(0.01f, false);

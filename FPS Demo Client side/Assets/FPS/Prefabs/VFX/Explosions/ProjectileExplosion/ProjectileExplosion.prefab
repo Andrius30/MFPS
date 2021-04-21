@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5464404417722982801}
   - component: {fileID: 5464404417704633553}
   - component: {fileID: 5464404417704729969}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4786,7 +4786,7 @@ GameObject:
   - component: {fileID: 5464404417722982805}
   - component: {fileID: 5464404417704633557}
   - component: {fileID: 5464404417704729973}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dot Sparkles Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9650,7 +9650,7 @@ GameObject:
   - component: {fileID: 5464404417722982807}
   - component: {fileID: 5464404417704633559}
   - component: {fileID: 5464404417704729975}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14563,7 +14563,7 @@ GameObject:
   - component: {fileID: 5464404417722982809}
   - component: {fileID: 5464404417704633561}
   - component: {fileID: 5464404417704729977}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19454,8 +19454,7 @@ GameObject:
   - component: {fileID: 5464404417722982811}
   - component: {fileID: 5464404417704633563}
   - component: {fileID: 5464404417704729979}
-  - component: {fileID: 5464404417730037853}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ProjectileExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24225,19 +24224,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &5464404417730037853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464404417722957243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!1 &5464404417722957245
 GameObject:
   m_ObjectHideFlags: 0
@@ -24249,7 +24235,7 @@ GameObject:
   - component: {fileID: 5464404417722982813}
   - component: {fileID: 5464404417704633565}
   - component: {fileID: 5464404417704729981}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dot Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29113,7 +29099,7 @@ GameObject:
   - component: {fileID: 5464404417722982815}
   - component: {fileID: 5464404417704633567}
   - component: {fileID: 5464404417704729983}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

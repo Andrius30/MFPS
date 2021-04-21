@@ -12,21 +12,27 @@ public class BundleWebLoader : MonoBehaviour
         while (!uwr.isDone)
         {
             float progress = -uwr.downloadProgress * 100f;
-            Debug.Log($"Downloading: { progress }");
             if (progress >= 99f)
             {
-                Debug.Log($"Download comple!");
-
                 yield return uwr.SendWebRequest();
                 AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(uwr);
                 var loadAsset = bundle.LoadAllAssets<GameObject>();
                 foreach (var item in loadAsset)
                 {
-                    Instantiate(item);
+                    GameObject gm = Instantiate(item);
+                    SetLayer(gm);
                 }
             }
             yield return null;
         }
         Debug.Log($"Asset Bundles Loaded successfully! :15:green;".Interpolate());
+    }
+
+    void SetLayer(GameObject gm)
+    {
+        foreach (var item in gm.GetComponentsInChildren<Transform>())
+        {
+            item.gameObject.layer = LayerMask.NameToLayer("Enviroment");
+        }
     }
 }

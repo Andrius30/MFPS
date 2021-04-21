@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4424470663499282841}
   - component: {fileID: 4424470663485127897}
   - component: {fileID: 4424470663485146489}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ConcreteHitEffect + Bullet Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4726,7 +4726,7 @@ GameObject:
   - component: {fileID: 4424470663499282843}
   - component: {fileID: 4424470663485127899}
   - component: {fileID: 4424470663485146491}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Directional Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9420,7 +9420,7 @@ GameObject:
   - component: {fileID: 4424470663499282845}
   - component: {fileID: 4424470663502674367}
   - component: {fileID: 4424470663501708159}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9501,7 +9501,7 @@ GameObject:
   - component: {fileID: 4424470663499282847}
   - component: {fileID: 4424470663485127903}
   - component: {fileID: 4424470663485146495}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}

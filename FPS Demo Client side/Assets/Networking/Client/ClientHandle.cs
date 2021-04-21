@@ -181,10 +181,11 @@ public class ClientHandle
 
     internal static void CreateHitEffect(Packet packet)
     {
+        int playerID = packet.ReadInt();
         Vector3 pos = packet.ReadVector3();
         Quaternion rot = packet.ReadQuaternion();
 
-        GameManager.instance.CreateHitEffect(pos, rot);
+        GameManager.players[playerID].CreateHitEffect(pos, rot);
     }
 
     internal static void RotateWeaponCamera(Packet packet)
@@ -192,7 +193,7 @@ public class ClientHandle
         int playerID = packet.ReadInt();
         Quaternion localRot = packet.ReadQuaternion();
 
-        GameManager.players[playerID].newWeapon.RotateSmoth(localRot);
+        GameManager.players[playerID].newWeapon.RotateSmoth(GameManager.players[playerID], localRot);
     }
 
     #endregion

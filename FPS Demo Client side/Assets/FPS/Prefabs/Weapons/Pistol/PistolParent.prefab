@@ -649,7 +649,8 @@ MonoBehaviour:
   weaponState: 0
   weaponID: 0
   weaponName: 
-  weaponCam: {fileID: 3147725349007990914}
+  weaponCam: {fileID: 0}
+  lerpTime: 3
   maxBullets: 0
   bulletsLeft: 0
   coolDown: 0
@@ -853,7 +854,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

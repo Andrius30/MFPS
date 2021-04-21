@@ -283,10 +283,11 @@ class PacketsToSend
     }
 
     #region Effects
-    public static void CreateHitEffect(Vector3 point, Quaternion rotation)
+    public static void CreateHitEffect(Player player, Vector3 point, Quaternion rotation)
     {
         using(Packet packet = new Packet((int)ServerPackets.hitEffect))
         {
+            packet.Write(player.id);
             packet.Write(point);
             packet.Write(rotation);
 
