@@ -38,12 +38,12 @@ public class Acuracy : MonoBehaviour
                     if (index < fromIndex)
                     {
                         index++;
-                        Debug.Log($"Less :red:20;".Interpolate());
+                        //Debug.Log($"Less :red:20;".Interpolate());
                     }
                     else
                     {
                         index = RandomSpray();
-                        Debug.Log($"Random :red:20;".Interpolate());
+                        //Debug.Log($"Random :red:20;".Interpolate());
                     }
                 }
                 else // normal spray from index 0, to offsets.Count - 1
@@ -86,7 +86,5 @@ public class Acuracy : MonoBehaviour
         player.shootOrigin.localRotation = Quaternion.Lerp(player.shootOrigin.localRotation, rot, r);
         PacketsToSend.RotateWeaponCameraBySpray(player);
     }
-    // jeigu pasiektas from index pradek parinkineti random nuo to index'o iki (iki)index'o
-
     int RandomSpray() => Random.Range(fromIndex, toIndex);
 }

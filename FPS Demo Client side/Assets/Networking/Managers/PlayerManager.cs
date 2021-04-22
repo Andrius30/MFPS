@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space(10)]
     [Header("Effects")]
-    [SerializeField] GameObject hitEffectPrefab;
+    public HitSurface_VFX hitSurface_VFX; // scriptable object
 
     Timer timer;
 
@@ -157,11 +157,4 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    #region Effecets
-    public void CreateHitEffect(Vector3 pos, Quaternion rot)
-    {
-        GameObject gm = Instantiate(hitEffectPrefab, pos, rot);
-        Destroy(gm, 5f);
-    }
-    #endregion
 }

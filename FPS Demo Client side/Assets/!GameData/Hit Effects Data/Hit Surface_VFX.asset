@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417c16aaa75730343af600903639e6fa, type: 3}
+  m_Name: Hit Surface_VFX
+  m_EditorClassIdentifier: 
+  hit_Default_VFX: {fileID: 8003909064844585847, guid: 89474707def6fe34e8f88cdd902c4f21, type: 3}
+  hit_Concrete_VFX: {fileID: 4424470663499441593, guid: f4463cedee5fedb45b3326f244d6b1e1, type: 3}
+  hit_Dirt_VFX: {fileID: 4146842934326981431, guid: 380f22cdb592a8f45bbc193aea354ee7, type: 3}
+  hit_Metal_VFX: {fileID: 2886611378110875499, guid: 0603b79de119d2d4d80f8ffa4be9585c, type: 3}
+  hit_Wood_VFX: {fileID: 7011169938597352240, guid: 5e3125ff93e6cca4bbbc5840accccf72, type: 3}
+  hit_Grass_VFX: {fileID: 8893462972077619397, guid: 1c633dc2d36e58f45b5b9227776a58e6, type: 3}
+  hit_Blood_VFX: {fileID: 217748567391630606, guid: 5af0512f92c7a53469305752c485bed8, type: 3}

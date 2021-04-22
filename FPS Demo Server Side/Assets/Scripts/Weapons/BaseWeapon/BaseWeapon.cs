@@ -72,12 +72,10 @@ namespace MFPS.Weapons
             this.projectileSpawnPoint.localRotation = shootRot;
             //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
-
         public virtual void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type)
         {
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
-
         public void SpawnProjectile(Vector3 direction)
         {
             if (firemode == FireMode.auto)
@@ -109,6 +107,7 @@ namespace MFPS.Weapons
             }
         }
         public bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
+        public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
 
         void CreateBullet(Transform spawntr, Vector3 direction)
         {
@@ -119,7 +118,6 @@ namespace MFPS.Weapons
             proj.GetComponent<Rigidbody>().AddForce(spawntr.position + dir * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
-        public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
         //// ========== TESTING ==================== REMOVE LATER
 
         //public void SpawnhitEffect(RaycastHit hit)

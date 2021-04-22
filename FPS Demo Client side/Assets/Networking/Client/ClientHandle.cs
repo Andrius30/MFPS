@@ -184,8 +184,9 @@ public class ClientHandle
         int playerID = packet.ReadInt();
         Vector3 pos = packet.ReadVector3();
         Quaternion rot = packet.ReadQuaternion();
+        int surfaceType = packet.ReadInt();
 
-        GameManager.players[playerID].CreateHitEffect(pos, rot);
+        GameManager.players[playerID].hitSurface_VFX.CreateHitEffect(pos, rot, surfaceType);
     }
 
     internal static void RotateWeaponCamera(Packet packet)

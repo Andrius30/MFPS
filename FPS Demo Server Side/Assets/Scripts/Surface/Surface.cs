@@ -7,7 +7,8 @@ public enum SurfaceTypes
     Dirt,
     Metal,
     Wood,
-    Grass
+    Grass,
+    Character
 }
 
 public class Surface : MonoBehaviour

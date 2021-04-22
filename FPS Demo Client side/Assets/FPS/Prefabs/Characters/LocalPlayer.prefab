@@ -3034,7 +3034,7 @@ MonoBehaviour:
   isDebugEnabled: 0
   healthCanvas: {fileID: 6213321135422506516, guid: 094f1399ea19ea34bb6643ccf7906097, type: 3}
   ammunitionCanvas: {fileID: 9204227920296514836, guid: ceca3c016a977554a8307d2ee2f86a8b, type: 3}
-  hitEffectPrefab: {fileID: 4424470663499441593, guid: f4463cedee5fedb45b3326f244d6b1e1, type: 3}
+  hitSurface_VFX: {fileID: 11400000, guid: b9135d3e768f00249a0b6e9ace2243e9, type: 2}
   playerSource: {fileID: 0}
 --- !u!114 &7403307773635623808
 MonoBehaviour:
