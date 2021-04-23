@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public static Action<float> onEnemyHealthChanged;
-    public static Action<float> onEnemyRespawned;
+    public Action<float> onEnemyHealthChanged;
+    public Action<float> onEnemyRespawned;
 
     public float maxhealth;
     float health;

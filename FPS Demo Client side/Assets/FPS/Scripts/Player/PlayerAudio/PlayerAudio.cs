@@ -10,6 +10,9 @@ public class PlayerAudio : ScriptableObject
     public AudioClip[] metalClips;
     public AudioClip[] woodClips;
     public AudioClip[] grassClips;
+    // Jumping
+    public AudioClip[] jumpClips;
+    public AudioClip[] landClips;
 
     public void Init(PlayerManager playerManager) => this.playerManager = playerManager;
     public void Play()
@@ -33,7 +36,17 @@ public class PlayerAudio : ScriptableObject
                 break;
         }
     }
-   
+    public void PlayJumpAudio()
+    {
+        if (playerManager.playerSource)
+            playerManager.playerSource.PlayOneShot(PlayRandomClip(jumpClips));
+    }
+    public void PlayLandAudio()
+    {
+        if (playerManager.playerSource)
+            playerManager.playerSource.PlayOneShot(PlayRandomClip(landClips));
+    }
+
     void PlayFootstepAudio(AudioClip[] clips) => playerManager.playerSource.PlayOneShot(PlayRandomClip(clips));
     AudioClip PlayRandomClip(AudioClip[] clips) => clips[Random.Range(0, clips.Length)];
 }

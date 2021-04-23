@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     - DirectionalDamageIndicator
     - Enemy
     - GameManager
+    - HitSurface_VFX
     - PlayerAudio
     - PlayerController
     - PlayerManager
@@ -37,8 +38,11 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -103,81 +107,83 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1476}
+      Script: {instanceID: 1478}
     - Class: 114
-      Script: {instanceID: 1542}
+      Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 1550}
+      Script: {instanceID: 1552}
     - Class: 114
-      Script: {instanceID: 1628}
+      Script: {instanceID: 1630}
     - Class: 114
-      Script: {instanceID: 1750}
+      Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 1938}
+      Script: {instanceID: 1940}
     - Class: 114
-      Script: {instanceID: 1992}
+      Script: {instanceID: 1994}
     - Class: 114
-      Script: {instanceID: 2136}
+      Script: {instanceID: 2138}
     - Class: 114
-      Script: {instanceID: 2142}
+      Script: {instanceID: 2144}
     - Class: 114
-      Script: {instanceID: 2310}
+      Script: {instanceID: 2312}
     - Class: 114
-      Script: {instanceID: 2324}
+      Script: {instanceID: 2326}
     - Class: 114
-      Script: {instanceID: 2332}
+      Script: {instanceID: 2334}
     - Class: 114
-      Script: {instanceID: 2346}
+      Script: {instanceID: 2348}
     - Class: 114
-      Script: {instanceID: 2434}
+      Script: {instanceID: 2436}
     - Class: 114
-      Script: {instanceID: 2476}
+      Script: {instanceID: 2478}
     - Class: 114
-      Script: {instanceID: 2498}
+      Script: {instanceID: 2500}
     - Class: 114
-      Script: {instanceID: 2528}
+      Script: {instanceID: 2530}
     - Class: 114
-      Script: {instanceID: 2566}
+      Script: {instanceID: 2568}
     - Class: 114
-      Script: {instanceID: 2578}
+      Script: {instanceID: 2580}
     - Class: 114
-      Script: {instanceID: 2642}
+      Script: {instanceID: 2644}
     - Class: 114
-      Script: {instanceID: 2772}
+      Script: {instanceID: 2774}
     - Class: 114
-      Script: {instanceID: 2874}
+      Script: {instanceID: 2876}
     - Class: 114
-      Script: {instanceID: 2890}
+      Script: {instanceID: 2892}
     - Class: 114
-      Script: {instanceID: 3134}
+      Script: {instanceID: 3136}
     - Class: 114
-      Script: {instanceID: 3152}
+      Script: {instanceID: 3154}
     - Class: 114
-      Script: {instanceID: 3164}
+      Script: {instanceID: 3166}
     - Class: 114
-      Script: {instanceID: 3224}
+      Script: {instanceID: 3226}
     - Class: 114
-      Script: {instanceID: 3476}
+      Script: {instanceID: 3426}
     - Class: 114
-      Script: {instanceID: 3690}
+      Script: {instanceID: 3480}
     - Class: 114
-      Script: {instanceID: 3754}
+      Script: {instanceID: 3694}
     - Class: 114
-      Script: {instanceID: 3790}
+      Script: {instanceID: 3758}
     - Class: 114
-      Script: {instanceID: 3810}
+      Script: {instanceID: 3794}
     - Class: 114
-      Script: {instanceID: 4008}
+      Script: {instanceID: 3814}
     - Class: 114
-      Script: {instanceID: 4014}
+      Script: {instanceID: 4012}
     - Class: 114
-      Script: {instanceID: 4066}
+      Script: {instanceID: 4018}
     - Class: 114
       Script: {instanceID: 4070}
     - Class: 114
       Script: {instanceID: 4074}
     - Class: 114
-      Script: {instanceID: 4138}
+      Script: {instanceID: 4078}
+    - Class: 114
+      Script: {instanceID: 4142}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -661,6 +667,12 @@ ScriptsOnlyBuild:
     className: OverrideTransform
   - hash:
       serializedVersion: 2
+      Hash: 839efa366722fffeb15135704a1de350
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HitSurface_VFX
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -709,7 +721,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 98fa0eb3a49d886f5724fc4ce0ff18eb
+      Hash: de3812466a57a105d47601a70e2d6332
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -733,7 +745,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: 85fd64603c41082c3998314a7c2af5d8
+      Hash: aec27f17eda56498f019443c66b8d287
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerAudio
@@ -854,4 +866,5 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/Client.unity
-  playerPath: C:/Users/andri/Desktop/FPS Client/FPS Demo Client side.exe
+  playerPath: C:/Users/andri/Desktop/Unity MFPS TCP UDP Authoritative Server/FPS
+    Client/FPS Demo Client side.exe

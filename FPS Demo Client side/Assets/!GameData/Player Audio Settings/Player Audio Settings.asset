@@ -27,3 +27,9 @@ MonoBehaviour:
   grassClips:
   - {fileID: 8300000, guid: 564b5ddd7d2f71a40ba1e0a6bb6e8d44, type: 3}
   - {fileID: 8300000, guid: 823cf568e6233174e9d86a455435b430, type: 3}
+  jumpClips:
+  - {fileID: 8300000, guid: 9504b16ebe704694aa7744aac7e3c39d, type: 3}
+  - {fileID: 8300000, guid: 6e6129eb2b4ae024290b1649eeba9341, type: 3}
+  - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  landClips:
+  - {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}

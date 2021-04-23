@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space(10)]
     [Header("Player foot steps audio settings")]
-    [SerializeField] PlayerAudio playerAudio; // scriptable object
+    public PlayerAudio playerAudio;  // scriptable object
 
     [Space(10)]
     [Header("Surface checking settings")]
@@ -75,9 +75,11 @@ public class PlayerManager : MonoBehaviour
 
         playerAudio.Init(this);
         playerSource = GetComponent<AudioSource>();
-  
+
         PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
         SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
+        SurfaceAnimationEvents.onJumpPlay += playerAudio.PlayJumpAudio;
+        SurfaceAnimationEvents.onLandPlay += playerAudio.PlayLandAudio;
 
         // ================================================================================
         playerAnimations = new PlayerAnimations(this);

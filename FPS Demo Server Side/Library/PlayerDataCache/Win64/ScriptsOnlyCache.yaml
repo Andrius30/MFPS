@@ -52,23 +52,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 1992}
+      Script: {instanceID: 1990}
     - Class: 114
-      Script: {instanceID: 2356}
+      Script: {instanceID: 2354}
     - Class: 114
-      Script: {instanceID: 2562}
+      Script: {instanceID: 2560}
     - Class: 114
-      Script: {instanceID: 2968}
+      Script: {instanceID: 2966}
     - Class: 114
-      Script: {instanceID: 3018}
+      Script: {instanceID: 3016}
     - Class: 114
-      Script: {instanceID: 3154}
+      Script: {instanceID: 3152}
     - Class: 114
-      Script: {instanceID: 3232}
+      Script: {instanceID: 3230}
     - Class: 114
-      Script: {instanceID: 3278}
+      Script: {instanceID: 3276}
     - Class: 114
-      Script: {instanceID: 3524}
+      Script: {instanceID: 3522}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -78,10 +78,6 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 198
-      Script: {instanceID: 0}
-    - Class: 199
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -585,4 +581,5 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/Server.unity
-  playerPath: C:/Users/andri/Desktop/FPS Server/FPS Demo Server Side.exe
+  playerPath: C:/Users/andri/Desktop/Unity MFPS TCP UDP Authoritative Server/FPS
+    Server/FPS Demo Server Side.exe

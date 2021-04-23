@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour, IConsole
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
         bool walkInput = playerInputs.WalkInput();
-        bool isShooting = playerInputs.ShootInput();
+        bool isShooting = playerInputs.ShootInput(playerManager.newWeapon.GetFireMode());
         playerManager.playerAnimations.PlayMoveAnimation(x, z);
         playerManager.playerAnimations.PlayCrouchAnimation(crouchInput);
         playerManager.playerAnimations.PlayWalkAnimation(walkInput);

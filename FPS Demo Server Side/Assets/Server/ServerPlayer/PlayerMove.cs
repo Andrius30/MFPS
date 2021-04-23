@@ -7,7 +7,7 @@ namespace MFPS.ServerCharacters
         Idle,
         Running,
         Walking,
-        Crouching
+        Crouching,
     }
     public class PlayerMove
     {
@@ -45,6 +45,7 @@ namespace MFPS.ServerCharacters
             _moveDirection.y = player.velocityY;
             player.characterController.Move(_moveDirection);
 
+            PacketsToSend.PlayerJumpVelocity(player, player.velocityY);
             PacketsToSend.PlayerPosition(player);
             PacketsToSend.PlayerRotation(player);
             PacketsToSend.PlayMovementAnimation(player, _inputDirection.x, _inputDirection.y);
@@ -59,7 +60,10 @@ namespace MFPS.ServerCharacters
         void Jump(bool input)
         {
             if (input)
+            {
                 player.velocityY = player.jumpSpeed;
+                PacketsToSend.PlayerJumpVelocity(player, player.velocityY);
+            }
         }
         void Crouch()
         {

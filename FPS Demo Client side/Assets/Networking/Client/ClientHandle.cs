@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class ClientHandle
         string msg = packet.ReadString();
         int id = packet.ReadInt();
 
-        Debug.Log($"Message from server { msg }");
+        // Debug.Log($"Message from server { msg }");
         Client.instance.id = id;
 
         PacketsToSend.WelcomeReceived(); // response to server
@@ -75,6 +74,7 @@ public class ClientHandle
 
         GameManager.players[id].Respawn();
     }
+
     #endregion
 
     #region Weapons
@@ -113,15 +113,17 @@ public class ClientHandle
     //TODO: Update enemy position and rotation
     public static void EnemyHealth(Packet packet)
     {
+        int id = packet.ReadInt();
         float health = packet.ReadFloat();
 
-        Enemy.onEnemyHealthChanged?.Invoke(health);
+        GameManager.enemies[id].onEnemyHealthChanged?.Invoke(health);
     }
     public static void EnemyRespawned(Packet packet)
     {
+        int id = packet.ReadInt();
         float health = packet.ReadFloat();
 
-        Enemy.onEnemyRespawned?.Invoke(health);
+        GameManager.enemies[id].onEnemyRespawned?.Invoke(health);
     }
 
     #endregion
@@ -175,8 +177,10 @@ public class ClientHandle
         int playerID = packet.ReadInt();
         float angle = packet.ReadFloat();
         Quaternion localRot = packet.ReadQuaternion();
-
-        GameManager.players[playerID].playerAnimations.PlayAimingAnimation(angle, localRot);
+        if (GameManager.players.TryGetValue(playerID, out PlayerManager player))
+        {
+            player.playerAnimations.PlayAimingAnimation(angle, localRot);
+        }
     }
 
     internal static void CreateHitEffect(Packet packet)
@@ -196,6 +200,14 @@ public class ClientHandle
 
         GameManager.players[playerID].newWeapon.RotateSmoth(GameManager.players[playerID], localRot);
     }
-
+    internal static void PlayerJumpAnimation(Packet packet)
+    {
+        int id = packet.ReadInt();
+        float velocity = packet.ReadFloat();
+        if (GameManager.players.TryGetValue(id, out PlayerManager player))
+        {
+            player.playerAnimations.Jumping(Mathf.RoundToInt(velocity * 100));
+        }
+    }
     #endregion
 }

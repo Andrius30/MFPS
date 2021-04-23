@@ -36,7 +36,8 @@ public class PlayerAnimations
         playerManager.weaponsparent.localRotation = localRot;
         playerManager.characterAnimator.SetFloat("aimAngle", angle);
     }
-   
+    public void Jumping(float velocity) => playerManager.characterAnimator.SetFloat("jump", velocity);
+
     /// <summary>
     /// Play network animations
     /// </summary>

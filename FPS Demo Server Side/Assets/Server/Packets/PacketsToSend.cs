@@ -114,6 +114,16 @@ class PacketsToSend
             SendUDPDataToAll(player.id, packet);
         }
     }
+    public static void PlayerJumpVelocity(Player player,float velocityY)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.playerJump))
+        {
+            packet.Write(player.id);
+            packet.Write(velocityY);
+
+            SendUDPDataToAll(packet);
+        }
+    }
     public static void PlayerDisconnected(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
@@ -243,6 +253,7 @@ class PacketsToSend
     {
         using (Packet packet = new Packet((int)ServerPackets.enemyHealth))
         {
+            packet.Write(enemy.id);
             packet.Write(enemy.GetHealth());
 
             SendTCPDataToAll(packet);
@@ -252,6 +263,7 @@ class PacketsToSend
     {
         using (Packet packet = new Packet((int)ServerPackets.enemyRespawned))
         {
+            packet.Write(enemy.id);
             packet.Write(enemy.GetHealth());
 
             SendTCPDataToAll(packet);

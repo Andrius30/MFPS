@@ -76,7 +76,7 @@ namespace MFPS.Weapons
         {
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
-        public void SpawnProjectile(Vector3 direction)
+        public virtual void SpawnProjectile(Vector3 direction)
         {
             if (firemode == FireMode.auto)
             {
@@ -96,7 +96,7 @@ namespace MFPS.Weapons
         public virtual bool IsoutOfAmmo() => totalBullets - shootedbullets < 0;
         public virtual void SetWeaponState(WeaponState state) => weaponState = state;
         public WeaponState GetWeaponState() => weaponState;
-        public void ReloadWeapon(Player player)
+        public virtual void ReloadWeapon(Player player)
         {
             if (totalBullets - shootedbullets >= 0)
             {
@@ -106,10 +106,10 @@ namespace MFPS.Weapons
                 PacketsToSend.UpdateBullets(player, this);
             }
         }
-        public bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
-        public int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
+        public virtual bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
+        public virtual int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
 
-        void CreateBullet(Transform spawntr, Vector3 direction)
+        protected virtual void CreateBullet(Transform spawntr, Vector3 direction)
         {
             GameObject gm = Instantiate(projectile, spawntr.position, spawntr.rotation);
             Projectile proj = gm.GetComponent<Projectile>();
@@ -118,6 +118,7 @@ namespace MFPS.Weapons
             proj.GetComponent<Rigidbody>().AddForce(spawntr.position + dir * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
+     
         //// ========== TESTING ==================== REMOVE LATER
 
         //public void SpawnhitEffect(RaycastHit hit)
