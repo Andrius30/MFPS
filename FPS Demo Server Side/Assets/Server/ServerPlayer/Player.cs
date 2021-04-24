@@ -1,5 +1,3 @@
-using MFPS.ServerTimers;
-using MFPS.Weapons;
 using MFPS.Weapons.Controllers;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +18,7 @@ namespace MFPS.ServerCharacters
         public float maxHealth = 100;
         [HideInInspector] public float health;
 
+        // ===== Can be refactored, but leave as it is for now =================
         [Space(10)]
         [Header("Move settings")]
         [HideInInspector] public float moveSpeed;
@@ -34,6 +33,8 @@ namespace MFPS.ServerCharacters
         [Space(10)]
         [Header("Gravity modifier")]
         public float gravity = -9.81f;
+        // ======================================================================
+
         [Space(10)]
         [Header("Player Weapons")]
         public Transform weaponsParent;
@@ -46,18 +47,11 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public PlayerMove playerMove;
         [HideInInspector] public WeaponsController weaponsController;
 
-        Timer timer;
-        Timer drawWeaponTimer;
-        Timer reloadTimer;
-
         void Init()
         {
             characterController = GetComponent<CharacterController>();
             weaponsController = new WeaponsController(this);
             playerMove = new PlayerMove(this);
-            timer = new Timer(0, false);
-            drawWeaponTimer = new Timer(0, true);
-            reloadTimer = new Timer(0, true);
 
             gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
             moveSpeed *= Time.fixedDeltaTime;
@@ -81,67 +75,21 @@ namespace MFPS.ServerCharacters
             if (health <= 0) return;
             playerMove.Move(inputs);
 
-            if (GetCurrentWeapon() == null || GetCurrentWeapon().acuracy == null) return;
+            if (weaponsController.GetCurrentWeapon() == null) return;
+            Attack(otherInputs[3]);
 
-            if (otherInputs[3])
-                Shoot();
-            else
-                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, false); // inaccuracy
-
-            if (WepState() != WeaponState.OutOfAmmo)
+            if (weaponsController.GetCurrentWeapon().GetWeaponState() != WeaponState.OutOfAmmo)
                 PacketsToSend.WeaponState(this);
 
-            TrackWeaponStates();
+            weaponsController.GetCurrentWeapon().TrackWeaponStates();
         }
 
-        public void Shoot()
+        public void Attack(bool attack)
         {
-            if (WepState() == WeaponState.Reloading ||
-                WepState() == WeaponState.DrawWeapon)
-                return;
-
-            if (timer.IsDone())
-            {
-                if (WepState() == WeaponState.OutOfAmmo)
-                {
-                    PacketsToSend.WeaponState(this);
-                    return;
-                }
-
-                GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, true); // inaccuracy
-                GetCurrentWeapon().SetWeaponState(WeaponState.Shooting);
-
-                if (GetCurrentWeapon().IsMagazineEmpty())
-                {
-                    if (GetCurrentWeapon().IsoutOfAmmo())
-                    {
-                        GetCurrentWeapon().SetWeaponState(WeaponState.OutOfAmmo);
-                        return;
-                    }
-                    reloadTimer.SetTimer(GetCurrentWeapon().reloadTime, false);
-                    GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
-                    return;
-                }
-                if (Physics.Raycast(shootOrigin.position, shootOrigin.forward, out RaycastHit hit, GetCurrentWeapon().weaponRange))
-                {
-                    if (hit.transform != this.transform)
-                    {
-                        IDamagable damagable = hit.transform.GetComponent<IDamagable>();
-                        Surface surface = hit.transform.GetComponent<Surface>();
-                        if (damagable != null)
-                        {
-                            weaponsController.GetCurrentWeaponType()?.DoDamage(damagable, transform.root, attackerType);
-                        }
-                        if (surface != null)
-                        {
-                            PacketsToSend.CreateHitEffect(this, hit.point, Quaternion.LookRotation(hit.normal), surface.GetSurfaceType());
-                        }
-                        GetCurrentWeapon().SpawnProjectile(hit.point);
-                        //  GetCurrentWeapon().SpawnhitEffect(hit); // just for testing visualize
-                    }
-                }
-                timer.SetTimer(weaponsController.GetCoolDown(), false);
-            }
+            if (attack)
+                weaponsController.GetCurrentWeapon().Attack();
+            else
+                weaponsController.GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, false); // inaccuracy
         }
 
         #region inputs Section
@@ -190,34 +138,6 @@ namespace MFPS.ServerCharacters
             PacketsToSend.PlayerRespawned(this);
         }
         #endregion
-
-        WeaponState WepState() => GetCurrentWeapon().GetWeaponState();
-        BaseWeapon GetCurrentWeapon() => weaponsController.GetCurrentWeapon();
-        void TrackWeaponStates()
-        {
-            if (GetCurrentWeapon() == null) return;
-            timer.StartTimer();
-            if (!timer.IsDone() && // if timer is not done and not realoding and not out of ammo and not drawing weapon set to idle
-                WepState() != WeaponState.Reloading &&
-                WepState() != WeaponState.DrawWeapon)
-                weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Idle);
-
-            if (WepState() == WeaponState.DrawWeapon)
-            {
-                drawWeaponTimer.StartTimer();
-                if (drawWeaponTimer.IsDone())
-                    GetCurrentWeapon().SetWeaponState(WeaponState.Idle);
-            }
-            if (WepState() == WeaponState.Reloading)
-            {
-                reloadTimer.StartTimer();
-                if (reloadTimer.IsDone())
-                {
-                    GetCurrentWeapon().ReloadWeapon(this);
-                    return;
-                }
-            }
-        }
 
     }
 }

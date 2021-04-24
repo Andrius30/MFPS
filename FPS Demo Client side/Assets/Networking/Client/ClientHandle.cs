@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using UnityEngine;
 
@@ -210,6 +211,13 @@ public class ClientHandle
         {
             player.playerAnimations.Jumping(Mathf.RoundToInt(velocity * 100));
         }
+    }
+
+    internal static void HeadShot(Packet packet)
+    {
+        int killerID = packet.ReadInt();
+
+        GameManager.players[killerID].playerAudio.PlayHeadShot();
     }
     #endregion
 }

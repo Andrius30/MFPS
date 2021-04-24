@@ -39,11 +39,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -128,65 +125,65 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2312}
     - Class: 114
-      Script: {instanceID: 2326}
+      Script: {instanceID: 2318}
     - Class: 114
-      Script: {instanceID: 2334}
+      Script: {instanceID: 2328}
     - Class: 114
-      Script: {instanceID: 2348}
+      Script: {instanceID: 2336}
     - Class: 114
-      Script: {instanceID: 2436}
+      Script: {instanceID: 2350}
     - Class: 114
-      Script: {instanceID: 2478}
+      Script: {instanceID: 2438}
     - Class: 114
-      Script: {instanceID: 2500}
+      Script: {instanceID: 2480}
     - Class: 114
-      Script: {instanceID: 2530}
+      Script: {instanceID: 2502}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2532}
     - Class: 114
-      Script: {instanceID: 2580}
+      Script: {instanceID: 2570}
     - Class: 114
-      Script: {instanceID: 2644}
+      Script: {instanceID: 2582}
     - Class: 114
-      Script: {instanceID: 2774}
+      Script: {instanceID: 2646}
     - Class: 114
-      Script: {instanceID: 2876}
+      Script: {instanceID: 2776}
     - Class: 114
-      Script: {instanceID: 2892}
+      Script: {instanceID: 2878}
     - Class: 114
-      Script: {instanceID: 3136}
+      Script: {instanceID: 2894}
     - Class: 114
-      Script: {instanceID: 3154}
+      Script: {instanceID: 3138}
     - Class: 114
-      Script: {instanceID: 3166}
+      Script: {instanceID: 3156}
     - Class: 114
-      Script: {instanceID: 3226}
+      Script: {instanceID: 3168}
     - Class: 114
-      Script: {instanceID: 3426}
+      Script: {instanceID: 3228}
     - Class: 114
-      Script: {instanceID: 3480}
+      Script: {instanceID: 3428}
     - Class: 114
-      Script: {instanceID: 3694}
+      Script: {instanceID: 3482}
     - Class: 114
-      Script: {instanceID: 3758}
+      Script: {instanceID: 3696}
     - Class: 114
-      Script: {instanceID: 3794}
+      Script: {instanceID: 3760}
     - Class: 114
-      Script: {instanceID: 3814}
+      Script: {instanceID: 3796}
     - Class: 114
-      Script: {instanceID: 4012}
+      Script: {instanceID: 3816}
     - Class: 114
-      Script: {instanceID: 4018}
+      Script: {instanceID: 4014}
     - Class: 114
-      Script: {instanceID: 4070}
+      Script: {instanceID: 4020}
     - Class: 114
-      Script: {instanceID: 4074}
+      Script: {instanceID: 4072}
     - Class: 114
-      Script: {instanceID: 4078}
+      Script: {instanceID: 4076}
     - Class: 114
-      Script: {instanceID: 4142}
+      Script: {instanceID: 4080}
     - Class: 114
-      Script: {instanceID: 19152}
+      Script: {instanceID: 4144}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -368,6 +365,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
+  - hash:
+      serializedVersion: 2
+      Hash: bb13eb5d0438976b3bb7ab34970c4f95
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ScreenShot
   - hash:
       serializedVersion: 2
       Hash: 20a4fb848fc56d7d2b11ffdcf1a12c3b
@@ -748,7 +751,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: aec27f17eda56498f019443c66b8d287
+      Hash: 6f38714116491ca5207b41aa81caf895
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerAudio
@@ -866,12 +869,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
-  - hash:
-      serializedVersion: 2
-      Hash: bb13eb5d0438976b3bb7ab34970c4f95
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ScreenShot
   platform: 19
   scenePathNames:
   - Assets/Scenes/Client.unity

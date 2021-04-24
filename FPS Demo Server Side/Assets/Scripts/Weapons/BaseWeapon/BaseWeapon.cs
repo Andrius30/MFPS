@@ -1,4 +1,5 @@
 using MFPS.ServerCharacters;
+using MFPS.ServerTimers;
 using UnityEngine;
 
 public enum FireMode
@@ -39,11 +40,6 @@ namespace MFPS.Weapons
         public int GetMaxBullets => totalBullets;
         int shootedbullets;
 
-        [Space(10)]
-        [Header("Hit Effects Setting")]
-        [SerializeField] GameObject hitEffectprefab; // testing only
-        [SerializeField] Vector3 hitOffset;
-
         [Header("Weapon damage seetings")]
         [SerializeField] float weaponDamage;
         [Space(10)]
@@ -55,6 +51,17 @@ namespace MFPS.Weapons
         public IWeapon weaponType;
         int count = 0;
         public Acuracy acuracy { get; private set; }
+        Player player;
+        Timer timer;
+        Timer drawWeaponTimer;
+        Timer reloadTimer;
+
+        protected virtual void Start()
+        {
+            timer = new Timer(0, false);
+            drawWeaponTimer = new Timer(0, true);
+            reloadTimer = new Timer(0, true);
+        }
 
         /// <summary>
         /// Getting all required weapon position from client when new client connect
@@ -70,12 +77,45 @@ namespace MFPS.Weapons
             weaponModel.localRotation = modelRotation;
             this.projectileSpawnPoint.localPosition = shootPos;
             this.projectileSpawnPoint.localRotation = shootRot;
-            //Debug.Log($"Weapon ID {id} initialized with position { modelPosition} and rotation {modelRotation} :green:18;".Interpolate());
         }
         public virtual void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type)
         {
             damagable.TakeDamage(weaponDamage, attacker, type);
         }
+        public virtual void Attack()
+        {
+            if (weaponState == WeaponState.Reloading || weaponState == WeaponState.DrawWeapon)
+                return;
+
+            if (timer != null && timer.IsDone())
+            {
+                if (weaponState == WeaponState.OutOfAmmo)
+                {
+                    PacketsToSend.WeaponState(player);
+                    return;
+                }
+
+                acuracy.UpdateWeaponInacuracy(player, true); // inaccuracy
+                SetWeaponState(WeaponState.Shooting);
+
+                if (IsMagazineEmpty())
+                {
+                    if (IsoutOfAmmo())
+                    {
+                        SetWeaponState(WeaponState.OutOfAmmo);
+                        return;
+                    }
+                    reloadTimer.SetTimer(reloadTime, false);
+                    SetWeaponState(WeaponState.Reloading);
+                    return;
+                }
+                ShootRaycast();
+                shootedbullets++;
+                timer.SetTimer(coolDown, false);
+            }
+        }
+
+
         public virtual void SpawnProjectile(Vector3 direction)
         {
             if (firemode == FireMode.auto)
@@ -91,11 +131,9 @@ namespace MFPS.Weapons
             {
                 CreateBullet(projectileSpawnPoint, direction);
             }
-            shootedbullets++;
         }
         public virtual bool IsoutOfAmmo() => totalBullets - shootedbullets < 0;
         public virtual void SetWeaponState(WeaponState state) => weaponState = state;
-        public WeaponState GetWeaponState() => weaponState;
         public virtual void ReloadWeapon(Player player)
         {
             if (totalBullets - shootedbullets >= 0)
@@ -109,6 +147,62 @@ namespace MFPS.Weapons
         public virtual bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
         public virtual int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
 
+        public WeaponState GetWeaponState() => weaponState;
+        public void SetPlayer(Player player) => this.player = player;
+        public void TrackWeaponStates()
+        {
+            if (timer == null) return;
+            timer.StartTimer();
+            if (!timer.IsDone() && // if timer is not done and not realoding and not out of ammo and not drawing weapon set to idle
+                weaponState != WeaponState.Reloading &&
+               weaponState != WeaponState.DrawWeapon)
+                SetWeaponState(WeaponState.Idle);
+
+            if (weaponState == WeaponState.DrawWeapon)
+            {
+                drawWeaponTimer.StartTimer();
+                if (drawWeaponTimer.IsDone())
+                    SetWeaponState(WeaponState.Idle);
+            }
+            if (weaponState == WeaponState.Reloading)
+            {
+                reloadTimer.StartTimer();
+                if (reloadTimer.IsDone())
+                {
+                    ReloadWeapon(player);
+                    return;
+                }
+            }
+        }
+
+        protected virtual void ShootRaycast()
+        {
+            if (Physics.Raycast(player.shootOrigin.position, player.shootOrigin.forward, out RaycastHit hit, weaponRange))
+            {
+                if (hit.transform != this.transform)
+                {
+                    IDamagable damagable = hit.transform.GetComponent<IDamagable>();
+                    Surface surface = hit.transform.GetComponent<Surface>();
+                    Player killedbyHeadShot = hit.transform.root.GetComponent<Player>();
+                    if (killedbyHeadShot != null && hit.transform.GetComponent<BoxCollider>()) // Very simple implementation
+                    {
+                        float dmg = weaponDamage + player.maxHealth;
+                        Debug.Log($"HEADSHOT!!!! {dmg} :red:20;".Interpolate());
+                        killedbyHeadShot.TakeDamage(dmg, transform.root, player.attackerType);
+                        PacketsToSend.HeadShot(player);
+                    }
+                    if (damagable != null)
+                    {
+                        weaponType?.DoDamage(damagable, transform.root, player.attackerType);
+                    }
+                    if (surface != null)
+                    {
+                        PacketsToSend.CreateHitEffect(player, hit.point, Quaternion.LookRotation(hit.normal), surface.GetSurfaceType());
+                    }
+                    SpawnProjectile(hit.point);
+                }
+            }
+        }
         protected virtual void CreateBullet(Transform spawntr, Vector3 direction)
         {
             GameObject gm = Instantiate(projectile, spawntr.position, spawntr.rotation);
@@ -118,15 +212,6 @@ namespace MFPS.Weapons
             proj.GetComponent<Rigidbody>().AddForce(spawntr.position + dir * bulletForce, ForceMode.Impulse);
             PacketsToSend.SpawnProjectile(proj);
         }
-     
-        //// ========== TESTING ==================== REMOVE LATER
 
-        //public void SpawnhitEffect(RaycastHit hit)
-        //{
-        //    GameObject gm = Instantiate(hitEffectprefab, hit.point, Quaternion.LookRotation(hit.normal));
-        //    Destroy(gm, 5f);
-        //}
-
-        //// =======================================
     }
 }

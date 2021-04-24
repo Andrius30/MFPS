@@ -266,6 +266,7 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.playerRespawned,ClientHandle.PlayerRespawned },
             {(int) ServerPackets.attackerAndDmg,ClientHandle.GetAttackerAndDmg},
             {(int) ServerPackets.playerJump,ClientHandle.PlayerJumpAnimation},
+            {(int) ServerPackets.headShot,ClientHandle.HeadShot},
             #endregion
             #region WEAPONS
             {(int)ServerPackets.playerChangedWeapon, ClientHandle.PlayerChangedWeapon },

@@ -1,6 +1,5 @@
 using MFPS.ServerCharacters;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace MFPS.Weapons.Controllers
 {
@@ -21,6 +20,7 @@ namespace MFPS.Weapons.Controllers
             currentWeapon = GetAllWeapons()[index];
             currentWeapon.SetWeaponState(WeaponState.DrawWeapon);
             currentWeapon.gameObject.SetActive(true);
+            currentWeapon.SetPlayer(player);
             PacketsToSend.PlayerChangedWeapon(player, currentWeapon);
         }
         public IWeapon GetCurrentWeaponType() => currentWeapon.weaponType;

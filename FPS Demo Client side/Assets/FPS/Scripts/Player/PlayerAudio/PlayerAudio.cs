@@ -5,14 +5,19 @@ public class PlayerAudio : ScriptableObject
 {
     PlayerManager playerManager;
 
+    [Header("Foot step sounds")]
     public AudioClip[] concreteClips;
     public AudioClip[] dirtClips;
     public AudioClip[] metalClips;
     public AudioClip[] woodClips;
     public AudioClip[] grassClips;
-    // Jumping
+    [Space(10)]
+    [Header("Jump/Land sounds")]
     public AudioClip[] jumpClips;
     public AudioClip[] landClips;
+    [Space(10)]
+    [Header("HeadShot sound")]
+    public AudioClip[] headShotClips;
 
     public void Init(PlayerManager playerManager) => this.playerManager = playerManager;
     public void Play()
@@ -46,7 +51,12 @@ public class PlayerAudio : ScriptableObject
         if (playerManager.playerSource)
             playerManager.playerSource.PlayOneShot(PlayRandomClip(landClips));
     }
+    public void PlayHeadShot()
+    {
+        playerManager.playerSource.PlayOneShot(PlayRandomClip(headShotClips));
+    }
 
     void PlayFootstepAudio(AudioClip[] clips) => playerManager.playerSource.PlayOneShot(PlayRandomClip(clips));
     AudioClip PlayRandomClip(AudioClip[] clips) => clips[Random.Range(0, clips.Length)];
+
 }

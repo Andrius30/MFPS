@@ -33,3 +33,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   landClips:
   - {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  headShotClips:
+  - {fileID: 8300000, guid: 553b73ce193553542855c4d44a94c62c, type: 3}
+  - {fileID: 8300000, guid: 7e9bb97807be6944697dc3453262125f, type: 3}

@@ -7,7 +7,7 @@ public class CreateAssetBundles
     [MenuItem("AssetBundle builder/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
-        string assetBundleDirectory = "C:/wamp64/www/Assetbundles";
+        string assetBundleDirectory = "C:/Users/andri/Desktop/Assetbundles";
         if (!Directory.Exists(Application.streamingAssetsPath))
         {
             Directory.CreateDirectory(assetBundleDirectory);

@@ -180,6 +180,14 @@ class PacketsToSend
             SendUDPDataToAll(player.id, packet);
         }
     }
+    public static void HeadShot(Player killer)
+    {
+        using(Packet packet = new Packet((int)ServerPackets.headShot))
+        {
+            packet.Write(killer.id);
+            SendTCPData(killer.id, packet);
+        }
+    }
     #endregion
 
     #region Weapons section

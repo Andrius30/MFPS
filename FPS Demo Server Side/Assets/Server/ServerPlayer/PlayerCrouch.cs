@@ -12,9 +12,9 @@ namespace MFPS.ServerCharacters
         public void Crouch(PlayerState playerState)
         {
             if (playerState == PlayerState.Crouching)
-                SetCharacterController(1, player.crouchCenter);
+                SetCharacterController(0.8f, player.crouchCenter);
             else
-                SetCharacterController(2, 0);
+                SetCharacterController(1.48f, -0.22f);
         }
 
         void SetCharacterController(float height, float center)
