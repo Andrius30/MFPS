@@ -76,8 +76,6 @@ public class PacketsToSend
                 packet.Write(weapon.model.localRotation);
                 packet.Write(weapon.shootPosition.localPosition);
                 packet.Write(weapon.shootPosition.localRotation);
-                //Debug.Log($"Send to server weapon {weapon.weaponID} position {weapon.model.localPosition} rotation " +
-                //    $" {weapon.model.localRotation}:green:18;".Interpolate());
             }
 
             SendTCPData(packet);

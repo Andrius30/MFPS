@@ -76,7 +76,9 @@ public class PlayerManager : MonoBehaviour
         playerAudio.Init(this);
         playerSource = GetComponent<AudioSource>();
 
-        PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
+        if (isLocalPlayer)
+            PacketsToSend.InitializeWeaponsAndSetStartingWeapon(GetAllWeapons(), startingWeaponIndex); // send msg: set starting weapon
+
         SurfaceAnimationEvents.onFoostepPlay += playerAudio.Play;
         SurfaceAnimationEvents.onJumpPlay += playerAudio.PlayJumpAudio;
         SurfaceAnimationEvents.onLandPlay += playerAudio.PlayLandAudio;

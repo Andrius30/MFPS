@@ -12,9 +12,17 @@ namespace MFPS.ServerCharacters
     public class PlayerMove
     {
         Player player;
+        PlayerJump playerJump;
+        PlayerCrouch playerCrouch;
+
         PlayerState playerState;
 
-        public PlayerMove(Player player) => this.player = player;
+        public PlayerMove(Player player)
+        {
+            this.player = player;
+            playerJump = new PlayerJump(player);
+            playerCrouch = new PlayerCrouch(player);
+        }
 
         /// <summary>Calculates the player's desired movement direction and moves him.</summary>
         /// <param name="_inputDirection"></param>
@@ -37,17 +45,17 @@ namespace MFPS.ServerCharacters
             if (player.characterController.isGrounded)
             {
                 player.velocityY = 0;
-                Jump(player.otherInputs[0]);
-                Crouch();
+                playerJump.Jump(player.otherInputs[0]);
+                playerCrouch.Crouch(playerState);
             }
 
             player.velocityY += player.gravity;
             _moveDirection.y = player.velocityY;
             player.characterController.Move(_moveDirection);
 
-            PacketsToSend.PlayerJumpVelocity(player, player.velocityY);
             PacketsToSend.PlayerPosition(player);
             PacketsToSend.PlayerRotation(player);
+            PacketsToSend.PlayerJumpVelocity(player, player.velocityY);
             PacketsToSend.PlayMovementAnimation(player, _inputDirection.x, _inputDirection.y);
         }
 
@@ -55,27 +63,6 @@ namespace MFPS.ServerCharacters
         {
             player.moveSpeed = speed;
             playerState = state;
-        }
-        // REFACTOR later if I decide to go further with this demo =======
-        void Jump(bool input)
-        {
-            if (input)
-            {
-                player.velocityY = player.jumpSpeed;
-                PacketsToSend.PlayerJumpVelocity(player, player.velocityY);
-            }
-        }
-        void Crouch()
-        {
-            if (playerState == PlayerState.Crouching)
-                SetCharacterController(1, player.crouchCenter);
-            else
-                SetCharacterController(2, 0);
-        }
-        void SetCharacterController(float height, float center)
-        {
-            player.characterController.height = height;
-            player.characterController.center = new Vector3(0, center, 0);
         }
         public PlayerState GetPlayerState() => playerState;
     }

@@ -1,9 +1,7 @@
 using MFPS.ServerTimers;
 using MFPS.Weapons;
 using MFPS.Weapons.Controllers;
-using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace MFPS.ServerCharacters
@@ -52,14 +50,15 @@ namespace MFPS.ServerCharacters
         Timer drawWeaponTimer;
         Timer reloadTimer;
 
-        void Start()
+        void Init()
         {
+            characterController = GetComponent<CharacterController>();
             weaponsController = new WeaponsController(this);
-
+            playerMove = new PlayerMove(this);
             timer = new Timer(0, false);
             drawWeaponTimer = new Timer(0, true);
             reloadTimer = new Timer(0, true);
-            playerMove = new PlayerMove(this);
+
             gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
             moveSpeed *= Time.fixedDeltaTime;
             runSpeed *= Time.fixedDeltaTime;
@@ -68,17 +67,15 @@ namespace MFPS.ServerCharacters
             jumpSpeed *= Time.fixedDeltaTime;
             health = maxHealth;
         }
-
         public void Initialize(int id, string userName)
         {
             this.id = id;
             this.userName = userName;
-            characterController = GetComponent<CharacterController>();
 
+            Init();
             inputs = new float[2];
             otherInputs = new bool[4];
         }
-        void Update() => TrackWeaponStates();
         void FixedUpdate()
         {
             if (health <= 0) return;
@@ -91,10 +88,10 @@ namespace MFPS.ServerCharacters
             else
                 GetCurrentWeapon().acuracy.UpdateWeaponInacuracy(this, false); // inaccuracy
 
-            //Debug.DrawRay(shootOrigin.position, shootOrigin.forward * GetCurrentWeapon().weaponRange, Color.red);
-
             if (WepState() != WeaponState.OutOfAmmo)
                 PacketsToSend.WeaponState(this);
+
+            TrackWeaponStates();
         }
 
         public void Shoot()

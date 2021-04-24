@@ -1,5 +1,4 @@
 using FPSClient.Timers;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -148,6 +147,7 @@ public class ClientWeapon : MonoBehaviour
         weaponAnimator.SetBool("isReloading", false);
     }
     void SetRig(int value) => rig.weight = value;
+
     void OnEnable() => SetRig(1);
     void OnDisable() => SetRig(0);
 

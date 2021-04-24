@@ -1,4 +1,3 @@
-using FPSClient.Timers;
 using TMPro;
 using UnityEngine;
 
@@ -45,8 +44,6 @@ public class PlayerController : MonoBehaviour, IConsole
 
         #region Changing and sending weapon index
         mouseScroll = playerInputs.MouseScrollInput();
-
-
 
         if (mouseScroll > 0) // up
         {

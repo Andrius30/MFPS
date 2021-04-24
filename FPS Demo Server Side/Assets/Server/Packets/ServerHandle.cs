@@ -26,7 +26,6 @@ class ServerHandle
         Quaternion rotation = packet.ReadQuaternion();
         Server.clients[fromClient].player.SetInput(inputs, rotation);
     }
-
     public static void PlayerOtherInputs(int fromClient, Packet packet)
     {
         bool[] inputs = new bool[packet.ReadInt()];
@@ -47,15 +46,12 @@ class ServerHandle
     public static void PlayerChangedWeapon(int fromClient, Packet packet)
     {
         int index = packet.ReadInt();
-
         Server.clients[fromClient].player.weaponsController.ChangeWeapon(index);
     }
     internal static void SetStartingWeaponAndAllPositions(int fromClient, Packet packet)
     {
         int startingWeaponIndex = packet.ReadInt();
-
         Player player = Server.clients[fromClient].player;
-        player.weaponsController.SetWeapon(player, startingWeaponIndex);
 
         foreach (var weapon in player.weaponsController.GetAllWeapons())
         {
@@ -67,6 +63,7 @@ class ServerHandle
             Quaternion rot = packet.ReadQuaternion();
             weapon.InitializeWeapons(modelPosition, modelRotation, shootPosition, rot);
         }
+        player.weaponsController.SetWeapon(player, startingWeaponIndex);
     }
     #endregion
 }

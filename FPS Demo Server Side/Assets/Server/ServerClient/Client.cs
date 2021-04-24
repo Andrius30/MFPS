@@ -223,8 +223,6 @@ public class Client
                 if (client.id != id)
                 {
                     PacketsToSend.SpawnPlayer(id, client.player);
-                    if (client.player.weaponsController.GetCurrentWeapon() != null)
-                        PacketsToSend.PlayerChangedWeapon(client.player, client.player.weaponsController.GetCurrentWeapon());
                 }
             }
         }
@@ -232,7 +230,9 @@ public class Client
         {
             if (client.player != null)
             {
-                PacketsToSend.SpawnPlayer(client.id, player);        
+                PacketsToSend.SpawnPlayer(client.id, player);
+                if (client.player.weaponsController.GetCurrentWeapon() != null)
+                    PacketsToSend.PlayerChangedWeapon(client.player, client.player.weaponsController.GetCurrentWeapon());
             }
         }
 

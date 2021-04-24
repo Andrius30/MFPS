@@ -16,6 +16,7 @@ ScriptsOnlyBuild:
     - PlayerController
     - PlayerManager
     - Projectile
+    - ScreenShot
     - SurfaceAnimationEvents
     - ThreadManager
     - UIManager
@@ -184,6 +185,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4078}
     - Class: 114
       Script: {instanceID: 4142}
+    - Class: 114
+      Script: {instanceID: 19152}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -863,6 +866,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: bb13eb5d0438976b3bb7ab34970c4f95
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ScreenShot
   platform: 19
   scenePathNames:
   - Assets/Scenes/Client.unity

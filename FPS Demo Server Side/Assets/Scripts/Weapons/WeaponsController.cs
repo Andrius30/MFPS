@@ -1,5 +1,6 @@
 using MFPS.ServerCharacters;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MFPS.Weapons.Controllers
 {
@@ -15,6 +16,7 @@ namespace MFPS.Weapons.Controllers
         public void ChangeWeapon(int currentWeaponIndex) => SetWeapon(player, currentWeaponIndex);
         public void SetWeapon(Player player, int index)
         {
+            if (currentWeapon != null && currentWeapon.id == index) return;
             DisableAllWeapons();
             currentWeapon = GetAllWeapons()[index];
             currentWeapon.SetWeaponState(WeaponState.DrawWeapon);

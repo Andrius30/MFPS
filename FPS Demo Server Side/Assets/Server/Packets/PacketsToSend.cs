@@ -160,7 +160,6 @@ class PacketsToSend
             SendTCPData(attackedPlayerId, packet);
         }
     }
-
     internal static void PlayerRespawned(Player player)
     {
         using (Packet packet = new Packet((int)ServerPackets.playerRespawned))

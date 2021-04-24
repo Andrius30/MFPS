@@ -7,7 +7,7 @@ public class ClientHandle
     {
         string msg = packet.ReadString();
         int id = packet.ReadInt();
-
+        
         // Debug.Log($"Message from server { msg }");
         Client.instance.id = id;
 
@@ -88,6 +88,8 @@ public class ClientHandle
         int bulletsLeft = packet.ReadInt();
         float cd = packet.ReadFloat();
 
+        ClientWeapon wep = GameManager.players[playerID].newWeapon;
+        if (wep != null && wep.weaponID == currentWeponID) return;
         GameManager.players[playerID].ChangeWeapon(currentWeponID, weaponname, fireMode, maxBullets, bulletsLeft, cd);
     }
     public static void UpdateBullets(Packet packet)
