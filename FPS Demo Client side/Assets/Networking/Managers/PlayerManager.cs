@@ -1,6 +1,5 @@
 using FPSClient.Timers;
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerState
@@ -20,6 +19,10 @@ public class PlayerManager : MonoBehaviour
     public string username;
     public bool isLocalPlayer;
 
+    public List<GameObject> playerDeathModelsWithAnimations = new List<GameObject>();
+    [SerializeField] GameObject deathCamera;
+    [SerializeField] Vector3 deathCameraOffset;
+    [SerializeField] Vector3 deathModelOffset;
     [Space(10)]
     [Header("Player health")]
     public float maxHealth = 100f;
@@ -31,7 +34,7 @@ public class PlayerManager : MonoBehaviour
     public ClientWeapon newWeapon { get; protected set; }
     public int startingWeaponIndex = 0;
 
-    public MeshRenderer model;
+    public GameObject model;
     public Animator characterAnimator;
     public PlayerAnimations playerAnimations { get; private set; }
 
@@ -58,14 +61,13 @@ public class PlayerManager : MonoBehaviour
     public HitSurface_VFX hitSurface_VFX; // scriptable object
 
     Timer timer;
-
     [HideInInspector] public AudioSource playerSource;
     SurfaceChecker surfaceChecker;
     public PlayerHealth playerHealth { get; private set; }
     public PlayerHealth_UI playerHealth_UI { get; private set; }
     public PlayerAmunition_UI playerAmunition { get; private set; }
 
-    internal void Initialize(int id, string userName, bool isLocal)
+    public void Initialize(int id, string userName, bool isLocal)
     {
         this.id = id;
         this.username = userName;
@@ -111,14 +113,15 @@ public class PlayerManager : MonoBehaviour
         BloodSplatter.onDamage?.Invoke(dmg);
     }
 
-
     public void Die()
     {
-        model.enabled = false;
+        Debug.Log("Player Died");
+        model.SetActive(false);
+        CreateDeathModel();
     }
     public void Respawn()
     {
-        model.enabled = true;
+        model.SetActive(true);
         playerHealth.SetHealth(maxHealth);
         playerHealth_UI.ShowHealthAt_UI(playerHealth.GetHealth());
     }
@@ -161,4 +164,16 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
+    void CreateDeathModel()
+    {
+        GameObject gm = Instantiate(GetRandomDeathModel(), transform.position + deathModelOffset, transform.rotation);
+        if (isLocalPlayer) // create death cam if its local player
+        {
+            Transform deathCampos = UtilityMethods.onChildRequested?.Invoke(gm.transform, "swat:Head");
+            GameObject deathCam = Instantiate(deathCamera, deathCampos.position + deathCameraOffset, deathCampos.rotation);
+            deathCam.transform.SetParent(deathCampos);
+        }
+        Destroy(gm, 5f);
+    }
+    GameObject GetRandomDeathModel() => playerDeathModelsWithAnimations[Random.Range(0, playerDeathModelsWithAnimations.Count)];
 }

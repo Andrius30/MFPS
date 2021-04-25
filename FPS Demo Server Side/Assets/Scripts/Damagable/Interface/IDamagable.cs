@@ -3,5 +3,5 @@ using UnityEngine;
 public interface IDamagable
 {
     void TakeDamage(float dmg, Transform attacker, AttackerTypes type);
-    void Die();
+    void Die(Transform attacker, AttackerTypes type);
 }

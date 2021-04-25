@@ -3021,11 +3021,17 @@ MonoBehaviour:
   id: 0
   username: 
   isLocalPlayer: 0
+  playerDeathModelsWithAnimations:
+  - {fileID: 6884305878377048512, guid: 747df4833a17a4e47bc029e87a82b640, type: 3}
+  - {fileID: 5185479432914309162, guid: eaedced68afbb574ab02643cb98b8e4b, type: 3}
+  deathCamera: {fileID: 6572563417625340413, guid: 4e2af043bdb00c645a014b9779a03388, type: 3}
+  deathCameraOffset: {x: 0, y: 0.669, z: 0}
+  deathModelOffset: {x: 0, y: -1, z: 0}
   maxHealth: 100
   weaponsparent: {fileID: 1575869403841672644}
   weaponParentPositionOnCrouching: {x: 0, y: -0.56, z: 0}
   startingWeaponIndex: 0
-  model: {fileID: 5529933019427203205}
+  model: {fileID: 2015566083722039295}
   characterAnimator: {fileID: 7885309935759303570}
   playerAudio: {fileID: 11400000, guid: 3646ab6d736d6ed4f88f535f4291eb25, type: 2}
   surfaceCheckPosition: {fileID: 1256992105890472613}

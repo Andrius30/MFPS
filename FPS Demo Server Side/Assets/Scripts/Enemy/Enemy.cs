@@ -37,31 +37,31 @@ public class Enemy : MonoBehaviour, IDamagable
     }
 
     //// =========== DEBUGING ==========================
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Mouse0))
-    //    {
-    //        Player pl = FindObjectOfType<Player>();
-    //        IDamagable damagable = pl.GetComponent<IDamagable>();
-    //        if (damagable != null)
-    //        {
-    //            damagable.TakeDamage(dmg, this.transform, attackerType);
-    //        }
-    //    }
-    //}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Player pl = FindObjectOfType<Player>();
+            IDamagable damagable = pl.GetComponent<IDamagable>();
+            if (damagable != null)
+            {
+                damagable.TakeDamage(dmg, this.transform, attackerType);
+            }
+        }
+    }
     //// =========== DEBUGING ==========================
 
     public void TakeDamage(float dmg, Transform attacker, AttackerTypes type)
     {
-       // Debug.Log($"Enemy taking damage {dmg} from {attacker.name} attacker type {type}");
+        // Debug.Log($"Enemy taking damage {dmg} from {attacker.name} attacker type {type}");
         if (health > 0)
             health -= dmg;
         if (health <= 0)
-            Die();
+            Die(attacker, type);
 
         PacketsToSend.EnemyHealth(this);
     }
-    public void Die()
+    public void Die(Transform attacker, AttackerTypes type)
     {
         // TEST
         health = 0;

@@ -11,8 +11,7 @@ namespace MFPS.ServerCharacters
         [HideInInspector] public int id;
         [HideInInspector] public string userName;
 
-        [Header("Shoot position")]
-        public Transform shootOrigin;
+        #region Player settings
         [Space(10)]
         [Header("Health settings")]
         public float maxHealth = 100;
@@ -33,8 +32,12 @@ namespace MFPS.ServerCharacters
         [Space(10)]
         [Header("Gravity modifier")]
         public float gravity = -9.81f;
-        // ======================================================================
-
+        // ====================================================================== 
+        #endregion
+        
+        [Space(10)]
+        [Header("Shoot position")]
+        public Transform shootOrigin;
         [Space(10)]
         [Header("Player Weapons")]
         public Transform weaponsParent;
@@ -80,11 +83,11 @@ namespace MFPS.ServerCharacters
             Attack(otherInputs[3]);
             if (otherInputs[4] && weaponsController.GetCurrentWeapon().GetWeaponState() != WeaponState.Reloading) // reload weapon input from client
             {
-                if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
-                {
-                    Debug.Log($"SORRY!!!!!!!!!! BUT YOU ARE OUT OF AMMO!!!! :red:20;".Interpolate());
-                    return;
-                }
+                //if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
+                //{
+                //    Debug.Log($"SORRY!!!!!!!!!! BUT YOU ARE OUT OF AMMO!!!! :red:20;".Interpolate());
+                //    return;
+                //}
                 weaponsController.GetCurrentWeapon().reloadTimer.SetTimer(weaponsController.GetCurrentWeapon().reloadTime, false);
                 weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
             }
@@ -127,17 +130,15 @@ namespace MFPS.ServerCharacters
             health -= dmg;
             Debug.Log($"Player geting {dmg} dmg from aattacker {attacker.name } attacker type {type}:yellow;".Interpolate());
             if (health <= 0)
-                Die();
+                Die(attacker, attackerType);
 
             PacketsToSend.PlayerHealth(this);
             PacketsToSend.SendAttackerAndDamage(attacker, dmg, id, type);
         }
-        public void Die()
+        public void Die(Transform attacker, AttackerTypes type)
         {
             health = 0;
             characterController.enabled = false;
-            transform.position = new Vector3(0, 25f, 0);
-            PacketsToSend.PlayerPosition(this);
             StartCoroutine(Respawn());
         }
         IEnumerator Respawn()
@@ -146,6 +147,8 @@ namespace MFPS.ServerCharacters
 
             health = maxHealth;
             characterController.enabled = true;
+            transform.position = NetworkManager.instance.GetRandomSpawnPosition().position;
+            PacketsToSend.PlayerPosition(this);
             PacketsToSend.PlayerRespawned(this);
         }
         #endregion
