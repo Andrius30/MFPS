@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ebff00983a92d49941a05f9b29991b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bundleUrl: http://localhost/Assetbundles/streaming-enviroment
+  bundleUrl: http://www.andrejportfolio.lt/Assetbundles/streaming-enviroment
 --- !u!4 &351231445
 Transform:
   m_ObjectHideFlags: 0
