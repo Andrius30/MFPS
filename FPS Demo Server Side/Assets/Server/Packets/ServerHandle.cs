@@ -65,5 +65,6 @@ class ServerHandle
         }
         player.weaponsController.SetWeapon(player, startingWeaponIndex);
     }
+
     #endregion
 }

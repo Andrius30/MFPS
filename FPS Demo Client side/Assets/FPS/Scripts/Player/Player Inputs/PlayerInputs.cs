@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class PlayerInputs
 {
-    // ============ MOVE ========================================================
+    #region Move Inputs
     public float HorizontalInputs() => Input.GetAxis("Horizontal");
     public float VerticalInputs() => Input.GetAxis("Vertical");
     public bool JumpInput() => Input.GetKey(KeyCode.Space);
     public bool CrouchInput() => Input.GetKey(KeyCode.C);
     public bool WalkInput() => Input.GetKey(KeyCode.LeftShift);
+    #endregion
 
-    // =========== MOVE END =====================================================
-
-    // ========== SHOOT =========================================================
+    #region Shoot Inputs
     public bool ShootInput() => Input.GetKey(KeyCode.Mouse0);
     public bool ShootInput(int fireMode)
     {
@@ -26,11 +25,11 @@ public class PlayerInputs
         }
         return false;
     }
+    #endregion
 
-    // ========== SHOOT END =====================================================
-
-    // =========== WEAPONs ========================================================
+    #region Weapon inputs
     public float MouseScrollInput() => Input.GetAxis("Mouse ScrollWheel");
+    public bool ReloadWeapon() => Input.GetKey(KeyCode.R);
+    #endregion   
 
-    // =========== Weapons END ==================================================
 }

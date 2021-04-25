@@ -37,8 +37,9 @@ namespace MFPS.Weapons
         [SerializeField] float bulletForce = 100f;
         [SerializeField] int totalBullets = 100;
         [SerializeField] int magazineCapacity = 20;
-        public int GetMaxBullets => totalBullets;
         int shootedbullets;
+        int totalbulletsLeft;
+        public int TotalbulletsLeft => totalbulletsLeft;
 
         [Header("Weapon damage seetings")]
         [SerializeField] float weaponDamage;
@@ -54,7 +55,7 @@ namespace MFPS.Weapons
         Player player;
         Timer timer;
         Timer drawWeaponTimer;
-        Timer reloadTimer;
+        public Timer reloadTimer { get; private set; }
 
         protected virtual void Start()
         {
@@ -77,6 +78,7 @@ namespace MFPS.Weapons
             weaponModel.localRotation = modelRotation;
             this.projectileSpawnPoint.localPosition = shootPos;
             this.projectileSpawnPoint.localRotation = shootRot;
+            totalbulletsLeft = totalBullets;
         }
         public virtual void DoDamage(IDamagable damagable, Transform attacker, AttackerTypes type)
         {
@@ -100,22 +102,24 @@ namespace MFPS.Weapons
 
                 if (IsMagazineEmpty())
                 {
+                    Debug.Log("1");
                     if (IsoutOfAmmo())
                     {
+                        Debug.Log("2");
                         SetWeaponState(WeaponState.OutOfAmmo);
                         return;
                     }
+                    Debug.Log("3");
                     reloadTimer.SetTimer(reloadTime, false);
                     SetWeaponState(WeaponState.Reloading);
                     return;
                 }
                 ShootRaycast();
                 shootedbullets++;
+                PacketsToSend.UpdateBullets(player, this);
                 timer.SetTimer(coolDown, false);
             }
         }
-
-
         public virtual void SpawnProjectile(Vector3 direction)
         {
             if (firemode == FireMode.auto)
@@ -132,21 +136,46 @@ namespace MFPS.Weapons
                 CreateBullet(projectileSpawnPoint, direction);
             }
         }
-        public virtual bool IsoutOfAmmo() => totalBullets - shootedbullets < 0;
+        public virtual bool IsoutOfAmmo() => totalbulletsLeft <= 0;
         public virtual void SetWeaponState(WeaponState state) => weaponState = state;
+        // magazineCapacity - CurrentBulletsAtMagazine;
         public virtual void ReloadWeapon(Player player)
         {
-            if (totalBullets - shootedbullets >= 0)
+            if (!IsoutOfAmmo())
             {
-                totalBullets -= shootedbullets;
-                shootedbullets = 0;
-                SetWeaponState(WeaponState.Idle);
-                PacketsToSend.UpdateBullets(player, this);
+                int neededbullets = magazineCapacity - GetCurrentBulletsAtMagazine();
+                if (neededbullets <= totalbulletsLeft)
+                {
+                    totalbulletsLeft -= neededbullets;
+                    shootedbullets = 0;
+                    SetWeaponState(WeaponState.Idle);
+                    PacketsToSend.UpdateBullets(player, this);
+                    return;
+                }
+                else if (totalbulletsLeft == 0)
+                {
+                    SetWeaponState(WeaponState.OutOfAmmo);
+                    return;
+                }
+                else
+                {
+                    shootedbullets = shootedbullets - totalbulletsLeft;
+                    totalbulletsLeft = 0;
+                    SetWeaponState(WeaponState.Idle);
+                    PacketsToSend.UpdateBullets(player, this);
+                    Debug.Log($"left total {totalbulletsLeft} neededbullets <= totalbulletsLeft {neededbullets <= totalbulletsLeft}");
+                    Debug.Log($"Shooted bulets after calculation {shootedbullets}");
+                    return;
+                }
+            }
+            else
+            {
+                SetWeaponState(WeaponState.OutOfAmmo);
+                return;
             }
         }
         public virtual bool IsMagazineEmpty() => magazineCapacity - shootedbullets <= 0;
         public virtual int GetCurrentBulletsAtMagazine() => magazineCapacity - shootedbullets;
-
         public WeaponState GetWeaponState() => weaponState;
         public void SetPlayer(Player player) => this.player = player;
         public void TrackWeaponStates()
@@ -169,6 +198,7 @@ namespace MFPS.Weapons
                 reloadTimer.StartTimer();
                 if (reloadTimer.IsDone())
                 {
+                    Debug.Log("4");
                     ReloadWeapon(player);
                     return;
                 }
@@ -187,7 +217,6 @@ namespace MFPS.Weapons
                     if (killedbyHeadShot != null && hit.transform.GetComponent<BoxCollider>()) // Very simple implementation
                     {
                         float dmg = weaponDamage + player.maxHealth;
-                        Debug.Log($"HEADSHOT!!!! {dmg} :red:20;".Interpolate());
                         killedbyHeadShot.TakeDamage(dmg, transform.root, player.attackerType);
                         PacketsToSend.HeadShot(player);
                     }

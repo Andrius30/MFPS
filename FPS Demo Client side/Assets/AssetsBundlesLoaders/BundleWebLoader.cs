@@ -6,30 +6,6 @@ public class BundleWebLoader : MonoBehaviour
 {
     public string bundleUrl = "http://www.andrejportfolio.lt/Assetbundles/streaming-enviroment";
 
-    #region OLD
-    //IEnumerator Start()
-    //{
-    //    var uwr = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
-    //    while (!uwr.isDone)
-    //    {
-    //        float progress = -uwr.downloadProgress * 100f;
-    //        if (progress >= 99f)
-    //        {
-    //            yield return uwr.SendWebRequest();
-    //            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(uwr);
-    //            var loadAsset = bundle.LoadAllAssets<GameObject>();
-    //            foreach (var item in loadAsset)
-    //            {
-    //                GameObject gm = Instantiate(item);
-    //                SetLayer(gm);
-    //            }
-    //        }
-    //        yield return null;
-    //    }
-    //    Debug.Log($"Asset Bundles Loaded successfully! :15:green;".Interpolate());
-    //} 
-    #endregion
-
     IEnumerator Start()
     {
         UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
@@ -43,11 +19,11 @@ public class BundleWebLoader : MonoBehaviour
         if (www.isDone)
         {
             AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-            GameObject[] gm = bundle.LoadAllAssets<GameObject>();
-            foreach (var item in gm)
+            GameObject[] bundleArray = bundle.LoadAllAssets<GameObject>();
+            foreach (var item in bundleArray)
             {
-                Instantiate(item);
-                SetLayer(item);
+                GameObject gm = Instantiate(item);
+                SetLayer(gm);
             }
             Debug.Log($"Download complete {bundle}");
         }

@@ -68,7 +68,7 @@ namespace MFPS.ServerCharacters
 
             Init();
             inputs = new float[2];
-            otherInputs = new bool[4];
+            otherInputs = new bool[5];
         }
         void FixedUpdate()
         {
@@ -76,7 +76,18 @@ namespace MFPS.ServerCharacters
             playerMove.Move(inputs);
 
             if (weaponsController.GetCurrentWeapon() == null) return;
+
             Attack(otherInputs[3]);
+            if (otherInputs[4] && weaponsController.GetCurrentWeapon().GetWeaponState() != WeaponState.Reloading) // reload weapon input from client
+            {
+                if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
+                {
+                    Debug.Log($"SORRY!!!!!!!!!! BUT YOU ARE OUT OF AMMO!!!! :red:20;".Interpolate());
+                    return;
+                }
+                weaponsController.GetCurrentWeapon().reloadTimer.SetTimer(weaponsController.GetCurrentWeapon().reloadTime, false);
+                weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
+            }
 
             if (weaponsController.GetCurrentWeapon().GetWeaponState() != WeaponState.OutOfAmmo)
                 PacketsToSend.WeaponState(this);

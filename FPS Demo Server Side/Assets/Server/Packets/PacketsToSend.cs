@@ -199,7 +199,7 @@ class PacketsToSend
             packet.Write(weapon.weaponName);
             packet.Write((int)weapon.firemode);
             packet.Write(weapon.id);
-            packet.Write(weapon.GetMaxBullets);
+            packet.Write(weapon.TotalbulletsLeft);
             packet.Write(weapon.GetCurrentBulletsAtMagazine());
             packet.Write(weapon.coolDown);
 
@@ -221,7 +221,7 @@ class PacketsToSend
         using (Packet packet = new Packet((int)ServerPackets.updateBullets))
         {
             packet.Write(player.id);
-            packet.Write(weapon.GetMaxBullets);
+            packet.Write(weapon.TotalbulletsLeft);
             packet.Write(weapon.GetCurrentBulletsAtMagazine());
 
             SendTCPData(player.id, packet);

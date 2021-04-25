@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IConsole
     float mouseScroll;
     bool cursorLockDisabled = false;
     int currentWeaponIndex = 0;
+    bool isShooting;
 
     void Start()
     {
@@ -25,22 +26,12 @@ public class PlayerController : MonoBehaviour, IConsole
     }
     void FixedUpdate()
     {
-        // ====== DEBUGING ==== TESTING =======
+        // ====== DEBUGING Developer console ==== TESTING =======
         if (!cursorLockDisabled)
             mouseLock.CursorState();
         // =====================================
+
         if (playerManager.newWeapon == null) return;
-        #region Player shoot
-        if (CanShoot())
-        {
-            playerManager.newWeapon.bulletsLeft--;
-            if (playerManager.newWeapon.bulletsLeft <= 0)
-            {
-                playerManager.newWeapon.bulletsLeft = 0;
-            }
-            playerManager.playerAmunition.UpdateBulletsLeft(playerManager.newWeapon.bulletsLeft);
-        }
-        #endregion
 
         #region Changing and sending weapon index
         mouseScroll = playerInputs.MouseScrollInput();
@@ -71,11 +62,15 @@ public class PlayerController : MonoBehaviour, IConsole
         bool jumpInput = playerInputs.JumpInput();
         bool crouchInput = playerInputs.CrouchInput();
         bool walkInput = playerInputs.WalkInput();
-        bool isShooting = playerInputs.ShootInput(playerManager.newWeapon.GetFireMode());
+
+        if (GetCurState() != WeaponState.Reloading)
+        {
+            isShooting = playerInputs.ShootInput(playerManager.newWeapon.GetFireMode());
+        }
+        bool reload = playerInputs.ReloadWeapon();
         playerManager.playerAnimations.PlayMoveAnimation(x, z);
         playerManager.playerAnimations.PlayCrouchAnimation(crouchInput);
         playerManager.playerAnimations.PlayWalkAnimation(walkInput);
-
         float[] inputs = new float[]
         {
             x,
@@ -86,18 +81,12 @@ public class PlayerController : MonoBehaviour, IConsole
             jumpInput,
             crouchInput,
             walkInput,
-            isShooting
+            isShooting,
+            reload
         };
 
         PacketsToSend.SendPlayerInputs(inputs);
         PacketsToSend.SendOtherInputs(otherInputs);
-    }
-    bool CanShoot()
-    {
-        return
-            playerManager.newWeapon != null &&
-            GetCurState() == WeaponState.Shooting &&
-            GetCurState() != WeaponState.Reloading;
     }
     WeaponState GetCurState() => playerManager.newWeapon == null ? WeaponState.Idle : playerManager.newWeapon.weaponState;
     #region Developer console test
