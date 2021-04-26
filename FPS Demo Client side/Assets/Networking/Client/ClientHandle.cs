@@ -185,7 +185,6 @@ public class ClientHandle
             player.playerAnimations.PlayAimingAnimation(angle, localRot);
         }
     }
-
     internal static void CreateHitEffect(Packet packet)
     {
         int playerID = packet.ReadInt();
@@ -195,7 +194,6 @@ public class ClientHandle
 
         GameManager.players[playerID].hitSurface_VFX.CreateHitEffect(pos, rot, surfaceType);
     }
-
     internal static void RotateWeaponCamera(Packet packet)
     {
         int playerID = packet.ReadInt();
@@ -213,11 +211,24 @@ public class ClientHandle
         }
     }
 
+    #endregion
+  
     internal static void HeadShot(Packet packet)
     {
         int killerID = packet.ReadInt();
 
         GameManager.players[killerID].playerAudio.PlayHeadShot();
+    }
+
+    #region Items
+    internal static void SpawnItem(Packet packet)
+    {
+        int itemID = packet.ReadInt();
+        int type = packet.ReadInt();
+        Vector3 itemPos = packet.ReadVector3();
+        Quaternion itemRot = packet.ReadQuaternion();
+
+        GameManager.instance.SpawnItem(itemID, itemPos,itemRot, type);
     }
     #endregion
 }

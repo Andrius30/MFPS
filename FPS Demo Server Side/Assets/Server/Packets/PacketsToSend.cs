@@ -151,9 +151,11 @@ class PacketsToSend
             packet.Write(dmg);
             Player pl = attacker.GetComponent<Player>();
             Enemy en = attacker.GetComponent<Enemy>();
+            Item it = attacker.GetComponent<Item>();
 
             if (pl != null) packet.Write(pl.id); // if player
             if (en != null) packet.Write(en.id); // if enemy
+            if (it != null) packet.Write(it.itemID); // if enemy
 
             packet.Write((int)type);
 
@@ -315,5 +317,18 @@ class PacketsToSend
         }
     }
 
+    #endregion
+
+    #region Items
+    public static void SpawnItem(Item item)
+    {
+        using Packet packet = new Packet((int)ServerPackets.spawnItem);
+        packet.Write(item.itemID);
+        packet.Write((int)item.ItemType);
+        packet.Write(item.transform.position);
+        packet.Write(item.transform.rotation);
+
+        SendTCPDataToAll(packet);
+    }
     #endregion
 }

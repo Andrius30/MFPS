@@ -240,6 +240,11 @@ public class Client
         {
             PacketsToSend.SpawnEnemy(enemy);
         }
+
+        foreach (Item item in ItemsSpawner.itemsDict.Values)
+        {
+            PacketsToSend.SpawnItem(item);
+        }
     }
 }
 

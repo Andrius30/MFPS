@@ -291,6 +291,10 @@ public class Client : MonoBehaviour
             {(int) ServerPackets.hitEffect, ClientHandle.CreateHitEffect},
 
         	#endregion
+            #region Items
+            {(int) ServerPackets.spawnItem, ClientHandle.SpawnItem},
+
+	        #endregion
         };
         Debug.Log($"Packets initialized :green;".Interpolate());
     }

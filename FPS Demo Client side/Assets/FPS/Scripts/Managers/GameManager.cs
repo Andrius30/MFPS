@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public static Dictionary<int, Projectile> projectiles = new Dictionary<int, Projectile>();
     public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
+    public static Dictionary<int, Item> items = new Dictionary<int, Item>();
 
     [Header("Client Prefabs")]
     [SerializeField] GameObject localPlayerPrefab;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject enemyPrefab;
-
+    [SerializeField] List<Item> itemsList = new List<Item>();
     [Space(10)]
     [Header("Scene main camera")]
     [SerializeField] GameObject sceneCamera;
@@ -65,5 +66,20 @@ public class GameManager : MonoBehaviour
             enemies.Add(id, enemy);
         }
     }
-
+    public void SpawnItem(int id, Vector3 position,Quaternion rot, int type)
+    {
+        if (!items.ContainsKey(id))
+        {
+            foreach (var item in itemsList)
+            {
+                if ((int)item.itemType == type)
+                {
+                    GameObject gm = Instantiate(item.gameObject, position, rot);
+                    Item it = gm.GetComponent<Item>();
+                    it.itemID = id;
+                    items.Add(id, it);
+                }
+            }
+        }
+    }
 }

@@ -32,7 +32,8 @@ public enum ServerPackets
     hitEffect,
     spray,
     playerJump,
-    headShot
+    headShot,
+    spawnItem
 }
 
 /// <summary>Sent from client to server.</summary>

@@ -2,6 +2,7 @@
 public enum AttackerTypes
 {
     Player,
-    Enemy
+    Enemy,
+    Mine
 }
 

@@ -132,7 +132,6 @@ MonoBehaviour:
   attackerType: 0
   id: 0
   userName: 
-  shootOrigin: {fileID: 4093116407577331127}
   maxHealth: 100
   health: 0
   moveSpeed: 5
@@ -142,6 +141,7 @@ MonoBehaviour:
   crouchCenter: -0.4
   jumpSpeed: 5
   gravity: -9.81
+  shootOrigin: {fileID: 4093116407577331127}
   weaponsParent: {fileID: 1291757330658026452}
   velocityY: 0
   inputs: []

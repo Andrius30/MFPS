@@ -17,6 +17,7 @@ public class DamageIndicators : MonoBehaviour
 
     void Create(Transform target)
     {
+        if (target == null) return;
         if (indicatorsDict.ContainsKey(target))
         {
             indicatorsDict[target].Restart();
@@ -29,8 +30,12 @@ public class DamageIndicators : MonoBehaviour
     }
     bool IsTargetVisible(Transform target)
     {
-        Vector3 screenPoint = camera.WorldToViewportPoint(target.position);
-        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+        if (target != null)
+        {
+            Vector3 screenPoint = camera.WorldToViewportPoint(target.position);
+            return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+        }
+        return false;
     }
     void OnEnable()
     {

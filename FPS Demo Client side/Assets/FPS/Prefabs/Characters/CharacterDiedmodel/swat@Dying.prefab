@@ -1405,6 +1405,9 @@ GameObject:
   - component: {fileID: 5529671294179854992}
   - component: {fileID: 1899809213962391786}
   - component: {fileID: 6069677534704054050}
+  - component: {fileID: 4573477984886143928}
+  - component: {fileID: 6344999684600664173}
+  - component: {fileID: -3969998230808240641}
   m_Layer: 10
   m_Name: swat@Dying
   m_TagString: Untagged
@@ -1441,7 +1444,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a0badf7491237c04d84b9646e0341d0a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1543,6 +1546,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &4573477984886143928
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185479432914309162}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &6344999684600664173
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185479432914309162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8461796
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.91161555, z: 0}
+--- !u!136 &-3969998230808240641
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185479432914309162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8741274
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8270047, z: 0}
 --- !u!1 &5256677705958796161
 GameObject:
   m_ObjectHideFlags: 0

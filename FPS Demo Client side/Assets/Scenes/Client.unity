@@ -874,6 +874,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 7753954852808961092, guid: f1b32146f35dccd438f8a88cea2d2dd3, type: 3}
   projectilePrefab: {fileID: 7860117367400190022, guid: da4ebb0b1b1591846a588de3af2cdbed, type: 3}
   enemyPrefab: {fileID: 2888383428222194711, guid: 903bb69bf790b2846abaf36413acf465, type: 3}
+  itemsList:
+  - {fileID: 8697657746853400616, guid: 4045ad36159e1fc49bcaa4f830aff52e, type: 3}
+  - {fileID: 7716265868014223084, guid: 2dab317cbd0029945a631c7df6e7eb91, type: 3}
   sceneCamera: {fileID: 963194225}
 --- !u!1 &784843526
 GameObject:
