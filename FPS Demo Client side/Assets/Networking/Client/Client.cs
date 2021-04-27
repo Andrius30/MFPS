@@ -293,6 +293,7 @@ public class Client : MonoBehaviour
         	#endregion
             #region Items
             {(int) ServerPackets.spawnItem, ClientHandle.SpawnItem},
+            {(int) ServerPackets.executeItem, ClientHandle.ExecuteItem},
 
 	        #endregion
         };

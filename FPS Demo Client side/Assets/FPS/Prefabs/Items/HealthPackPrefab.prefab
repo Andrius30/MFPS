@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8169095248697091309}
   - component: {fileID: 7716265868014223084}
   - component: {fileID: 5574998284274770847}
+  - component: {fileID: 8271379874264851346}
   m_Layer: 8
   m_Name: HealthPackPrefab
   m_TagString: Untagged
@@ -97,10 +98,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 1
   itemID: 0
-  item_VFX: {fileID: 0}
-  item_VFX_DestroyTime: 5
-  item_SFX_clips: []
+  models:
+  - {fileID: 8169095248697091309}
+  item_VFX: {fileID: 4989041725740472271, guid: a9eeb8f09d7c90243898352d9b3bd2e8, type: 3}
+  item_VFX_DestroyTime: 1
+  item_SFX_clips:
+  - {fileID: 8300000, guid: d968f2a291b449f4cbc38d0c9090b2c3, type: 3}
   itemSource: {fileID: 5574998284274770847}
+  effectOffset: {x: 0, y: -0.809, z: 0.366}
 --- !u!82 &5574998284274770847
 AudioSource:
   m_ObjectHideFlags: 0
@@ -197,3 +202,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8271379874264851346
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664713874796725560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6021075, y: 0.725972, z: 0.3346485}
+  m_Center: {x: 0, y: -0.00000002980233, z: 0}

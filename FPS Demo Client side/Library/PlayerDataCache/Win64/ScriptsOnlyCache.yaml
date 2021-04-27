@@ -11,7 +11,9 @@ ScriptsOnlyBuild:
     - DirectionalDamageIndicator
     - Enemy
     - GameManager
+    - HealthItem
     - HitSurface_VFX
+    - MineItem
     - PlayerAudio
     - PlayerController
     - PlayerManager
@@ -80,6 +82,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 74
@@ -119,73 +123,77 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1940}
     - Class: 114
-      Script: {instanceID: 1994}
+      Script: {instanceID: 1996}
     - Class: 114
-      Script: {instanceID: 2138}
+      Script: {instanceID: 2140}
     - Class: 114
-      Script: {instanceID: 2144}
+      Script: {instanceID: 2146}
     - Class: 114
-      Script: {instanceID: 2312}
+      Script: {instanceID: 2314}
     - Class: 114
-      Script: {instanceID: 2318}
+      Script: {instanceID: 2320}
     - Class: 114
-      Script: {instanceID: 2328}
+      Script: {instanceID: 2330}
     - Class: 114
-      Script: {instanceID: 2336}
+      Script: {instanceID: 2338}
     - Class: 114
-      Script: {instanceID: 2350}
+      Script: {instanceID: 2352}
     - Class: 114
-      Script: {instanceID: 2438}
+      Script: {instanceID: 2424}
     - Class: 114
-      Script: {instanceID: 2480}
+      Script: {instanceID: 2442}
     - Class: 114
-      Script: {instanceID: 2502}
+      Script: {instanceID: 2484}
     - Class: 114
-      Script: {instanceID: 2532}
+      Script: {instanceID: 2506}
     - Class: 114
-      Script: {instanceID: 2570}
+      Script: {instanceID: 2536}
     - Class: 114
-      Script: {instanceID: 2582}
+      Script: {instanceID: 2574}
     - Class: 114
-      Script: {instanceID: 2646}
+      Script: {instanceID: 2586}
     - Class: 114
-      Script: {instanceID: 2776}
+      Script: {instanceID: 2650}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2894}
+      Script: {instanceID: 2882}
     - Class: 114
-      Script: {instanceID: 3138}
+      Script: {instanceID: 2898}
     - Class: 114
-      Script: {instanceID: 3156}
+      Script: {instanceID: 3142}
     - Class: 114
-      Script: {instanceID: 3168}
+      Script: {instanceID: 3160}
     - Class: 114
-      Script: {instanceID: 3228}
+      Script: {instanceID: 3172}
     - Class: 114
-      Script: {instanceID: 3428}
+      Script: {instanceID: 3232}
     - Class: 114
-      Script: {instanceID: 3482}
+      Script: {instanceID: 3432}
     - Class: 114
-      Script: {instanceID: 3696}
+      Script: {instanceID: 3486}
     - Class: 114
-      Script: {instanceID: 3760}
+      Script: {instanceID: 3700}
     - Class: 114
-      Script: {instanceID: 3796}
+      Script: {instanceID: 3764}
     - Class: 114
-      Script: {instanceID: 3816}
+      Script: {instanceID: 3800}
     - Class: 114
-      Script: {instanceID: 4014}
+      Script: {instanceID: 3820}
+    - Class: 114
+      Script: {instanceID: 3822}
     - Class: 114
       Script: {instanceID: 4020}
     - Class: 114
-      Script: {instanceID: 4072}
+      Script: {instanceID: 4026}
     - Class: 114
-      Script: {instanceID: 4076}
+      Script: {instanceID: 4078}
     - Class: 114
-      Script: {instanceID: 4080}
+      Script: {instanceID: 4082}
     - Class: 114
-      Script: {instanceID: 4144}
+      Script: {instanceID: 4086}
+    - Class: 114
+      Script: {instanceID: 4150}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -399,6 +407,12 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 4aa6ee6e4f0471e34f5c8e514f9b990a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MineItem
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -429,7 +443,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 573059666172d48c454894bd81944520
+      Hash: b5a8942c0465ac84012fb96100f97a67
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -775,6 +789,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: RectMask2D
+  - hash:
+      serializedVersion: 2
+      Hash: 4e92c92290781767af36db44e69a6790
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HealthItem
   - hash:
       serializedVersion: 2
       Hash: 87ad3705a58f19c47136728d4a6e9c47

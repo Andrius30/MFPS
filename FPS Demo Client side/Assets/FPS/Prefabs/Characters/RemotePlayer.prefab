@@ -1942,7 +1942,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8bef66cbf86358747b85606215e559ee, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33599,7 +33599,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6136247fc706f0c48b425f156d2fb94f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33994,6 +33994,8 @@ GameObject:
   - component: {fileID: 949334424388921620}
   - component: {fileID: 3980269906181480262}
   - component: {fileID: 4596714055539091627}
+  - component: {fileID: -1760740967924313323}
+  - component: {fileID: 8644293096920633307}
   m_Layer: 10
   m_Name: RemotePlayer
   m_TagString: Untagged
@@ -34042,7 +34044,7 @@ MonoBehaviour:
   - {fileID: 5185479432914309162, guid: eaedced68afbb574ab02643cb98b8e4b, type: 3}
   deathCamera: {fileID: 6572563417625340413, guid: 4e2af043bdb00c645a014b9779a03388, type: 3}
   deathCameraOffset: {x: 0, y: 0.669, z: 0}
-  deathModelOffset: {x: 0, y: -1, z: 0}
+  deathModelOffset: {x: 0, y: -2, z: 0}
   maxHealth: 100
   weaponsparent: {fileID: 4325335661245444226}
   weaponParentPositionOnCrouching: {x: 0, y: -0.56, z: 0}
@@ -34154,6 +34156,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &-1760740967924313323
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753954852808961092}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &8644293096920633307
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753954852808961092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.12666899
+  m_Height: 1.9017599
+  m_Direction: 1
+  m_Center: {x: 0.03434214, y: -0.24374521, z: 0.05140988}
 --- !u!1 &7832641827812652288
 GameObject:
   m_ObjectHideFlags: 0

@@ -161,6 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 2
   itemID: 1
+  models:
+  - {fileID: 7976129745542080708}
+  - {fileID: 7237184495881800632}
   item_VFX: {fileID: 5464404417722957243, guid: 7a12166d21aa8d94886d40b804bbce61, type: 3}
   item_VFX_DestroyTime: 5
   item_SFX_clips:
@@ -172,9 +175,6 @@ MonoBehaviour:
   explosionRadius: 5
   upwardsModifier: 0
   destroyTime: 3.5
-  model:
-  - {fileID: 7976129745542080708}
-  - {fileID: 7237184495881800632}
 --- !u!65 &3358831556232831470
 BoxCollider:
   m_ObjectHideFlags: 0

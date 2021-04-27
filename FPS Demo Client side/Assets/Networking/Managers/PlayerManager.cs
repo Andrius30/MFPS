@@ -115,7 +115,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Player Died");
         model.SetActive(false);
         CreateDeathModel();
     }

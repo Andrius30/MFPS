@@ -114,9 +114,9 @@ class PacketsToSend
             SendUDPDataToAll(player.id, packet);
         }
     }
-    public static void PlayerJumpVelocity(Player player,float velocityY)
+    public static void PlayerJumpVelocity(Player player, float velocityY)
     {
-        using(Packet packet = new Packet((int)ServerPackets.playerJump))
+        using (Packet packet = new Packet((int)ServerPackets.playerJump))
         {
             packet.Write(player.id);
             packet.Write(velocityY);
@@ -184,7 +184,7 @@ class PacketsToSend
     }
     public static void HeadShot(Player killer)
     {
-        using(Packet packet = new Packet((int)ServerPackets.headShot))
+        using (Packet packet = new Packet((int)ServerPackets.headShot))
         {
             packet.Write(killer.id);
             SendTCPData(killer.id, packet);
@@ -235,7 +235,7 @@ class PacketsToSend
     /// </summary>
     public static void RotateWeaponCameraBySpray(Player player)
     {
-        using(Packet packet = new Packet((int)ServerPackets.spray))
+        using (Packet packet = new Packet((int)ServerPackets.spray))
         {
             packet.Write(player.id);
             packet.Write(player.shootOrigin.localRotation);
@@ -304,9 +304,9 @@ class PacketsToSend
     }
 
     #region Effects
-    public static void CreateHitEffect(Player player, Vector3 point, Quaternion rotation,SurfaceTypes surfaceType)
+    public static void CreateHitEffect(Player player, Vector3 point, Quaternion rotation, SurfaceTypes surfaceType)
     {
-        using(Packet packet = new Packet((int)ServerPackets.hitEffect))
+        using (Packet packet = new Packet((int)ServerPackets.hitEffect))
         {
             packet.Write(player.id);
             packet.Write(point);
@@ -327,6 +327,14 @@ class PacketsToSend
         packet.Write((int)item.ItemType);
         packet.Write(item.transform.position);
         packet.Write(item.transform.rotation);
+
+        SendTCPDataToAll(packet);
+    }
+    public static void ExecuteItem(Item item, Player player)
+    {
+        using Packet packet = new Packet((int)ServerPackets.executeItem);
+        packet.Write(item.itemID);
+        packet.Write(player.id);
 
         SendTCPDataToAll(packet);
     }

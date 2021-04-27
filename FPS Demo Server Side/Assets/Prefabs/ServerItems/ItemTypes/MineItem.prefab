@@ -143,10 +143,8 @@ MonoBehaviour:
   itemType: 2
   itemID: 0
   attackerType: 2
-  explosionForce: 20
-  explosionRadius: 3
   explosionDamage: 150
-  rb: {fileID: 8504097080054681648}
+  explosionRadius: 5
 --- !u!54 &8504097080054681648
 Rigidbody:
   m_ObjectHideFlags: 0

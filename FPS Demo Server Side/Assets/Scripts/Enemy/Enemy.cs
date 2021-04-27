@@ -1,4 +1,3 @@
-using MFPS.ServerCharacters;
 using System.Collections;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class Enemy : MonoBehaviour, IDamagable
         health = maxHealth;
     }
 
-    void Shoot()
+    void Attack()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 25f))
         {
@@ -37,18 +36,18 @@ public class Enemy : MonoBehaviour, IDamagable
     }
 
     //// =========== DEBUGING ==========================
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Player pl = FindObjectOfType<Player>();
-            IDamagable damagable = pl.GetComponent<IDamagable>();
-            if (damagable != null)
-            {
-                damagable.TakeDamage(dmg, this.transform, attackerType);
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        Player pl = FindObjectOfType<Player>();
+    //        IDamagable damagable = pl.GetComponent<IDamagable>();
+    //        if (damagable != null)
+    //        {
+    //            damagable.TakeDamage(dmg, this.transform, attackerType);
+    //        }
+    //    }
+    //}
     //// =========== DEBUGING ==========================
 
     public void TakeDamage(float dmg, Transform attacker, AttackerTypes type)

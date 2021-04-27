@@ -1,4 +1,5 @@
 using MFPS.Weapons.Controllers;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace MFPS.ServerCharacters
         [Space(10)]
         [Header("Health settings")]
         public float maxHealth = 100;
-        [HideInInspector] public float health;
+        public float health { get; private set; }
 
         // ===== Can be refactored, but leave as it is for now =================
         [Space(10)]
@@ -31,10 +32,10 @@ namespace MFPS.ServerCharacters
 
         [Space(10)]
         [Header("Gravity modifier")]
-        public float gravity = -9.81f;
+        public float gravity = -9.81f; // * 2
         // ====================================================================== 
         #endregion
-        
+
         [Space(10)]
         [Header("Shoot position")]
         public Transform shootOrigin;
@@ -83,11 +84,6 @@ namespace MFPS.ServerCharacters
             Attack(otherInputs[3]);
             if (otherInputs[4] && weaponsController.GetCurrentWeapon().GetWeaponState() != WeaponState.Reloading) // reload weapon input from client
             {
-                //if (weaponsController.GetCurrentWeapon().IsoutOfAmmo())
-                //{
-                //    Debug.Log($"SORRY!!!!!!!!!! BUT YOU ARE OUT OF AMMO!!!! :red:20;".Interpolate());
-                //    return;
-                //}
                 weaponsController.GetCurrentWeapon().reloadTimer.SetTimer(weaponsController.GetCurrentWeapon().reloadTime, false);
                 weaponsController.GetCurrentWeapon().SetWeaponState(WeaponState.Reloading);
             }
@@ -153,5 +149,20 @@ namespace MFPS.ServerCharacters
         }
         #endregion
 
+        #region HealthSection
+        public void SetHealth(float healthRestore)
+        {
+            //if ((health + healthRestore) <= maxHealth)
+            health += healthRestore;
+            Debug.Log($"Current health {health}");
+            //else
+            //{
+            float tempHealth = maxHealth - health;
+            health += tempHealth;
+            //}
+            PacketsToSend.PlayerHealth(this);
+        }
+
+        #endregion
     }
 }

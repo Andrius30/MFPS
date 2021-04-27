@@ -102,14 +102,11 @@ namespace MFPS.Weapons
 
                 if (IsMagazineEmpty())
                 {
-                    Debug.Log("1");
                     if (IsoutOfAmmo())
                     {
-                        Debug.Log("2");
                         SetWeaponState(WeaponState.OutOfAmmo);
                         return;
                     }
-                    Debug.Log("3");
                     reloadTimer.SetTimer(reloadTime, false);
                     SetWeaponState(WeaponState.Reloading);
                     return;
@@ -138,39 +135,31 @@ namespace MFPS.Weapons
         }
         public virtual bool IsoutOfAmmo() => totalbulletsLeft <= 0;
         public virtual void SetWeaponState(WeaponState state) => weaponState = state;
-        // magazineCapacity - CurrentBulletsAtMagazine;
         public virtual void ReloadWeapon(Player player)
         {
-            if (!IsoutOfAmmo())
+            if (IsoutOfAmmo()) return;
+            int neededbullets = magazineCapacity - GetCurrentBulletsAtMagazine();
+            if (neededbullets <= totalbulletsLeft)
             {
-                int neededbullets = magazineCapacity - GetCurrentBulletsAtMagazine();
-                if (neededbullets <= totalbulletsLeft)
-                {
-                    totalbulletsLeft -= neededbullets;
-                    shootedbullets = 0;
-                    SetWeaponState(WeaponState.Idle);
-                    PacketsToSend.UpdateBullets(player, this);
-                    return;
-                }
-                else if (totalbulletsLeft == 0)
-                {
-                    SetWeaponState(WeaponState.OutOfAmmo);
-                    return;
-                }
-                else
-                {
-                    shootedbullets = shootedbullets - totalbulletsLeft;
-                    totalbulletsLeft = 0;
-                    SetWeaponState(WeaponState.Idle);
-                    PacketsToSend.UpdateBullets(player, this);
-                    Debug.Log($"left total {totalbulletsLeft} neededbullets <= totalbulletsLeft {neededbullets <= totalbulletsLeft}");
-                    Debug.Log($"Shooted bulets after calculation {shootedbullets}");
-                    return;
-                }
+                totalbulletsLeft -= neededbullets;
+                shootedbullets = 0;
+                SetWeaponState(WeaponState.Idle);
+                PacketsToSend.UpdateBullets(player, this);
+                return;
+            }
+            else if (totalbulletsLeft == 0)
+            {
+                SetWeaponState(WeaponState.OutOfAmmo);
+                return;
             }
             else
             {
-                SetWeaponState(WeaponState.OutOfAmmo);
+                shootedbullets -= totalbulletsLeft;
+                totalbulletsLeft = 0;
+                SetWeaponState(WeaponState.Idle);
+                PacketsToSend.UpdateBullets(player, this);
+                //Debug.Log($"left total {totalbulletsLeft} neededbullets <= totalbulletsLeft {neededbullets <= totalbulletsLeft}");
+                //Debug.Log($"Shooted bulets after calculation {shootedbullets}");
                 return;
             }
         }
@@ -198,7 +187,6 @@ namespace MFPS.Weapons
                 reloadTimer.StartTimer();
                 if (reloadTimer.IsDone())
                 {
-                    Debug.Log("4");
                     ReloadWeapon(player);
                     return;
                 }

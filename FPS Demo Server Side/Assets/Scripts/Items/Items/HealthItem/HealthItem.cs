@@ -1,14 +1,15 @@
-
+using MFPS.ServerCharacters;
 using UnityEngine;
 
 public class HealthItem : Item
 {
+    [SerializeField] float healthRestore = 50f;
 
 
-
-
-    protected override void Execute(Collider other)
+    protected override void Execute(Player player)
     {
-        throw new System.NotImplementedException();
+        player.SetHealth(healthRestore);
+        ItemsSpawner.itemsDict.Remove(itemID);
+        Destroy(gameObject);
     }
 }

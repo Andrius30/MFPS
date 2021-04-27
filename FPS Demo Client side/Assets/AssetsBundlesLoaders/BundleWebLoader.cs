@@ -25,7 +25,7 @@ public class BundleWebLoader : MonoBehaviour
                 GameObject gm = Instantiate(item);
                 SetLayer(gm);
             }
-            Debug.Log($"Download complete {bundle}");
+            Debug.Log($"Download complete: {bundle}");
         }
     }
     void SetLayer(GameObject gm)

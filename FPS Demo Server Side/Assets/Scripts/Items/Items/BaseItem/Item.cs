@@ -1,3 +1,4 @@
+using MFPS.ServerCharacters;
 using UnityEngine;
 
 public enum ItemType
@@ -14,11 +15,18 @@ public abstract class Item : MonoBehaviour
 
     public ItemType ItemType => itemType;
 
-    protected abstract void Execute(Collider other);
+    protected abstract void Execute(Player player);
 
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other)
-            Execute(other);
+        {
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                Execute(player);
+                PacketsToSend.ExecuteItem(this, player);
+            }
+        }
     }
 }

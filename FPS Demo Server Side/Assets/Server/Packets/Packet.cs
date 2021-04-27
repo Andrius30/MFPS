@@ -33,7 +33,8 @@ public enum ServerPackets
     spray,
     playerJump,
     headShot,
-    spawnItem
+    spawnItem,
+    executeItem
 }
 
 /// <summary>Sent from client to server.</summary>

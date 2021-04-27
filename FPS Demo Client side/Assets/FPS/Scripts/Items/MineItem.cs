@@ -7,9 +7,8 @@ public class MineItem : Item
     [SerializeField] float explosionRadius;
     [SerializeField] float upwardsModifier = 3.0f;
     [SerializeField] float destroyTime = 1.5f;
-    [SerializeField] List<MeshRenderer> model;
 
-    protected override void Execute(Collider other)
+    public override void Execute(PlayerManager player)
     {
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
@@ -20,7 +19,9 @@ public class MineItem : Item
             if (rb != null)
                 rb.AddExplosionForce(explosionForce, hit.ClosestPointOnBounds(transform.position), explosionRadius, upwardsModifier);
         }
-        model.ForEach(x => x.enabled = false);
+        PlaySFX();
+        PlayVFX();
+        models.ForEach(x => x.enabled = false);
         GameManager.items.Remove(itemID);
         Destroy(gameObject, destroyTime);
     }

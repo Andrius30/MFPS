@@ -8,7 +8,7 @@ public class ClientHandle
     {
         string msg = packet.ReadString();
         int id = packet.ReadInt();
-        
+
         // Debug.Log($"Message from server { msg }");
         Client.instance.id = id;
 
@@ -212,7 +212,7 @@ public class ClientHandle
     }
 
     #endregion
-  
+
     internal static void HeadShot(Packet packet)
     {
         int killerID = packet.ReadInt();
@@ -228,7 +228,14 @@ public class ClientHandle
         Vector3 itemPos = packet.ReadVector3();
         Quaternion itemRot = packet.ReadQuaternion();
 
-        GameManager.instance.SpawnItem(itemID, itemPos,itemRot, type);
+        GameManager.instance.SpawnItem(itemID, itemPos, itemRot, type);
+    }
+
+    internal static void ExecuteItem(Packet packet)
+    {
+        int itemID = packet.ReadInt();
+        int playerID = packet.ReadInt();
+        GameManager.items[itemID].Execute(GameManager.players[playerID]);
     }
     #endregion
 }
